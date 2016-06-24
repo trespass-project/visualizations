@@ -1,0 +1,41 @@
+{
+	"parser": "babel-eslint",
+	"extends": ["airbnb"],
+
+	"env": {
+		"es6": true,
+		"browser": true
+	},
+
+	"plugins": [
+		"react"
+	],
+
+	"ecmaFeatures": {
+		"jsx": true
+	},
+
+	"globals": {
+	},
+
+	"rules": {
+		"indent": [2, "tab", { 'SwitchCase': 1, 'VariableDeclarator': 1 }],
+
+		"arrow-body-style": 0,
+		"comma-dangle": 0,
+		"no-console": 0,
+		"no-shadow": 1,
+		"no-unused-vars": 1,
+		"no-use-before-define": 1,
+		"spaced-comment": 1,
+		"space-infix-ops": 1,
+
+		"react/wrap-multilines": 0,
+		"react/prefer-stateless-function": 1,
+		"jsx-quotes": [1, "prefer-single"],
+		"react/jsx-indent": [2, "tab"],
+		"react/jsx-indent-props": [2, "tab"],
+
+		"jsx-a11y/img-has-alt": 0
+	}
+}

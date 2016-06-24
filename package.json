@@ -1,0 +1,68 @@
+{
+  "name": "webapp-starter-frontend",
+  "version": "0.2.2",
+  "description": "",
+  "author": "",
+  "main": "index.js",
+  "devDependencies": {
+    "autoprefixer": "^6.3.3",
+    "ava": "^0.15.2",
+    "babel-core": "^6.7.2",
+    "babel-eslint": "^6.0.0-beta.6",
+    "babel-loader": "^6.2.4",
+    "babel-preset-es2015-native-modules": "^6.6.0",
+    "babel-preset-react": "^6.5.0",
+    "babel-preset-react-hmre": "^1.1.1",
+    "copy-webpack-plugin": "^3.0.0",
+    "css-loader": "^0.23.1",
+    "enzyme": "^2.3.0",
+    "eslint": "^2.4.0",
+    "eslint-config-airbnb": "^9.0.1",
+    "eslint-plugin-import": "^1.8.1",
+    "eslint-plugin-jsx-a11y": "^1.3.0",
+    "eslint-plugin-react": "^5.1.1",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "html-webpack-plugin": "^2.14.0",
+    "jsdom": "^9.2.1",
+    "postcss-loader": "^0.9.1",
+    "react-addons-test-utils": "^15.1.0",
+    "style-loader": "^0.13.0",
+    "stylus": "^0.54.5",
+    "stylus-loader": "^2.1.0",
+    "webpack": "^2.1.0-beta.13",
+    "webpack-dev-server": "^2.1.0-beta.0"
+  },
+  "dependencies": {
+    "class-autobind": "^0.1.2",
+    "react": "^15.1.0",
+    "react-dom": "^15.1.0",
+    "react-redux": "^4.4.5",
+    "react-router": "^2.4.1",
+    "react-router-redux": "^4.0.5",
+    "redux": "^3.5.2",
+    "redux-thunk": "^2.1.0"
+  },
+  "scripts": {
+    "start": "make start",
+    "build": "make build",
+    "lint": "make lint",
+    "test": "make test",
+    "test-watch": "make test-watch"
+  },
+  "ava": {
+    "require": [
+      "babel-register"
+    ],
+    "babel": {
+      "presets": [
+        "es2015",
+        "react"
+      ]
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://lustlab@bitbucket.org/lustlab/webapp-starter-frontend.git"
+  },
+  "homepage": "https://bitbucket.org/lustlab/webapp-starter-frontend#readme"
+}
