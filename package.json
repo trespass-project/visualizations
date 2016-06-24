@@ -1,6 +1,6 @@
 {
-  "name": "webapp-starter-frontend",
-  "version": "0.2.2",
+  "name": "trespass-visualizations",
+  "version": "0.0.0",
   "description": "",
   "author": "",
   "main": "index.js",
@@ -60,9 +60,9 @@
       ]
     }
   },
-  "repository": {
-    "type": "git",
-    "url": "https://lustlab@bitbucket.org/lustlab/webapp-starter-frontend.git"
-  },
-  "homepage": "https://bitbucket.org/lustlab/webapp-starter-frontend#readme"
+  "repository": {},
+  "homepage": "",
+  "directories": {
+    "test": "tests"
+  }
 }
