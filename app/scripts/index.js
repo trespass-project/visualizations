@@ -1,6 +1,7 @@
 require('../styles/main.css');
 require('../styles/main.styl');
 
+const R = require('ramda');
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
@@ -37,7 +38,11 @@ const store = configureStore();
 const history = syncHistoryWithStore(browserHistory, store);
 
 const mapStateToProps = (state) => {
-	return state;
+	return Object.assign(
+		{},
+		{ router: R.omit(['interface'], state) },
+		state.interface
+	);
 };
 
 ReactDOM.render(

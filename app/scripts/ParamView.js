@@ -10,10 +10,10 @@ export default class App extends React.Component {
 
 	render() {
 		const props = this.props;
-		console.log(props);
+		// console.log(props);
 
 		return <div>
-			param: {props.param}
+			param: {props.params.param}
 		</div>;
 	}
 }
