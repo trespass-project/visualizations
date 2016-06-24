@@ -1,7 +1,9 @@
 import React from 'react';
 import autobind from 'class-autobind';
 import * as actionCreators from './action-creators.js';
-import { Link } from 'react-router';
+// import { Link } from 'react-router';
+
+import Visualization from './Visualization.js';
 
 
 export default class App extends React.Component {
@@ -19,27 +21,14 @@ export default class App extends React.Component {
 
 	render() {
 		const props = this.props;
+		const data = [
+			{ x: 20, y: 54 },
+			{ x: 70, y: 10 },
+			{ x: 60, y: 60 },
+		];
 
 		return <div>
-			<span>hi</span>
-			<img src='images/test.png' />
-			<br />
-			<button
-				onClick={this.clickHandler}
-			>
-				{this.props.counter} times clicked
-			</button>
-			<hr />
-			<div>
-				<Link to='/test'>open subview</Link>
-			</div>
-			<div>subbiew:</div>
-			{props.children}
-
-			<hr />
-			<div>
-				<Link to='/query/asdf'>url params</Link>
-			</div>
+			<Visualization data={data} />
 		</div>;
 	}
 }

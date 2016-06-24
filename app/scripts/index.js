@@ -45,14 +45,17 @@ const mapStateToProps = (state) => {
 	);
 };
 
+const A = connect(mapStateToProps)(App);
+
 ReactDOM.render(
 	<Provider store={store}>
-		<Router history={history}>
+		{/*<Router history={history}>
 			<Route path='/' component={connect(mapStateToProps)(App)}>
 				<Route path='test' component={SubView} />
 			</Route>
 			<Route path='/query/:param' component={connect(mapStateToProps)(ParamView)} />
-		</Router>
+		</Router>*/}
+		<A />
 	</Provider>,
 	document.querySelector('#mount')
 );
