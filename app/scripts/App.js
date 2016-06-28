@@ -3,6 +3,7 @@ import autobind from 'class-autobind';
 import * as actionCreators from './action-creators.js';
 // import { Link } from 'react-router';
 
+import vis from './visualizations/test.js';
 import Visualization from './Visualization.js';
 
 
@@ -20,7 +21,7 @@ export default class App extends React.Component {
 	}
 
 	render() {
-		const props = this.props;
+		// const props = this.props;
 		const data = [
 			{ x: 20, y: 54 },
 			{ x: 70, y: 10 },
@@ -28,7 +29,10 @@ export default class App extends React.Component {
 		];
 
 		return <div>
-			<Visualization data={data} />
+			<Visualization
+				vis={vis}
+				data={data}
+			/>
 		</div>;
 	}
 }
