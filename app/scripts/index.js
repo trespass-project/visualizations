@@ -1,4 +1,4 @@
-require('../styles/main.css');
+// require('../styles/main.css');
 require('../styles/main.styl');
 
 const R = require('ramda');
@@ -8,19 +8,19 @@ import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { Provider, connect } from 'react-redux';
 import ReduxThunk from 'redux-thunk';
 
-import { Router, Route, browserHistory } from 'react-router';
-import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
+// import { Router, Route, browserHistory } from 'react-router';
+// import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
 
 import reducer from './reducer.js';
 import App from './App.js';
-import SubView from './SubView.js';
-import ParamView from './ParamView.js';
+// import SubView from './SubView.js';
+// import ParamView from './ParamView.js';
 
 
 function configureStore(initialState) {
 	const combinedReducers = combineReducers({
 		interface: reducer,
-		routing: routerReducer,
+		// routing: routerReducer,
 	});
 
 	const store = createStore(
@@ -35,17 +35,17 @@ function configureStore(initialState) {
 const store = configureStore();
 
 // create an enhanced history that syncs navigation events with the store
-const history = syncHistoryWithStore(browserHistory, store);
+// const history = syncHistoryWithStore(browserHistory, store);
 
 const mapStateToProps = (state) => {
 	return Object.assign(
 		{},
-		{ router: R.omit(['interface'], state) },
+		// { router: R.omit(['interface'], state) },
 		state.interface
 	);
 };
 
-const A = connect(mapStateToProps)(App);
+const ConnectedApp = connect(mapStateToProps)(App);
 
 ReactDOM.render(
 	<Provider store={store}>
@@ -55,7 +55,7 @@ ReactDOM.render(
 			</Route>
 			<Route path='/query/:param' component={connect(mapStateToProps)(ParamView)} />
 		</Router>*/}
-		<A />
+		<ConnectedApp />
 	</Provider>,
 	document.querySelector('#mount')
 );
