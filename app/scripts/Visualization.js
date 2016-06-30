@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import autobind from 'class-autobind';
-const d3 = require('d3');
 
 
 export default class Visualization extends React.Component {
@@ -12,20 +11,19 @@ export default class Visualization extends React.Component {
 
 	componentDidMount() {
 		const props = this.props;
-		this._d3Root = d3.select(ReactDOM.findDOMNode(this))
-			.append('g');
-		props.vis.update(this._d3Root, props.data);
+		this._d3RootSelection = props.vis.init(ReactDOM.findDOMNode(this));
+		props.vis.update(this._d3RootSelection, props.data);
 	}
 
 	shouldComponentUpdate(nextProps, nextState) {
 		const props = this.props;
-		props.vis.update(this._d3Root, nextProps.data);
+		props.vis.update(this._d3RootSelection, nextProps.data);
 		return false;
 	}
 
 	componentDidUpdate() {
 		console.warn('this should never be called');
-		// this.props.vis.update(this._d3Root, this.props.data);
+		// this.props.vis.update(this._d3RootSelection, this.props.data);
 	}
 
 	render() {
