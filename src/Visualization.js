@@ -35,7 +35,6 @@ export default class Visualization extends React.Component {
 Visualization.propTypes = {
 	vis: React.PropTypes.object.isRequired,
 	data: React.PropTypes.array,
-	// dispatch: React.PropTypes.func,
 };
 
 Visualization.defaultProps = {
