@@ -21,9 +21,11 @@ export default class Visualization extends React.Component {
 		return false;
 	}
 
+	// not needed under normal circumstances,
+	// but it enables live-updating with webpack
 	componentDidUpdate() {
-		console.warn('this should never be called');
-		// this.props.vis.update(this._d3RootSelection, this.props.data);
+		const props = this.props;
+		props.vis.update(this._d3RootSelection, props.data);
 	}
 
 	render() {
