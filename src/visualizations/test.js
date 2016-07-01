@@ -13,11 +13,23 @@ const vis = {
 		const circle = rootSelection.selectAll('circle')
 			.data(data);
 
-		circle.enter()
-			.append('circle')
-				.attr('r', 50)
-				.attr('cx', (d) => `${d.x}%`)
-				.attr('cy', (d) => `${d.y}%`);
+		// update
+		circle
+			.style('fill', 'blue');
+
+		// exit
+		circle
+			.exit()
+				.remove();
+
+		// enter
+		circle
+			.enter()
+				.append('circle')
+					.style('fill', 'green')
+					.attr('r', 50)
+					.attr('cx', (d) => `${d.x}%`)
+					.attr('cy', (d) => `${d.y}%`);
 	}
 };
 
