@@ -33,6 +33,7 @@
   "dependencies": {
     "class-autobind": "^0.1.2",
     "d3": "^4.0.0",
+    "d3-selection": "^1.0.0",
     "ramda": "^0.21.0",
     "react": "^15.1.0",
     "react-dom": "^15.1.0"
