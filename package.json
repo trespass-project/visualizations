@@ -8,6 +8,7 @@
   "scripts": {
     "start": "make start",
     "build": "make build",
+    "prepublish": "npm run build",
     "lint": "make lint",
     "test": "make test",
     "test-watch": "make test-watch"
