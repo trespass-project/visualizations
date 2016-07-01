@@ -1,10 +1,9 @@
-// const d3 = require('d3');
 import { select } from 'd3-selection';
 
 
-const vis = {
+export default {
 	init(rootElem) {
-		const rootSelection = /*d3.*/select(rootElem)
+		const rootSelection = select(rootElem)
 			.append('g');
 		return rootSelection;
 	},
@@ -32,5 +31,3 @@ const vis = {
 					.attr('cy', (d) => `${d.y}%`);
 	}
 };
-
-export default vis;
