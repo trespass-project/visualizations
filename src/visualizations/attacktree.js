@@ -19,7 +19,7 @@ function styleLink(link) {
 }
 
 
-const vis = {
+export default {
 	init(rootElem) {
 		const rootSelection = select(rootElem)
 			.append('g');
@@ -74,5 +74,3 @@ const vis = {
 			});
 	}
 };
-
-export default vis;
