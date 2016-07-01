@@ -1,5 +1,4 @@
 {
-	"parser": "babel-eslint",
 	"extends": ["airbnb"],
 
 	"env": {
@@ -24,6 +23,7 @@
 		"arrow-body-style": 0,
 		"comma-dangle": 0,
 		"no-console": 0,
+		"no-underscore-dangle": 0,
 		"no-shadow": 1,
 		"no-unused-vars": 1,
 		"no-use-before-define": 1,

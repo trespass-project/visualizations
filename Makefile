@@ -1,65 +1,34 @@
 nodeModulesDir = ./node_modules
 npmBinDir = $(nodeModulesDir)/.bin
-appDir = ./app
-imgDirName = images
-buildDir = ./build
-
-
-.PHONY: start
-start:
-	$(npmBinDir)/webpack-dev-server
-
-
-.PHONY: webpack
-webpack:
-	NODE_ENV=production $(npmBinDir)/webpack -p -d
+jsSourceDir = ./src
+testsDir = ./tests
+buildDir = ./dist
+babelOptions = --source-maps -d $(buildDir) $(jsSourceDir)
 
 
 .PHONY: test
 test:
-	$(npmBinDir)/ava -v ./tests
+	$(npmBinDir)/ava $(testsDir)
 
 
 .PHONY: test-watch
 test-watch:
-	$(npmBinDir)/ava -v --watch ./tests
+	$(npmBinDir)/ava --watch $(testsDir)
 
 
 .PHONY: lint
 lint:
-	$(npmBinDir)/eslint $(appDir)/scripts
+	$(npmBinDir)/eslint $(jsSourceDir)
 
 
-.PHONY: optimize-images
-optimize-images:
-	imagemin $(buildDir)/$(imgDirName) $(buildDir)/$(imgDirName)
-
-
-.PHONY: copy
-copy:
-	mkdir -p $(buildDir)/$(imgDirName)
-	cp -r $(appDir)/$(imgDirName) $(buildDir)/
-
-
-.PHONY: clean
-clean:
-	rm -rf $(buildDir)
-
-
+.DEFAULT_GOAL = build
 .PHONY: build
-build: webpack copy
-	#
+build:
+	rm -rf $(buildDir)
+	babel $(babelOptions)
 
 
-.PHONY: post-build
-post-build: optimize-images
-	#
-
-
-.DEFAULT_GOAL = default
-.PHONY: default
-default: test lint clean # once these are done, run the rest in parallel
-	# will stop here if tests don't pass, or if there are linting errors
-	mkdir -p $(buildDir)
-	$(MAKE) -j 4 build
-	$(MAKE) -j 4 post-build
+.PHONY: build-watch
+build-watch:
+	rm -rf $(buildDir)
+	babel --watch $(babelOptions)
