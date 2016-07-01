@@ -1,10 +1,9 @@
-// const d3 = require('d3');
 import { select } from 'd3-selection';
 
 
 export default {
 	init(rootElem) {
-		const rootSelection = /*d3.*/select(rootElem)
+		const rootSelection = select(rootElem)
 			.append('g');
 		return rootSelection;
 	},
