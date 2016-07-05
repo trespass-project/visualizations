@@ -12,12 +12,11 @@ export default class Visualization extends React.Component {
 	componentDidMount() {
 		const props = this.props;
 		this._d3RootSelection = props.vis.init(ReactDOM.findDOMNode(this));
-		props.vis.update(this._d3RootSelection, props.data);
+		this.updateD3(props);
 	}
 
 	shouldComponentUpdate(nextProps, nextState) {
-		const props = this.props;
-		props.vis.update(this._d3RootSelection, nextProps.data);
+		this.updateD3(nextProps);
 		return false;
 	}
 
@@ -25,7 +24,13 @@ export default class Visualization extends React.Component {
 	// but it enables live-updating with webpack
 	componentDidUpdate() {
 		const props = this.props;
-		props.vis.update(this._d3RootSelection, props.data);
+		this.updateD3(props);
+	}
+
+	updateD3(props) {
+		setTimeout(() => {
+			props.vis.update(this._d3RootSelection, props.data);
+		}, 0);
 	}
 
 	render() {
