@@ -94,7 +94,11 @@ export default {
 						.css('visibility', 'hidden');
 				}
 
-				rootGroup.attr('transform', `translate(${d3Event.transform.x}, ${d3Event.transform.y}) scale(${d3Event.transform.k})`);
+				const transformation = [
+					`translate(${d3Event.transform.x}, ${d3Event.transform.y})`,
+					`scale(${d3Event.transform.k})`,
+				].join(' ');
+				rootGroup.attr('transform', transformation);
 			});
 		rootSelection.call(zoom);
 
