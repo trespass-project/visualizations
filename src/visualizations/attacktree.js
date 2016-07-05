@@ -3,19 +3,21 @@ import {
 	tree as d3Tree,
 	hierarchy as d3Hierarchy
 } from 'd3-hierarchy';
+import theme from '../theme.js';
 
 
-function styleNode(node) {
+function styleNode(node, theme) {
 	return node
-		.attr('r', 5);
+		.attr('fill', theme.node.fill)
+		.attr('r', theme.node.radius);
 }
 
 
-function styleLink(link) {
+function styleEdge(link, theme) {
 	return link
 		.style('fill', 'none')
-		.style('stroke', 'black')
-		.style('stroke-width', 2);
+		.style('stroke', theme.edge.stroke)
+		.style('stroke-width', theme.edge.strokeWidth);
 }
 
 
