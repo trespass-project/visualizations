@@ -30,7 +30,8 @@ function styleLabel(label, theme) {
 			return d.children
 				? 'end'
 				: 'start';
-		});
+		})
+		.attr('transform', `rotate(${theme.node.labelRotation})`);
 }
 
 

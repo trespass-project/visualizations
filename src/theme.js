@@ -13,6 +13,7 @@ export default {
 		fill: trespassRed,
 
 		labelFontSize: 10,
+		labelRotation: 15,
 	},
 
 	edge: {
