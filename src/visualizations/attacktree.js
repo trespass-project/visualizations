@@ -23,6 +23,16 @@ function styleEdge(link, theme) {
 }
 
 
+function edgePath(d) {
+	return [
+		`M${d.x}, ${d.y}`,
+		`C${d.x}, ${(d.y + d.parent.y) / 2}`,
+		`${d.parent.x}, ${(d.y + d.parent.y) / 2}`,
+		`${d.parent.x}, ${d.parent.y}`,
+	].join(' ');
+}
+
+
 export default {
 	init(rootElem) {
 		const rootSelection = select(rootElem);
@@ -53,12 +63,7 @@ export default {
 			.enter()
 				.append('path')
 					.attr('class', 'link')
-					.attr('d', (d) => {
-						return 'M' + [d.x, d.y]
-							+ 'C' + [d.x, (d.y + d.parent.y) / 2]
-							+ ' ' + [d.parent.x, (d.y + d.parent.y) / 2]
-							+ ' ' + [d.parent.x, d.parent.y];
-					})
+					.attr('d', edgePath)
 				.call(styleEdge, theme);
 
 		// nodes
@@ -70,7 +75,7 @@ export default {
 							return 'node';
 						})
 						.attr('transform', (d) => {
-							return 'translate(' + d.x + ',' + d.y + ')';
+							return `translate(${d.x}, ${d.y})`;
 						});
 
 		node.append('circle')

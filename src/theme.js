@@ -10,7 +10,7 @@ export default {
 
 	node: {
 		radius: 5,
-		fill: 'blue',
+		fill: trespassRed,
 
 		labelFontSize: '10px',
 	},
