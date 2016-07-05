@@ -62,12 +62,22 @@ export default {
 		tree(h);
 
 		// zoom behavior
+		const zoomThreshold = 0.6;
 		const zoom = d3Zoom()
 			.scaleExtent([0.1, 10])
 			.on('zoom', () => {
 				// https://github.com/d3/d3-zoom#zoomTransform
 				const scaleFactor = d3Event.transform.k;
 				// console.log(scaleFactor);
+
+				if (scaleFactor >= zoomThreshold) {
+					$rootSelection.find('.node text')
+						.css('visibility', 'visible');
+				} else {
+					$rootSelection.find('.node text')
+						.css('visibility', 'hidden');
+				}
+
 				rootGroup.attr('transform', `translate(${d3Event.transform.x}, ${d3Event.transform.y}) scale(${d3Event.transform.k})`);
 			});
 		rootSelection.call(zoom);
