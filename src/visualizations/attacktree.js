@@ -3,6 +3,8 @@ import {
 	tree as d3Tree,
 	hierarchy as d3Hierarchy
 } from 'd3-hierarchy';
+const R = require('ramda');
+const $ = require('jquery');
 import theme from '../theme.js';
 
 
@@ -23,30 +25,28 @@ function styleEdge(link, theme) {
 
 export default {
 	init(rootElem) {
-		const rootSelection = select(rootElem)
-			.append('g');
+		const rootSelection = select(rootElem);
+		rootSelection.append('g')
+			.attr('class', 'rootGroup');
 		return rootSelection;
 	},
 
 	update(rootSelection, attacktree) {
+		const $rootSelection = $(rootSelection.node());
+
 		const h = d3Hierarchy(attacktree.node, (d) => d.node);
 		const tree = d3Tree()
-			.size([600, 300]);
+			.size([
+				$rootSelection.width(),
+				$rootSelection.height()
+			]);
 		tree(h);
+		const descendants = h.descendants();
+		const rootGroup = rootSelection.select('.rootGroup');
 
-		const node = rootSelection.selectAll('.node')
-			.data(h.descendants())
-				.enter()
-					.append('g')
-						.attr('class', (d) => {
-							return 'node';
-						})
-						.attr('transform', (d) => {
-							return 'translate(' + d.x + ',' + d.y + ')';
-						});
-
-		const link = rootSelection.selectAll('.link')
-			.data(h.descendants().slice(1))
+		// edges
+		const link = rootGroup.selectAll('.link')
+			.data(R.tail(descendants))
 			.enter()
 				.append('path')
 					.attr('class', 'link')
@@ -56,10 +56,22 @@ export default {
 							+ ' ' + [d.parent.x, (d.y + d.parent.y) / 2]
 							+ ' ' + [d.parent.x, d.parent.y];
 					})
-				.call(styleLink);
+				.call(styleEdge, theme);
+
+		// nodes
+		const node = rootGroup.selectAll('.node')
+			.data(descendants)
+				.enter()
+					.append('g')
+						.attr('class', (d) => {
+							return 'node';
+						})
+						.attr('transform', (d) => {
+							return 'translate(' + d.x + ',' + d.y + ')';
+						});
 
 		node.append('circle')
-			.call(styleNode);
+			.call(styleNode, theme);
 
 		node.append('text')
 			// .attr('dy', 3)
