@@ -1,4 +1,8 @@
-import { select } from 'd3-selection';
+import {
+	event as d3Event,
+	select
+} from 'd3-selection';
+import { zoom as d3Zoom } from 'd3-zoom';
 import {
 	tree as d3Tree,
 	hierarchy as d3Hierarchy
@@ -56,6 +60,17 @@ export default {
 				$rootSelection.height() - (2 * theme.padding),
 			]);
 		tree(h);
+
+		// zoom behavior
+		const zoom = d3Zoom()
+			.scaleExtent([0.1, 10])
+			.on('zoom', () => {
+				// https://github.com/d3/d3-zoom#zoomTransform
+				const scaleFactor = d3Event.transform.k;
+				// console.log(scaleFactor);
+				rootGroup.attr('transform', `translate(${d3Event.transform.x}, ${d3Event.transform.y}) scale(${d3Event.transform.k})`);
+			});
+		rootSelection.call(zoom);
 
 		// edges
 		const link = rootGroup.selectAll('.link')
