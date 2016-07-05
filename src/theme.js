@@ -9,10 +9,10 @@ export default {
 	},
 
 	node: {
-		radius: 5,
+		radius: 10,
 		fill: trespassRed,
 
-		labelFontSize: '10px',
+		labelFontSize: 10,
 	},
 
 	edge: {

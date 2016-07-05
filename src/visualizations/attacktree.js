@@ -19,6 +19,21 @@ function styleNode(node, theme) {
 }
 
 
+function styleLabel(label, theme) {
+	return label
+		.text((d) => d.data.label)
+		.attr('dy', theme.node.labelFontSize / 2)
+		.attr('x', (d) => {
+			return (d.children ? -1 : 1) * (theme.node.radius + 5);
+		})
+		.style('text-anchor', (d) => {
+			return d.children
+				? 'end'
+				: 'start';
+		});
+}
+
+
 function styleEdge(link, theme) {
 	return link
 		.style('fill', 'none')
@@ -107,17 +122,6 @@ export default {
 			.call(styleNode, theme);
 
 		node.append('text')
-			// .attr('dy', 3)
-			// .attr('x', (d) => {
-			// 	return d.children ? -8 : 8;
-			// })
-			.style('text-anchor', (d) => {
-				return d.children
-					? 'end'
-					: 'start';
-			})
-			.text((d) => {
-				return d.data.label;
-			});
+			.call(styleLabel, theme);
 	}
 };
