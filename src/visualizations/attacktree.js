@@ -26,23 +26,26 @@ function styleEdge(link, theme) {
 export default {
 	init(rootElem) {
 		const rootSelection = select(rootElem);
-		rootSelection.append('g')
-			.attr('class', 'rootGroup');
+		rootSelection
+			.append('g')
+				.attr('class', 'rootGroup')
+				.attr('transform', `translate(${theme.padding}, ${theme.padding})`);
 		return rootSelection;
 	},
 
 	update(rootSelection, attacktree) {
+		const rootGroup = rootSelection.select('.rootGroup');
 		const $rootSelection = $(rootSelection.node());
 
+		// prepare data
 		const h = d3Hierarchy(attacktree.node, (d) => d.node);
+		const descendants = h.descendants();
 		const tree = d3Tree()
 			.size([
-				$rootSelection.width(),
-				$rootSelection.height()
+				$rootSelection.width() - (2 * theme.padding),
+				$rootSelection.height() - (2 * theme.padding),
 			]);
 		tree(h);
-		const descendants = h.descendants();
-		const rootGroup = rootSelection.select('.rootGroup');
 
 		// edges
 		const link = rootGroup.selectAll('.link')
