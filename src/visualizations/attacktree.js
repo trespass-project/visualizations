@@ -4,11 +4,8 @@ import {
 } from 'd3-selection';
 import { zoom as d3Zoom } from 'd3-zoom';
 import { transition as d3Transition } from 'd3-transition';
-import { easeLinear, easeSinInOut } from 'd3-ease';
-import {
-	tree as d3Tree,
-	hierarchy as d3Hierarchy
-} from 'd3-hierarchy';
+import { easeSinInOut } from 'd3-ease';
+import { tree as d3Tree } from 'd3-hierarchy';
 const R = require('ramda');
 const $ = require('jquery');
 
@@ -20,13 +17,65 @@ const transition = d3Transition()
 	.ease(easeSinInOut);
 
 
+function styleNode(node, theme) {
+	return node
+		.attr('r', theme.node.radius)
+		.style('fill', (d) => {
+			return d.children
+				? theme.node.fill
+				: 'white';
+		})
+		.style('stroke', (d) => {
+			return d.children
+				? 'none'
+				: theme.node.fill;
+		})
+		.style('stroke-width', 3);
+}
+
+
+function styleLabel(label, theme) {
+	return label
+		.text((d) => d.data.label)
+		.attr('dy', theme.node.labelFontSize / 2)
+		.attr('x', (d) => {
+			return (d.children ? -1 : 1) * (theme.node.radius + 5);
+		})
+		.style('text-anchor', (d) => {
+			return d.children
+				? 'end'
+				: 'start';
+		})
+		.attr('transform', `rotate(${theme.node.labelRotation})`);
+}
+
+
+function styleEdge(link, theme) {
+	return link
+		.style('fill', 'none')
+		.style('stroke', theme.edge.stroke)
+		.style('stroke-width', theme.edge.strokeWidth);
+}
+
+
+function edgePath(d) {
+	return [
+		`M${d.x}, ${d.y}`,
+		`C${d.x}, ${(d.y + d.parent.y) / 2}`,
+		`${d.parent.x}, ${(d.y + d.parent.y) / 2}`,
+		`${d.parent.x}, ${d.parent.y}`,
+	].join(' ');
+}
+
+
 const visualization = {};
-export default visualization;
 
 
 visualization.init = function(rootElem) {
 	const rootSelection = d3Select(rootElem);
+
 	const $rootSelection = $(rootSelection.node());
+	// console.log($rootSelection.width());
 
 	const rootGroup = rootSelection
 		.append('g')
@@ -58,30 +107,26 @@ visualization.init = function(rootElem) {
 		});
 	rootSelection
 		.call(zoom)
-		// prevent double-click zoom
-		.on('dblclick.zoom', null);
-
-	return rootSelection;
+		.on('dblclick.zoom', null); // prevent double-click zoom
 };
 
 
-visualization.update = function(rootSelection, data) {
+visualization.update = function(elem, data) {
+	// console.log(elem, data);
+	const hierarchy = data;
+
+	const rootSelection = d3Select(elem);
 	const $rootSelection = $(rootSelection.node());
 	const rootGroup = rootSelection.select('.rootGroup');
 
-	// prepare data
-	// create hierarchy
-	const h = (!data.data)
-		// make hierarchy from original attacktree
-		? d3Hierarchy(data, (d) => d.node)
-		: data;
+	// prepare tree
 	const tree = d3Tree()
 		.size([
 			$rootSelection.width() - (2 * theme.padding),
 			$rootSelection.height() - (2 * theme.padding),
 		]);
-	tree(h);
-	const descendants = h.descendants();
+	tree(hierarchy);
+	const descendants = hierarchy.descendants();
 
 
 	// edges
@@ -134,7 +179,7 @@ visualization.update = function(rootSelection, data) {
 			d.children = d._children;
 			d._children = null;
 		}
-		this.update(rootSelection, h);
+		this.update(elem, hierarchy);
 	};
 	nodeEnter
 		.append('circle')
@@ -147,52 +192,4 @@ visualization.update = function(rootSelection, data) {
 };
 
 
-function styleNode(node, theme) {
-	return node
-		.attr('r', theme.node.radius)
-		.style('fill', (d) => {
-			return d.children
-				? theme.node.fill
-				: 'white';
-		})
-		.style('stroke', (d) => {
-			return d.children
-				? 'none'
-				: theme.node.fill;
-		})
-		.style('stroke-width', 3);
-}
-
-
-function styleLabel(label, theme) {
-	return label
-		.text((d) => d.data.label)
-		.attr('dy', theme.node.labelFontSize / 2)
-		.attr('x', (d) => {
-			return (d.children ? -1 : 1) * (theme.node.radius + 5);
-		})
-		.style('text-anchor', (d) => {
-			return d.children
-				? 'end'
-				: 'start';
-		})
-		.attr('transform', `rotate(${theme.node.labelRotation})`);
-}
-
-
-function styleEdge(link, theme) {
-	return link
-		.style('fill', 'none')
-		.style('stroke', theme.edge.stroke)
-		.style('stroke-width', theme.edge.strokeWidth);
-}
-
-
-function edgePath(d) {
-	return [
-		`M${d.x}, ${d.y}`,
-		`C${d.x}, ${(d.y + d.parent.y) / 2}`,
-		`${d.parent.x}, ${(d.y + d.parent.y) / 2}`,
-		`${d.parent.x}, ${d.parent.y}`,
-	].join(' ');
-}
+export default visualization;

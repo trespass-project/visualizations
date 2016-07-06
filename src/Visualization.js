@@ -11,39 +11,30 @@ export default class Visualization extends React.Component {
 
 	componentDidMount() {
 		const props = this.props;
-		this._d3RootSelection = props.vis.init(ReactDOM.findDOMNode(this));
-		this.updateD3(props);
-	}
-
-	shouldComponentUpdate(nextProps, nextState) {
-		this.updateD3(nextProps);
-		return false;
-	}
-
-	// not needed under normal circumstances,
-	// but it enables live-updating with webpack
-	componentDidUpdate() {
-		const props = this.props;
-		this.updateD3(props);
-	}
-
-	updateD3(props) {
+		const elem = ReactDOM.findDOMNode(this);
 		setTimeout(() => {
-			props.vis.update(this._d3RootSelection, props.data);
+			props.vis.init(elem);
+			props.vis.update(elem, props.data);
 		}, 0);
 	}
 
+	shouldComponentUpdate(nextProps, nextState) {
+		const props = this.props;
+		const elem = ReactDOM.findDOMNode(this);
+		props.vis.update(elem, nextProps.data);
+		return false;
+	}
+
 	render() {
-		// const props = this.props;
-		return <svg></svg>;
+		return this.props.children;
 	}
 }
 
 Visualization.propTypes = {
+	children: React.PropTypes.any,
 	vis: React.PropTypes.object.isRequired,
-	data: React.PropTypes.any.isRequired,
 };
 
 Visualization.defaultProps = {
-	// data: [],
+	children: <svg></svg>,
 };
