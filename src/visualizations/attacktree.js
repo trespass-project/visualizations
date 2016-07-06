@@ -12,9 +12,9 @@ const $ = require('jquery');
 import theme from '../theme.js';
 
 
-const transition = d3Transition()
-	.duration(1000)
-	.ease(easeSinInOut);
+function projection(x, y) {
+	return { x, y };
+}
 
 
 function styleNode(node, theme) {
@@ -43,6 +43,7 @@ function styleLabel(label, theme) {
 		.attr('x', (d) => {
 			return (d.children ? -1 : 1) * (theme.node.radius + 5);
 		})
+		.style('font-size', theme.node.labelFontSize)
 		.style('text-anchor', (d) => {
 			return d.children
 				? 'end'
@@ -60,13 +61,19 @@ function styleEdge(link, theme) {
 }
 
 
-function edgePath(d) {
+function _edgePath(x1, y1, x2, y2) {
+	const y12 = (y1 + y2) / 2;
 	return [
-		`M${d.x}, ${d.y}`,
-		`C${d.x}, ${(d.y + d.parent.y) / 2}`,
-		`${d.parent.x}, ${(d.y + d.parent.y) / 2}`,
-		`${d.parent.x}, ${d.parent.y}`,
+		`M${x1}, ${y1}`,
+		`C${x1}, ${y12}`,
+		`${x2}, ${y12}`,
+		`${x2}, ${y2}`,
 	].join(' ');
+}
+
+
+function edgePath(d) {
+	return _edgePath(d.x, d.y, d.parent.x, d.parent.y);
 }
 
 
@@ -123,22 +130,35 @@ visualization.init = function(rootElem) {
 };
 
 
-visualization.update = function(elem, hierarchy) {
+visualization.update = function(elem, hierarchy, source=undefined) {
 	const rootSelection = d3Select(elem);
 	const $rootSelection = $(rootSelection.node());
 	const rootGroup = rootSelection.select('g.root');
 	const edgesGroup = rootGroup.select('g.edges');
 	const nodesGroup = rootGroup.select('g.nodes');
 
+	const transition = d3Transition()
+		.duration(250)
+		.ease(easeSinInOut);
+
 	// prepare tree
+	const paddingTimesTwo = (2 * theme.padding);
 	const tree = d3Tree()
-		.size([
-			$rootSelection.width() - (2 * theme.padding),
-			$rootSelection.height() - (2 * theme.padding),
-		]);
+		// .size([
+		// 	$rootSelection.width() - paddingTimesTwo,
+		// 	$rootSelection.height() - paddingTimesTwo,
+		// ])
+		.nodeSize([100, 100]);
 	tree(hierarchy);
 	const descendants = hierarchy.descendants();
-
+	const halfWidth = $rootSelection.width() / 2;
+	descendants.forEach((d) => {
+		// d.y = 100 * d.depth;
+		d.x += halfWidth;
+		const pr = projection(d.x, d.y);
+		d.x = pr.x;
+		d.y = pr.y;
+	});
 
 	// edges
 	const link = edgesGroup.selectAll('.link')
@@ -154,6 +174,10 @@ visualization.update = function(elem, hierarchy) {
 	// link: exit
 	link.exit()
 		.transition(transition)
+			.attr('d', (d) => {
+				const n = source || d;
+				return _edgePath(n.x0, n.y0, n.x0, n.y0);
+			})
 			.style('opacity', 0)
 			.remove();
 
@@ -168,20 +192,31 @@ visualization.update = function(elem, hierarchy) {
 		.call(styleLabel, theme);
 
 	// node: exit
-	node.exit()
-		.transition(transition)
+	const nodeExit = node.exit();
+
+	nodeExit.transition(transition)
+			.attr('transform', (d) => {
+				const n = source || d;
+				return `translate(${n.x0}, ${n.y0})`;
+			})
 			.style('opacity', 0)
 			.remove();
 
-	// node: enter
-	const nodeEnter = node.enter()
-		.append('g')
-			.attr('class', 'node')
-			.attr('transform', (d) => `translate(${d.x}, ${d.y})`);
+	nodeExit.selectAll('text')
+		.transition(100)
+			.style('opacity', 0)
+			.remove();
+
+	// const collapse = (d) => {
+	// 	if (d.children) {
+	// 		d._children = d.children;
+	// 		d._children.forEach(collapse);
+	// 		d.children = null;
+	// 	}
+	// };
 
 	// toggle children on click
 	const onClick = (d) => {
-		// console.log(d);
 		/* eslint no-param-reassign: 0 */
 		if (d.children) {
 			d._children = d.children;
@@ -190,8 +225,17 @@ visualization.update = function(elem, hierarchy) {
 			d.children = d._children;
 			d._children = null;
 		}
-		this.update(elem, hierarchy);
+		this.update(elem, hierarchy, d);
 	};
+
+	// node: enter
+	const nodeEnter = node.enter()
+		.append('g')
+			.attr('class', 'node')
+			.attr('transform', (d) => {
+				return `translate(${d.x}, ${d.y})`;
+			});
+
 	nodeEnter
 		.append('circle')
 			.call(styleNode, theme)
@@ -200,6 +244,12 @@ visualization.update = function(elem, hierarchy) {
 	nodeEnter
 		.append('text')
 			.call(styleLabel, theme);
+
+	// stash the old positions for transition
+	nodeEnter.each((d) => {
+		d.x0 = d.x;
+		d.y0 = d.y;
+	});
 };
 
 

@@ -4,7 +4,6 @@ import React from 'react';
 import AttacktreeVisualization from './AttacktreeVisualization.js';
 
 
-
 module.exports = {
 	// Visualization,
 	AttacktreeVisualization,
