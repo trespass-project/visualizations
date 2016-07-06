@@ -43,6 +43,7 @@ function styleLabel(label, theme) {
 		.attr('x', (d) => {
 			return (d.children ? -1 : 1) * (theme.node.radius + 5);
 		})
+		.style('font-size', theme.node.labelFontSize)
 		.style('text-anchor', (d) => {
 			return d.children
 				? 'end'
@@ -143,13 +144,17 @@ visualization.update = function(elem, hierarchy, source=undefined) {
 	// prepare tree
 	const paddingTimesTwo = (2 * theme.padding);
 	const tree = d3Tree()
-		.size([
-			$rootSelection.width() - paddingTimesTwo,
-			$rootSelection.height() - paddingTimesTwo,
-		]);
+		// .size([
+		// 	$rootSelection.width() - paddingTimesTwo,
+		// 	$rootSelection.height() - paddingTimesTwo,
+		// ])
+		.nodeSize([100, 100]);
 	tree(hierarchy);
 	const descendants = hierarchy.descendants();
+	const halfWidth = $rootSelection.width() / 2;
 	descendants.forEach((d) => {
+		// d.y = 100 * d.depth;
+		d.x += halfWidth;
 		const pr = projection(d.x, d.y);
 		d.x = pr.x;
 		d.y = pr.y;
