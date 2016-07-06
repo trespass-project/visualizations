@@ -19,6 +19,8 @@
     "babel-eslint": "^6.0.0-beta.6",
     "babel-preset-es2015-native-modules": "^6.6.0",
     "babel-preset-react": "^6.5.0",
+    "d3-ease": "^1.0.0",
+    "d3-transition": "^1.0.0",
     "d3-zoom": "^1.0.1",
     "enzyme": "^2.3.0",
     "eslint": "^2.4.0",

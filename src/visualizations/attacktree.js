@@ -3,14 +3,21 @@ import {
 	select
 } from 'd3-selection';
 import { zoom as d3Zoom } from 'd3-zoom';
+import { transition as d3Transition } from 'd3-transition';
+import { easeLinear, easeSinInOut } from 'd3-ease';
 import {
 	tree as d3Tree,
 	hierarchy as d3Hierarchy
 } from 'd3-hierarchy';
 const R = require('ramda');
 const $ = require('jquery');
+
 import theme from '../theme.js';
 
+
+const transition = d3Transition()
+	.duration(1000)
+	.ease(easeSinInOut);
 
 function styleNode(node, theme) {
 	return node
@@ -86,7 +93,7 @@ function draw(rootGroup, h, $rootSelection) {
 
 	// link: exit
 	link.exit()
-		.transition(1000)
+		.transition(transition)
 			.style('opacity', 0)
 			.remove();
 
@@ -102,7 +109,7 @@ function draw(rootGroup, h, $rootSelection) {
 
 	// node: exit
 	node.exit()
-		.transition(1000)
+		.transition(transition)
 			.style('opacity', 0)
 			.remove();
 
