@@ -13,7 +13,7 @@ export default {
 		fill: trespassRed,
 		fillCollapsed: 'rgb(255, 110, 100)',
 
-		labelFontSize: 10,
+		labelFontSize: 12,
 		labelRotation: 15,
 	},
 
