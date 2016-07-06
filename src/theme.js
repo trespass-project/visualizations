@@ -11,6 +11,7 @@ export default {
 	node: {
 		radius: 10,
 		fill: trespassRed,
+		fillCollapsed: 'rgb(255, 110, 100)',
 
 		labelFontSize: 10,
 		labelRotation: 15,

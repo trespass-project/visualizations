@@ -23,7 +23,9 @@ function styleNode(node, theme) {
 		.style('fill', (d) => {
 			return d.children
 				? theme.node.fill
-				: 'white';
+				: d._children
+					? theme.node.fillCollapsed
+					: 'white';
 		})
 		.style('stroke', (d) => {
 			return d.children
