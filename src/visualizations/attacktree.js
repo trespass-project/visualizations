@@ -81,8 +81,18 @@ visualization.init = function(rootElem) {
 
 	const rootGroup = rootSelection
 		.append('g')
-			.attr('class', 'rootGroup')
+			.attr('class', 'root')
 			.attr('transform', `translate(${theme.padding}, ${theme.padding})`);
+
+	// group all edges
+	rootGroup
+		.append('g')
+			.attr('class', 'edges');
+
+	// group all nodes
+	rootGroup
+		.append('g')
+			.attr('class', 'nodes');
 
 	// zoom behavior
 	const zoomThreshold = 0.6;
@@ -113,13 +123,12 @@ visualization.init = function(rootElem) {
 };
 
 
-visualization.update = function(elem, data) {
-	// console.log(elem, data);
-	const hierarchy = data;
-
+visualization.update = function(elem, hierarchy) {
 	const rootSelection = d3Select(elem);
 	const $rootSelection = $(rootSelection.node());
-	const rootGroup = rootSelection.select('.rootGroup');
+	const rootGroup = rootSelection.select('g.root');
+	const edgesGroup = rootGroup.select('g.edges');
+	const nodesGroup = rootGroup.select('g.nodes');
 
 	// prepare tree
 	const tree = d3Tree()
@@ -132,7 +141,7 @@ visualization.update = function(elem, data) {
 
 
 	// edges
-	const link = rootGroup.selectAll('.link')
+	const link = edgesGroup.selectAll('.link')
 		.data(R.tail(descendants));
 
 	link
@@ -140,7 +149,7 @@ visualization.update = function(elem, data) {
 			.append('path')
 				.attr('class', 'link')
 				.attr('d', edgePath)
-			.call(styleEdge, theme);
+				.call(styleEdge, theme);
 
 	// link: exit
 	link.exit()
@@ -149,7 +158,7 @@ visualization.update = function(elem, data) {
 			.remove();
 
 	// nodes
-	const node = rootGroup.selectAll('.node')
+	const node = nodesGroup.selectAll('.node')
 		.data(descendants);
 
 	// node: update
