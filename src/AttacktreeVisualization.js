@@ -34,9 +34,7 @@ export default class AttacktreeVisualization extends React.Component {
 
 	render() {
 		const state = this.state;
-		return (!state.data)
-			? null
-			: <Visualization vis={attacktreeVis} data={state.data} />;
+		return <Visualization vis={attacktreeVis} data={state.data} />;
 	}
 }
 

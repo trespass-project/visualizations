@@ -131,6 +131,10 @@ visualization.init = function(rootElem) {
 
 
 visualization.update = function(elem, hierarchy, source=undefined) {
+	if (!hierarchy) {
+		return;
+	}
+
 	const rootSelection = d3Select(elem);
 	const $rootSelection = $(rootSelection.node());
 	const rootGroup = rootSelection.select('g.root');
