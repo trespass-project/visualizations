@@ -146,7 +146,7 @@ visualization.update = function(elem, hierarchy, source=undefined) {
 		.ease(easeSinInOut);
 
 	// prepare tree
-	const paddingTimesTwo = (2 * theme.padding);
+	// const paddingTimesTwo = (2 * theme.padding);
 	const tree = d3Tree()
 		// .size([
 		// 	$rootSelection.width() - paddingTimesTwo,
@@ -157,8 +157,9 @@ visualization.update = function(elem, hierarchy, source=undefined) {
 	const descendants = hierarchy.descendants();
 	const halfWidth = $rootSelection.width() / 2;
 	descendants.forEach((d) => {
-		// d.y = 100 * d.depth;
+		// horizontally center root node
 		d.x += halfWidth;
+
 		const pr = projection(d.x, d.y);
 		d.x = pr.x;
 		d.y = pr.y;
