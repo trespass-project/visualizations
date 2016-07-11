@@ -1,10 +1,8 @@
-import React from 'react';
-
-// import Visualization from './Visualization.js';
 import AttacktreeVisualization from './AttacktreeVisualization.js';
+import ATAVisualization from './ATAVisualization.js';
 
 
 module.exports = {
-	// Visualization,
 	AttacktreeVisualization,
+	ATAVisualization,
 };
