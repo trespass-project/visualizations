@@ -10,6 +10,16 @@ export default class ATAVisualization extends React.Component {
 		autobind(this);
 	}
 
+	onHover(item, event) {
+		event.preventDefault();
+		this.props.onHover(item);
+	}
+
+	onSelect(item, event) {
+		event.preventDefault();
+		this.props.onSelect(item);
+	}
+
 	render() {
 		const props = this.props;
 		const { parameterElemName, childElemName, attrKey } = trespass.attacktree;
@@ -60,7 +70,11 @@ export default class ATAVisualization extends React.Component {
 				<tbody>
 					{sorted
 						.map((at, index) => {
-							return <tr key={index}>
+							return <tr
+								key={index}
+								onMouseEnter={R.partial(this.onHover, [at])}
+								onClick={R.partial(this.onSelect, [at])}
+							>
 								<td>{at.utility}</td>
 								<td>{at.totalCost}</td>
 								<td>{at.profit.toFixed(2)}</td>
@@ -76,9 +90,12 @@ export default class ATAVisualization extends React.Component {
 
 ATAVisualization.propTypes = {
 	attacktrees: React.PropTypes.array.isRequired,
-	// TODO: add hover / selection callbacks
+	onHover: React.PropTypes.func,
+	onSelect: React.PropTypes.func,
 };
 
 ATAVisualization.defaultProps = {
 	attacktrees: [],
+	onHover: () => {},
+	onSelect: () => {},
 };
