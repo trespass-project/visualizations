@@ -1,5 +1,6 @@
 import React from 'react';
 import autobind from 'class-autobind';
+const R = require('ramda');
 const trespass = require('trespass.js');
 
 
@@ -12,6 +13,7 @@ export default class ATAVisualization extends React.Component {
 	render() {
 		const props = this.props;
 		const { parameterElemName, childElemName, attrKey } = trespass.attacktree;
+
 		const attacktrees = props.attacktrees
 			.map((tree) => {
 				const { utility } = tree[attrKey];
@@ -27,9 +29,23 @@ export default class ATAVisualization extends React.Component {
 					tree,
 					utility,
 					totalCost,
-					isProfitable: (totalCost < utility)
+					isProfitable: (totalCost < utility),
+					profit: (utility - totalCost)
 				};
 			});
+
+		const sorted = R.sort(
+			(a, b) => {
+				if (a.isProfitable && !b.isProfitable) {
+					return -1;
+				} else if (!a.isProfitable && b.isProfitable) {
+					return 1;
+				} else {
+					return b.profit - a.profit;
+				}
+			},
+			attacktrees
+		);
 
 		return <div id='atanalyzer'>
 			<table>
@@ -37,15 +53,17 @@ export default class ATAVisualization extends React.Component {
 					<tr>
 						<td>Utility</td>
 						<td>Total cost</td>
+						<td>Profit</td>
 						<td>Profitable?</td>
 					</tr>
 				</thead>
 				<tbody>
-					{attacktrees
+					{sorted
 						.map((at, index) => {
 							return <tr key={index}>
 								<td>{at.utility}</td>
 								<td>{at.totalCost}</td>
+								<td>{at.profit.toFixed(2)}</td>
 								<td>{at.isProfitable ? 'yes' : 'no'}</td>
 							</tr>;
 						})
