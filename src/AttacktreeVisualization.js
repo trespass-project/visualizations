@@ -1,10 +1,14 @@
 import React from 'react';
 import autobind from 'class-autobind';
 import { hierarchy as d3Hierarchy } from 'd3-hierarchy';
-
+const R = require('ramda');
+const trespass = require('trespass.js');
 import Visualization from './Visualization.js';
 import attacktreeVis from './visualizations/attacktree.js';
 
+
+const trespassAttacktree = trespass.attacktree;
+const { childElemName, getRootNode } = trespassAttacktree;
 
 export default class AttacktreeVisualization extends React.Component {
 	constructor(props) {
@@ -20,8 +24,8 @@ export default class AttacktreeVisualization extends React.Component {
 		}
 
 		const hierarchy = d3Hierarchy(
-			attacktree.node[0],
-			(d) => d.node
+			getRootNode(attacktree),
+			R.prop(childElemName)
 		);
 
 		return <Visualization
