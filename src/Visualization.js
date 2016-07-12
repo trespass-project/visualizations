@@ -29,19 +29,21 @@ export default class Visualization extends React.Component {
 	initVisualization() {
 		const props = this.props;
 		const elem = ReactDOM.findDOMNode(this);
+		const visProps = R.omit(omitProps, props);
 		props.visualization.init(
 			elem,
-			R.omit(omitProps, props)
+			visProps
 		);
 	}
 
 	updateVisualization() {
 		const props = this.props;
 		const elem = ReactDOM.findDOMNode(this);
+		const visProps = R.omit(omitProps, props);
 		props.visualization.update(
 			elem,
-			R.omit(omitProps, props),
-			props.data
+			visProps,
+			visProps.data
 		);
 	}
 
