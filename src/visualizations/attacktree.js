@@ -297,7 +297,7 @@ visualization.update = function(elem, props, _data, source=null) {
 			.call(styleNode, theme)
 			.on('click', (d) => {
 				onClick(d);
-				this.update(elem, props, d);
+				visualization.update(elem, props, hierarchy, d);
 			});
 
 	nodeEnter
