@@ -29,18 +29,24 @@ export default class AttacktreeVisualization extends React.Component {
 
 	updateVisualizationData(props) {
 		const { attacktree } = props;
-		if (!attacktree) {
-			return;
-		}
-		const hierarchy = d3Hierarchy(attacktree.node, (d) => d.node);
-		this.setState({ data: hierarchy }, () => {
-			this.forceUpdate();
-		});
+		if (!attacktree) { return; }
+
+		const hierarchy = d3Hierarchy(
+			attacktree.node,
+			(d) => d.node
+		);
+		this.setState(
+			{ data: hierarchy },
+			() => { this.forceUpdate(); }
+		);
 	}
 
 	render() {
 		const state = this.state;
-		return <Visualization vis={attacktreeVis} data={state.data} />;
+		return <Visualization
+			visualization={attacktreeVis}
+			data={state.data}
+		/>;
 	}
 }
 
