@@ -105,7 +105,9 @@ function styleNode(node, theme) {
 
 
 function positionNode(node, layout) {
-	node.attr('transform', (d) => { return `translate(${d.x}, ${d.y})`; });
+	node.attr('transform', (d) => {
+		return `translate(${d.x}, ${d.y})`;
+	});
 }
 
 
@@ -182,7 +184,7 @@ function onClick(d) {
 const visualization = {};
 
 
-visualization.init = function(elem, props) {
+visualization.init = (elem, props) => {
 	const rootSelection = d3Select(elem);
 
 	const rootGroup = rootSelection
@@ -207,7 +209,7 @@ visualization.init = function(elem, props) {
 };
 
 
-visualization.update = function(elem, props, _data, source=null) {
+visualization.update = (elem, props, _data, source=null) => {
 	const hierarchy = _data || props.data;
 	if (!hierarchy) { return; }
 
@@ -294,16 +296,16 @@ visualization.update = function(elem, props, _data, source=null) {
 
 	nodeEnter
 		.append('circle')
-			.call(styleNode, theme)
+			.on('click', null)
 			.on('click', (d) => {
 				onClick(d);
-				this.update(elem, props, d);
-			});
+				visualization.update(elem, props, hierarchy, d);
+			})
+			.call(styleNode, theme);
 
 	nodeEnter
 		.append('text')
 			.call(styleLabel, theme);
-
 
 	// node: update
 	node
@@ -311,6 +313,11 @@ visualization.update = function(elem, props, _data, source=null) {
 			.call(positionNode, layout);
 
 	node.selectAll('circle')
+		.on('click', null)
+		.on('click', (d) => {
+			onClick(d);
+			visualization.update(elem, props, hierarchy, d);
+		})
 		.call(styleNode, theme);
 
 	node.selectAll('text')

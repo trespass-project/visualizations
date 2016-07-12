@@ -32,6 +32,7 @@ export default class AttacktreeVisualization extends React.Component {
 			visualization={attacktreeVis}
 			data={hierarchy}
 			layout={props.layout}
+			key={props.layout /* force new element */}
 		/>;
 	}
 }
