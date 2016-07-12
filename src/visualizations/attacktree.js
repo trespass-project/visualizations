@@ -182,7 +182,7 @@ function onClick(d) {
 const visualization = {};
 
 
-visualization.init = function(elem, props) {
+visualization.init = (elem, props) => {
 	const rootSelection = d3Select(elem);
 
 	const rootGroup = rootSelection
@@ -207,7 +207,7 @@ visualization.init = function(elem, props) {
 };
 
 
-visualization.update = function(elem, props, _data, source=null) {
+visualization.update = (elem, props, _data, source=null) => {
 	const hierarchy = _data || props.data;
 	if (!hierarchy) { return; }
 
