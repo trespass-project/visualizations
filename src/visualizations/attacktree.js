@@ -105,7 +105,9 @@ function styleNode(node, theme) {
 
 
 function positionNode(node, layout) {
-	node.attr('transform', (d) => { return `translate(${d.x}, ${d.y})`; });
+	node.attr('transform', (d) => {
+		return `translate(${d.x}, ${d.y})`;
+	});
 }
 
 
@@ -294,16 +296,16 @@ visualization.update = (elem, props, _data, source=null) => {
 
 	nodeEnter
 		.append('circle')
-			.call(styleNode, theme)
+			.on('click', null)
 			.on('click', (d) => {
 				onClick(d);
 				visualization.update(elem, props, hierarchy, d);
-			});
+			})
+			.call(styleNode, theme);
 
 	nodeEnter
 		.append('text')
 			.call(styleLabel, theme);
-
 
 	// node: update
 	node
@@ -311,6 +313,11 @@ visualization.update = (elem, props, _data, source=null) => {
 			.call(positionNode, layout);
 
 	node.selectAll('circle')
+		.on('click', null)
+		.on('click', (d) => {
+			onClick(d);
+			visualization.update(elem, props, hierarchy, d);
+		})
 		.call(styleNode, theme);
 
 	node.selectAll('text')
