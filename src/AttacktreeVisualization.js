@@ -42,16 +42,21 @@ export default class AttacktreeVisualization extends React.Component {
 	}
 
 	render() {
+		const props = this.props;
 		const state = this.state;
 		return <Visualization
 			visualization={attacktreeVis}
 			data={state.data}
+			layout={props.layout}
 		/>;
 	}
 }
 
 AttacktreeVisualization.propTypes = {
 	attacktree: React.PropTypes.object/*.isRequired*/,
+	layout: React.PropTypes.string.isRequired,
 };
 
-// AttacktreeVisualization.defaultProps = {};
+AttacktreeVisualization.defaultProps = {
+	layout: 'regular',
+};
