@@ -32,7 +32,7 @@ export default class AttacktreeVisualization extends React.Component {
 		if (!attacktree) { return; }
 
 		const hierarchy = d3Hierarchy(
-			attacktree.node,
+			attacktree.node[0],
 			(d) => d.node
 		);
 		this.setState(
