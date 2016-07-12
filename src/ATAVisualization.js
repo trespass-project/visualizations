@@ -57,7 +57,7 @@ export default class ATAVisualization extends React.Component {
 			attacktrees
 		);
 
-		return <div id='atanalyzer'>
+		return <div>
 			<table>
 				<thead>
 					<tr>

@@ -13,7 +13,7 @@ export default class Visualization extends React.Component {
 		const props = this.props;
 		const elem = ReactDOM.findDOMNode(this);
 		setTimeout(() => {
-			props.vis.init(elem);
+			props.vis.init(elem, props);
 			props.vis.update(elem, props.data);
 		}, 0);
 	}
