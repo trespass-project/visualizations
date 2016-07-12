@@ -1,7 +1,9 @@
 import React from 'react';
 import autobind from 'class-autobind';
 const R = require('ramda');
-// const trespass = require('trespass.js');
+
+import Visualization from './Visualization.js';
+import ateVis from './visualizations/ate.js';
 
 const sortByProbability = R.sortBy(R.prop('probability'));
 
@@ -31,7 +33,12 @@ export default class ATEVisualization extends React.Component {
 		const sorted = sortByProbability(data)
 			.reverse();
 
+		const height = 400;
+
 		return <div>
+			<div style={{ height }}>
+				<Visualization vis={ateVis} data={sorted} height={height} />
+			</div>
 			{(props.showTable)
 				? <div>
 					<table>

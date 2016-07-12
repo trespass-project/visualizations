@@ -31,8 +31,10 @@
   },
   "dependencies": {
     "class-autobind": "^0.1.2",
+    "d3-axis": "^1.0.0",
     "d3-ease": "^1.0.0",
     "d3-hierarchy": "^1.0.0",
+    "d3-scale": "^1.0.1",
     "d3-selection": "^1.0.0",
     "d3-transition": "^1.0.0",
     "d3-zoom": "^1.0.1",
