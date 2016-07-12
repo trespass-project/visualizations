@@ -1,57 +1,47 @@
 import React from 'react';
 import autobind from 'class-autobind';
 import { hierarchy as d3Hierarchy } from 'd3-hierarchy';
-
+const R = require('ramda');
+const trespass = require('trespass.js');
 import Visualization from './Visualization.js';
 import attacktreeVis from './visualizations/attacktree.js';
 
+
+const trespassAttacktree = trespass.attacktree;
+const { childElemName, getRootNode } = trespassAttacktree;
 
 export default class AttacktreeVisualization extends React.Component {
 	constructor(props) {
 		super(props);
 		autobind(this);
-
-		this.state = {
-			data: null,
-		};
-	}
-
-	componentWillMount() {
-		this.updateVisualizationData(this.props);
-	}
-
-	shouldComponentUpdate(nextProps, nextState) {
-		if (nextProps.attacktree !== this.props.attacktree) {
-			this.updateVisualizationData(nextProps);
-		}
-		return false;
-	}
-
-	updateVisualizationData(props) {
-		const { attacktree } = props;
-		if (!attacktree) { return; }
-
-		const hierarchy = d3Hierarchy(
-			attacktree.node,
-			(d) => d.node
-		);
-		this.setState(
-			{ data: hierarchy },
-			() => { this.forceUpdate(); }
-		);
 	}
 
 	render() {
-		const state = this.state;
+		const props = this.props;
+		const { attacktree } = props;
+		if (!attacktree) {
+			return <svg></svg>;
+		}
+
+		const hierarchy = d3Hierarchy(
+			getRootNode(attacktree),
+			R.prop(childElemName)
+		);
+
 		return <Visualization
 			visualization={attacktreeVis}
-			data={state.data}
+			data={hierarchy}
+			layout={props.layout}
 		/>;
 	}
 }
 
 AttacktreeVisualization.propTypes = {
 	attacktree: React.PropTypes.object/*.isRequired*/,
+	layout: React.PropTypes.string/*.isRequired*/,
 };
 
-// AttacktreeVisualization.defaultProps = {};
+AttacktreeVisualization.defaultProps = {
+	// attacktree: null,
+	layout: 'regular',
+};
