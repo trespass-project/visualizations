@@ -80,11 +80,8 @@ function edgePath(d) {
 const visualization = {};
 
 
-visualization.init = function(rootElem) {
-	const rootSelection = d3Select(rootElem);
-
-	const $rootSelection = $(rootSelection.node());
-	// console.log($rootSelection.width());
+visualization.init = function(elem, props) {
+	const rootSelection = d3Select(elem);
 
 	const rootGroup = rootSelection
 		.append('g')
@@ -108,14 +105,13 @@ visualization.init = function(rootElem) {
 		.on('zoom', () => {
 			// https://github.com/d3/d3-zoom#zoomTransform
 			const scaleFactor = d3Event.transform.k;
-			// console.log(scaleFactor);
 
 			if (scaleFactor >= zoomThreshold) {
-				$rootSelection.find('.node text')
-					.css('visibility', 'visible');
+				rootSelection.selectAll('.node text')
+					.style('visibility', 'visible');
 			} else {
-				$rootSelection.find('.node text')
-					.css('visibility', 'hidden');
+				rootSelection.selectAll('.node text')
+					.style('visibility', 'hidden');
 			}
 
 			const transformation = [
@@ -124,19 +120,19 @@ visualization.init = function(rootElem) {
 			].join(' ');
 			rootGroup.attr('transform', transformation);
 		});
+
 	rootSelection
 		.call(zoom)
 		.on('dblclick.zoom', null); // prevent double-click zoom
 };
 
 
-visualization.update = function(elem, hierarchy, source=undefined) {
-	if (!hierarchy) {
-		return;
-	}
+visualization.update = function(elem, props, _data, source=undefined) {
+	const hierarchy = _data || props.data;
+	if (!hierarchy) { return; }
 
 	const rootSelection = d3Select(elem);
-	const $rootSelection = $(rootSelection.node());
+	const $rootSelection = $(/*rootSelection.node()*/ elem);
 	const rootGroup = rootSelection.select('g.root');
 	const edgesGroup = rootGroup.select('g.edges');
 	const nodesGroup = rootGroup.select('g.nodes');
@@ -154,6 +150,7 @@ visualization.update = function(elem, hierarchy, source=undefined) {
 		// ])
 		.nodeSize([100, 100]);
 	tree(hierarchy);
+
 	const descendants = hierarchy.descendants();
 	const halfWidth = $rootSelection.width() / 2;
 	descendants.forEach((d) => {
@@ -230,7 +227,7 @@ visualization.update = function(elem, hierarchy, source=undefined) {
 			d.children = d._children;
 			d._children = null;
 		}
-		this.update(elem, hierarchy, d);
+		this.update(elem, props, hierarchy, d);
 	};
 
 	// node: enter

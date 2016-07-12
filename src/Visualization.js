@@ -1,6 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import autobind from 'class-autobind';
+const R = require('ramda');
+
+const omitProps = [
+	'visualization',
+	'children',
+];
 
 
 export default class Visualization extends React.Component {
@@ -10,19 +16,33 @@ export default class Visualization extends React.Component {
 	}
 
 	componentDidMount() {
-		const props = this.props;
-		const elem = ReactDOM.findDOMNode(this);
 		setTimeout(() => {
-			props.vis.init(elem, props);
-			props.vis.update(elem, props.data);
+			this.initVisualization();
+			this.updateVisualization();
 		}, 0);
 	}
 
-	shouldComponentUpdate(nextProps, nextState) {
+	componentDidUpdate(prevProps, prevState) {
+		this.updateVisualization();
+	}
+
+	initVisualization() {
 		const props = this.props;
 		const elem = ReactDOM.findDOMNode(this);
-		props.vis.update(elem, nextProps.data);
-		return false;
+		props.visualization.init(
+			elem,
+			R.omit(omitProps, props)
+		);
+	}
+
+	updateVisualization() {
+		const props = this.props;
+		const elem = ReactDOM.findDOMNode(this);
+		props.visualization.update(
+			elem,
+			R.omit(omitProps, props),
+			props.data
+		);
 	}
 
 	render() {
@@ -32,9 +52,11 @@ export default class Visualization extends React.Component {
 
 Visualization.propTypes = {
 	children: React.PropTypes.any,
-	vis: React.PropTypes.object.isRequired,
+	visualization: React.PropTypes.object.isRequired,
+	data: React.PropTypes.any,
 };
 
 Visualization.defaultProps = {
+	data: null,
 	children: <svg></svg>,
 };

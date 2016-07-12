@@ -24,46 +24,50 @@ export default class ATEVisualization extends React.Component {
 		this.props.onSelect(item);
 	}
 
+	renderTable(data) {
+		return <table>
+			<thead>
+				<tr>
+					<td>Probability</td>
+					<td>Cost</td>
+				</tr>
+			</thead>
+			<tbody>
+				{data
+					.map((item, index) => {
+						return <tr
+							key={index}
+							onMouseEnter={R.partial(this.onHover, [item])}
+							onClick={R.partial(this.onSelect, [item])}
+						>
+							<td>{item.probability}</td>
+							<td>{item.cost}</td>
+						</tr>;
+					})
+				}
+			</tbody>
+		</table>;
+	}
+
 	render() {
 		const props = this.props;
-		const { data } = props;
 
 		// TODO: can we say something about profitability here, too?
 
-		const sorted = sortByProbability(data)
+		const sorted = sortByProbability(props.data)
 			.reverse();
 
-		const height = 400;
-
 		return <div>
-			<div style={{ height }}>
-				<Visualization vis={ateVis} data={sorted} height={height} />
+			<div style={{ height: props.height }}>
+				<Visualization
+					visualization={ateVis}
+					data={sorted}
+					width={props.width}
+					height={props.height}
+				/>
 			</div>
 			{(props.showTable)
-				? <div>
-					<table>
-						<thead>
-							<tr>
-								<td>Probability</td>
-								<td>Cost</td>
-							</tr>
-						</thead>
-						<tbody>
-							{sorted
-								.map((item, index) => {
-									return <tr
-										key={index}
-										onMouseEnter={R.partial(this.onHover, [item])}
-										onClick={R.partial(this.onSelect, [item])}
-									>
-										<td>{item.probability}</td>
-										<td>{item.cost}</td>
-									</tr>;
-								})
-							}
-						</tbody>
-					</table>
-				</div>
+				? <div>{this.renderTable(sorted)}</div>
 				: null
 			}
 		</div>;
@@ -72,6 +76,8 @@ export default class ATEVisualization extends React.Component {
 
 ATEVisualization.propTypes = {
 	data: React.PropTypes.array.isRequired,
+	height: React.PropTypes.number,
+	width: React.PropTypes.number,
 	showTable: React.PropTypes.bool.isRequired,
 	onHover: React.PropTypes.func,
 	onSelect: React.PropTypes.func,
@@ -79,6 +85,8 @@ ATEVisualization.propTypes = {
 
 ATEVisualization.defaultProps = {
 	data: [],
+	height: 400,
+	width: 0,
 	showTable: false,
 	onHover: () => {},
 	onSelect: () => {},
