@@ -10,19 +10,26 @@ export default class Visualization extends React.Component {
 	}
 
 	componentDidMount() {
-		const props = this.props;
-		const elem = ReactDOM.findDOMNode(this);
 		setTimeout(() => {
-			props.vis.init(elem, props);
-			props.vis.update(elem, props.data);
+			this.initVisualization();
+			this.updateVisualization();
 		}, 0);
 	}
 
-	shouldComponentUpdate(nextProps, nextState) {
+	componentDidUpdate(prevProps, prevState) {
+		this.updateVisualization();
+	}
+
+	initVisualization() {
 		const props = this.props;
 		const elem = ReactDOM.findDOMNode(this);
-		props.vis.update(elem, nextProps.data);
-		return false;
+		props.visualization.init(elem, props);
+	}
+
+	updateVisualization() {
+		const props = this.props;
+		const elem = ReactDOM.findDOMNode(this);
+		props.visualization.update(elem, props, props.data);
 	}
 
 	render() {
@@ -32,7 +39,7 @@ export default class Visualization extends React.Component {
 
 Visualization.propTypes = {
 	children: React.PropTypes.any,
-	vis: React.PropTypes.object.isRequired,
+	visualization: React.PropTypes.object.isRequired,
 };
 
 Visualization.defaultProps = {
