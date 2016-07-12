@@ -10,43 +10,23 @@ export default class AttacktreeVisualization extends React.Component {
 	constructor(props) {
 		super(props);
 		autobind(this);
-
-		this.state = {
-			data: null,
-		};
 	}
 
-	componentWillMount() {
-		this.updateVisualizationData(this.props);
-	}
-
-	shouldComponentUpdate(nextProps, nextState) {
-		if (nextProps.attacktree !== this.props.attacktree) {
-			this.updateVisualizationData(nextProps);
-		}
-		return false;
-	}
-
-	updateVisualizationData(props) {
+	render() {
+		const props = this.props;
 		const { attacktree } = props;
-		if (!attacktree) { return; }
+		if (!attacktree) {
+			return <svg></svg>;
+		}
 
 		const hierarchy = d3Hierarchy(
 			attacktree.node[0],
 			(d) => d.node
 		);
-		this.setState(
-			{ data: hierarchy },
-			() => { this.forceUpdate(); }
-		);
-	}
 
-	render() {
-		const props = this.props;
-		const state = this.state;
 		return <Visualization
 			visualization={attacktreeVis}
-			data={state.data}
+			data={hierarchy}
 			layout={props.layout}
 		/>;
 	}
@@ -54,9 +34,10 @@ export default class AttacktreeVisualization extends React.Component {
 
 AttacktreeVisualization.propTypes = {
 	attacktree: React.PropTypes.object/*.isRequired*/,
-	layout: React.PropTypes.string.isRequired,
+	layout: React.PropTypes.string/*.isRequired*/,
 };
 
 AttacktreeVisualization.defaultProps = {
+	// attacktree: null,
 	layout: 'regular',
 };
