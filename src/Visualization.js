@@ -1,6 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import autobind from 'class-autobind';
+const R = require('ramda');
+
+const omitProps = [
+	'visualization',
+	'children',
+];
 
 
 export default class Visualization extends React.Component {
@@ -23,13 +29,20 @@ export default class Visualization extends React.Component {
 	initVisualization() {
 		const props = this.props;
 		const elem = ReactDOM.findDOMNode(this);
-		props.visualization.init(elem, props);
+		props.visualization.init(
+			elem,
+			R.omit(omitProps, props)
+		);
 	}
 
 	updateVisualization() {
 		const props = this.props;
 		const elem = ReactDOM.findDOMNode(this);
-		props.visualization.update(elem, props, props.data);
+		props.visualization.update(
+			elem,
+			R.omit(omitProps, props),
+			props.data
+		);
 	}
 
 	render() {
@@ -40,8 +53,10 @@ export default class Visualization extends React.Component {
 Visualization.propTypes = {
 	children: React.PropTypes.any,
 	visualization: React.PropTypes.object.isRequired,
+	data: React.PropTypes.any,
 };
 
 Visualization.defaultProps = {
+	data: null,
 	children: <svg></svg>,
 };
