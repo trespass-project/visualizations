@@ -15,6 +15,7 @@ import {
 const R = require('ramda');
 const $ = require('jquery');
 
+// TODO: theme
 // import theme from '../theme.js';
 const paddingHorizontal = 50;
 const paddingVertical = 25;
@@ -36,7 +37,7 @@ function styleLine(line) {
 	return line
 		.style('fill', 'none')
 		.style('stroke', 'gray')
-		.style('stroke-dasharray', '4, 4');
+		.style('stroke-dasharray', '3, 3');
 }
 
 
@@ -70,11 +71,18 @@ visualization.update = (elem, props, _data) => {
 	const $rootSelection = $(elem);
 	const rootGroup = rootSelection.select('g.root');
 
-	const _w = (props.width || $rootSelection.width());
-	const _h = (props.height || $rootSelection.height());
-	rootSelection
-		.style('width', _w)
-		.style('height', _h);
+	const rootWidth = $rootSelection.width();
+	const rootHeight = $rootSelection.height();
+
+	const _w = (!props.width)
+		? rootWidth
+		: props.width;
+	const _h = (!props.height)
+		? rootHeight
+		: props.height;
+	// rootSelection
+	// 	.style('width', _w)
+	// 	.style('height', _h);
 
 	const w = _w - (2 * paddingHorizontal);
 	const h = _h - (2 * paddingVertical);

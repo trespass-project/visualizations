@@ -57,8 +57,8 @@ export default class ATEVisualization extends React.Component {
 		const sorted = sortByProbability(props.data)
 			.reverse();
 
-		return <div>
-			<div style={{ height: props.height }}>
+		return <div className='ateVisualization' style={{ width: '100%' }}>
+			<div style={{ height: props.height || '100%', width: props.width || '100%' }}>
 				<Visualization
 					visualization={ateVis}
 					data={sorted}
@@ -75,10 +75,10 @@ export default class ATEVisualization extends React.Component {
 }
 
 ATEVisualization.propTypes = {
-	data: React.PropTypes.array.isRequired,
+	data: React.PropTypes.array,
 	height: React.PropTypes.number,
 	width: React.PropTypes.number,
-	showTable: React.PropTypes.bool.isRequired,
+	showTable: React.PropTypes.bool,
 	onHover: React.PropTypes.func,
 	onSelect: React.PropTypes.func,
 };
