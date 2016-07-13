@@ -15,67 +15,72 @@ import {
 const R = require('ramda');
 const $ = require('jquery');
 
-import theme from '../theme.js';
+// import theme from '../theme.js';
+const paddingHorizontal = 50;
+const paddingVertical = 25;
 
 
 // TODO: implement tooltips
 const visualization = {};
 
 
-function styleNode(node, theme) {
+function styleNode(node) {
 	return node
 		.attr('r', 5)
-		.style('fill', (d) => {
-			return 'black';
-		})
-		.style('stroke', (d) => {
-			return 'none';
-		});
+		.style('fill', 'black')
+		.style('stroke', 'none');
 }
 
 
-function styleLine(line, theme) {
-	line
+function styleLine(line) {
+	return line
 		.style('fill', 'none')
 		.style('stroke', 'gray')
-		.style('stroke-dasharray', '4 ,4');
+		.style('stroke-dasharray', '4, 4');
 }
 
 
-visualization.init = function(rootElem, props) {
-	const rootSelection = d3Select(rootElem);
+visualization.init = (elem, props) => {
+	const rootSelection = d3Select(elem);
 
 	const rootGroup = rootSelection
 		.append('g')
 			.attr('class', 'root')
-			.attr('transform', `translate(${theme.padding}, ${theme.padding})`);
+			.attr('transform', `translate(${paddingHorizontal}, ${paddingVertical})`);
 
-	rootGroup
+	const axesGroup = rootGroup
+		.append('g')
+			.attr('class', 'axes');
+
+	axesGroup
 		.append('g')
 			.attr('class', 'yAxis');
 
-	rootGroup
+	axesGroup
 		.append('g')
 			.attr('class', 'xAxis');
 };
 
 
-visualization.update = function(elem, data, source=undefined) {
-	if (!data) {
-		return;
-	}
+visualization.update = (elem, props, _data) => {
+	const data = _data || props.data;
+	if (!data) { return; }
 
 	const rootSelection = d3Select(elem);
+	const $rootSelection = $(elem);
 	const rootGroup = rootSelection.select('g.root');
 
-	const $rootSelection = $(rootSelection.node());
-	const w = $rootSelection.width() - (2 * theme.padding);
-	const h = /*props.height*/ 400 - (2 * theme.padding);
+	const _w = (props.width || $rootSelection.width());
+	const _h = (props.height || $rootSelection.height());
+	rootSelection
+		.style('width', _w)
+		.style('height', _h);
+
+	const w = _w - (2 * paddingHorizontal);
+	const h = _h - (2 * paddingVertical);
 
 	const maxCost = data.reduce(
-		(acc, item) => {
-			return Math.max(acc, item.cost);
-		},
+		(acc, item) => Math.max(acc, item.cost),
 		0
 	);
 
@@ -114,19 +119,18 @@ visualization.update = function(elem, data, source=undefined) {
 	connection.enter()
 		.append('path')
 			.attr('d', (d) => line(d))
-			.call(styleLine, theme);
+			.call(styleLine);
 
 
 	const node = rootGroup.selectAll('.node')
 		.data(data);
 
-	// node: enter
 	node.enter()
 		.append('circle')
 			.attr('class', 'node')
 			.attr('cx', (d) => xScale(d.probability))
 			.attr('cy', (d) => yScale(d.cost))
-			.call(styleNode, theme);
+			.call(styleNode);
 };
 
 
