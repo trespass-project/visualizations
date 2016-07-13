@@ -177,6 +177,7 @@ export default class AttacktreeVisualization extends React.Component {
 		const rootSelection = d3Select(elem);
 		const rootGroup = rootSelection.select('g.root');
 		rootSelection
+			.on('.zoom', null) // just to be sure
 			.call(makeZoomBehavior(rootGroup, rootSelection))
 			.on('dblclick.zoom', null); // prevent double-click zoom
 	}
