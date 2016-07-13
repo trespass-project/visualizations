@@ -15,6 +15,7 @@ import {
 const R = require('ramda');
 const $ = require('jquery');
 
+// TODO: theme
 // import theme from '../theme.js';
 const paddingHorizontal = 50;
 const paddingVertical = 25;
