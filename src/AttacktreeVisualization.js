@@ -115,7 +115,7 @@ function makeZoomBehavior(rootGroup, rootSelection) {
 }
 
 
-function onClick(d) {
+function expandCollapse(d) {
 	/* eslint no-param-reassign: 0 */
 	if (d.children) {
 		d._children = d.children;
@@ -219,8 +219,7 @@ export default class AttacktreeVisualization extends React.Component {
 				strokeWidth={3}
 				onClick={(event) => {
 					event.preventDefault();
-					onClick(d);
-					// TODO: use react update helper
+					expandCollapse(d);
 					this.setState({
 						hierarchy: this.state.hierarchy
 					});
