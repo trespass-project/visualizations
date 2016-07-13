@@ -25,9 +25,9 @@ export default class ATAVisualization extends React.Component {
 		const { parameterElemName, childElemName, attrKey } = trespass.attacktree;
 
 		const attacktrees = props.attacktrees
-			.map((tree) => {
-				const { utility } = tree[attrKey];
-				const leafNodes = trespass.attacktree.findLeafNodes(tree[childElemName]);
+			.map((attacktree) => {
+				const { utility } = attacktree[attrKey];
+				const leafNodes = trespass.attacktree.findLeafNodes(attacktree[childElemName]);
 
 				// total cost is sum of all leaf node costs
 				const totalCost = leafNodes
@@ -36,7 +36,7 @@ export default class ATAVisualization extends React.Component {
 					}, 0);
 
 				return {
-					tree,
+					attacktree,
 					utility,
 					totalCost,
 					isProfitable: (totalCost < utility),
@@ -57,7 +57,7 @@ export default class ATAVisualization extends React.Component {
 			attacktrees
 		);
 
-		return <div>
+		return <div className='ataVisualization'>
 			<table>
 				<thead>
 					<tr>
@@ -69,16 +69,16 @@ export default class ATAVisualization extends React.Component {
 				</thead>
 				<tbody>
 					{sorted
-						.map((at, index) => {
+						.map((result, index) => {
 							return <tr
 								key={index}
-								onMouseEnter={R.partial(this.onHover, [at])}
-								onClick={R.partial(this.onSelect, [at])}
+								onMouseEnter={R.partial(this.onHover, [result])}
+								onClick={R.partial(this.onSelect, [result])}
 							>
-								<td>{at.utility}</td>
-								<td>{at.totalCost}</td>
-								<td>{at.profit.toFixed(2)}</td>
-								<td>{at.isProfitable ? 'yes' : 'no'}</td>
+								<td>{result.utility}</td>
+								<td>{result.totalCost}</td>
+								<td>{result.profit.toFixed(2)}</td>
+								<td>{result.isProfitable ? 'yes' : 'no'}</td>
 							</tr>;
 						})
 					}
