@@ -40,7 +40,8 @@
     "d3-zoom": "^1.0.1",
     "ramda": "^0.21.0",
     "react": "^15.1.0",
-    "react-dom": "^15.1.0"
+    "react-dom": "^15.1.0",
+    "trespass.js": "^0.11.1"
   },
   "ava": {
     "require": [
