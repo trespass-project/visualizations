@@ -31,6 +31,7 @@
     "react-addons-test-utils": "^15.1.0"
   },
   "dependencies": {
+    "chroma-js": "^1.2.1",
     "class-autobind": "^0.1.2",
     "d3-axis": "^1.0.0",
     "d3-ease": "^1.0.0",
