@@ -17,8 +17,9 @@
     "ava": "^0.15.2",
     "babel-core": "^6.7.2",
     "babel-eslint": "^6.0.0-beta.6",
-    "babel-preset-es2015-native-modules": "^6.6.0",
-    "babel-preset-react": "^6.5.0",
+    "babel-preset-es2015-native-modules": "^6.9.2",
+    "babel-preset-react": "^6.11.1",
+    "babel-preset-react-hmre": "^1.1.1",
     "enzyme": "^2.3.0",
     "eslint": "^2.4.0",
     "eslint-config-airbnb": "^9.0.1",
@@ -41,7 +42,7 @@
     "ramda": "^0.21.0",
     "react": "^15.1.0",
     "react-dom": "^15.1.0",
-    "trespass.js": "^0.11.1"
+    "trespass.js": "^0.15.0"
   },
   "ava": {
     "require": [
