@@ -22,8 +22,12 @@ export default class AnalysisResults extends React.Component {
 		};
 	}
 
-	selectATAResult(result) {
-		this.setState({ attacktree: result.attacktree });
+	selectATAResult(result, index) {
+		this.setState({
+			attacktree: result.attacktree,
+			selectedTool: 'ata',
+			selectedIndex: index,
+		});
 	}
 
 	render() {
@@ -40,6 +44,10 @@ export default class AnalysisResults extends React.Component {
 						attacktrees={props.parsedATAResults}
 						profit={profit}
 						onSelect={this.selectATAResult}
+						selectedIndex={(state.selectedTool === 'ata')
+							? state.selectedIndex
+							: undefined
+						}
 					/>
 					{/*onHover*/}
 				</div>
@@ -51,6 +59,10 @@ export default class AnalysisResults extends React.Component {
 					<ATEvaluatorResults
 						data={props.parsedATEResults}
 						profit={profit}
+						selectedIndex={(state.selectedTool === 'ate')
+							? state.selectedIndex
+							: undefined
+						}
 					/>
 				</div>
 			</div>
