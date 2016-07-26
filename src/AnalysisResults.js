@@ -2,8 +2,8 @@ import React from 'react';
 import autobind from 'class-autobind';
 
 import AttacktreeVisualization from './AttacktreeVisualization.js';
-import ATAVisualization from './ATAVisualization.js';
-import ATEVisualization from './ATEVisualization.js';
+import ATAnalyzerResults from './ATAnalyzerResults.js';
+import ATEvaluatorResults from './ATEvaluatorResults.js';
 
 
 export default class AnalysisResults extends React.Component {
@@ -28,7 +28,7 @@ export default class AnalysisResults extends React.Component {
 			<div className='tools'>
 				<div className='ataContainer'>
 					<div>attack tree analyzer</div>
-					<ATAVisualization
+					<ATAnalyzerResults
 						attacktrees={props.parsedATAResults}
 						onSelect={this.selectATAResult}
 					/>
@@ -39,7 +39,7 @@ export default class AnalysisResults extends React.Component {
 
 				<div className='ateContainer'>
 					<div>attack tree evaluator</div>
-					<ATEVisualization
+					<ATEvaluatorResults
 						data={props.parsedATEResults}
 					/>
 				</div>

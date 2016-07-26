@@ -2,6 +2,7 @@ nodeModulesDir = ./node_modules
 npmBinDir = $(nodeModulesDir)/.bin
 jsSourceDir = ./src
 testsDir = ./tests
+docsDir = ./docs
 buildDir = ./dist
 babelOptions = --source-maps -d $(buildDir) $(jsSourceDir)
 
