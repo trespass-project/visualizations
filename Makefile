@@ -2,8 +2,15 @@ nodeModulesDir = ./node_modules
 npmBinDir = $(nodeModulesDir)/.bin
 jsSourceDir = ./src
 testsDir = ./tests
+docsDir = ./docs
 buildDir = ./dist
 babelOptions = --source-maps -d $(buildDir) $(jsSourceDir)
+
+
+.PHONY: docs
+docs:
+	rm -rf $(docsDir)
+	$(npmBinDir)/jsdoc -c ./jsdoc.json --destination $(docsDir) --readme ./readme.md $(jsSourceDir)/*
 
 
 .PHONY: test

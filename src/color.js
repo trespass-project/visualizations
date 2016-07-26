@@ -1,3 +1,7 @@
+/**
+ * @module visualizations/color
+ */
+
 const R = require('ramda');
 const chroma = require('chroma-js');
 import { rgb, lab } from 'd3-color';
@@ -6,6 +10,15 @@ import { interpolateLab } from 'd3-interpolate';
 
 
 const createColorScale =
+/**
+ * creates a new d3 color scale.
+ *
+ * @param {Array} colors - list of colors to interpolate between
+ * @param {Array} ts - list of `t`s [0..1]. can be used to shift colors left / right.
+ * @param {Function} interpolationMethod - d3 interpolation method
+ * @param {Array} domain - the domain (input range) of the scale
+ * @returns {Function} color scale function
+ */
 module.exports.createColorScale =
 function createColorScale(colors, ts, interpolationMethod=interpolateLab, domain) {
 	const domainScale = scaleLinear()
@@ -20,6 +33,14 @@ function createColorScale(colors, ts, interpolationMethod=interpolateLab, domain
 
 
 const photoshopHSBtoRGB =
+/**
+ * converts photoshop hsb values to rgb
+ *
+ * @param {Number} h - hue
+ * @param {Number} s - saturation
+ * @param {Number} b - brightness
+ * @returns {Array} rgb values
+ */
 module.exports.photoshopHSBtoRGB =
 function photoshopHSBtoRGB(h, s, b) {
 	return chroma
@@ -49,6 +70,13 @@ const _colorScales = {
 };
 
 const colorScales =
+/**
+ * color scales by category:
+ * - `physical`
+ * - `virtual`
+ *
+ * @type {Object}
+ */
 module.exports.colorScales = R.toPairs(_colorScales)
 	.reduce((acc, s) => {
 		const name = s[0];

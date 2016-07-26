@@ -1,3 +1,9 @@
+/**
+ * attack tree visualization
+ *
+ * @module visualizations/components/AttacktreeVisualization
+ */
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import autobind from 'class-autobind';
