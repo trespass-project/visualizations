@@ -1,3 +1,4 @@
+const R = require('ramda');
 const chroma = require('chroma-js');
 import { rgb, lab } from 'd3-color';
 import { scaleLinear } from 'd3-scale';
@@ -6,14 +7,14 @@ import { interpolateLab } from 'd3-interpolate';
 
 const createColorScale =
 module.exports.createColorScale =
-function createColorScale(colors, ts, domain, interpolationMethod=interpolateLab) {
+function createColorScale(colors, ts, interpolationMethod=interpolateLab, domain) {
 	const domainScale = scaleLinear()
-		.range([0, 1])
-		.domain(domain);
-	const d = ts.map(domainScale);
+		.domain([R.head(ts), R.last(ts)])
+		.range(domain);
+	const scaledDomain = ts.map(domainScale);
 	return scaleLinear()
+		.domain(scaledDomain)
 		.range(colors)
-		.domain(d)
 		.interpolate(interpolationMethod);
 };
 
@@ -27,8 +28,7 @@ function photoshopHSBtoRGB(h, s, b) {
 };
 
 
-const colorScales =
-module.exports.colorScales = {
+const _colorScales = {
 	physical: {
 		values: [
 			lab(91, -1, 63),
@@ -47,3 +47,12 @@ module.exports.colorScales = {
 		ts: [0, 0.45, 1],
 	},
 };
+
+const colorScales =
+module.exports.colorScales = R.toPairs(_colorScales)
+	.reduce((acc, s) => {
+		const name = s[0];
+		const data = s[1];
+		acc[name] = R.partial(createColorScale, [data.values, data.ts, interpolateLab]);
+		return acc;
+	}, _colorScales);
