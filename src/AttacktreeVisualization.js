@@ -36,15 +36,17 @@ function pathifyBezier(p1, c1, c2, p2) {
 	].join(' ');
 }
 
-function diagonalBezier(p1, p2) {
+function diagonalBezier(p1, p2, dir) {
 	const distX = (p2.x - p1.x);
 	const distY = (p2.y - p1.y);
-	if (Math.abs(distX) <= Math.abs(distY)) {
+	if (dir === 'vertical'
+		|| (Math.abs(distX) <= Math.abs(distY))) {
 		const m = p1.y + (distY / 2);
 		const c1 = { x: p1.x, y: m };
 		const c2 = { x: p2.x, y: m };
 		return { p1, c1, c2, p2 };
-	} else {
+	} else if (dir === 'horizontal'
+		|| (Math.abs(distX) >= Math.abs(distY))) {
 		const m = p1.x + (distX / 2);
 		const c1 = { x: m, y: p1.y };
 		const c2 = { x: m, y: p2.y };
@@ -65,7 +67,8 @@ const layouts = {
 		edgePath: (x1, y1, x2, y2) => {
 			const { p1, c1, c2, p2 } = diagonalBezier(
 				{ x: x1, y: y1 },
-				{ x: x2, y: y2 }
+				{ x: x2, y: y2 },
+				'vertical'
 			);
 			return pathifyBezier(p1, c1, c2, p2);
 		},
@@ -87,7 +90,8 @@ const layouts = {
 		edgePath: (x1, y1, x2, y2) => {
 			const { p1, c1, c2, p2 } = diagonalBezier(
 				{ x: x1, y: y1 },
-				{ x: x2, y: y2 }
+				{ x: x2, y: y2 },
+				'horizontal'
 			);
 			return pathifyBezier(p1, c1, c2, p2);
 		},
