@@ -1,3 +1,9 @@
+/**
+ * attack tree evaluator results
+ *
+ * @module visualizations/components/ATEvaluatorResults
+ */
+
 import React from 'react';
 import autobind from 'class-autobind';
 const R = require('ramda');

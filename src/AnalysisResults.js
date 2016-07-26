@@ -1,3 +1,9 @@
+/**
+ * a dashboard to display analysis results from different tools
+ *
+ * @module visualizations/components/AnalysisResults
+ */
+
 import React from 'react';
 import autobind from 'class-autobind';
 

@@ -1,3 +1,9 @@
+/**
+ * test component to visualize a color scale
+ *
+ * @module visualizations/components/ColorScale
+ */
+
 import React, { Component } from 'react';
 import autobind from 'class-autobind';
 const _ = require('lodash');

@@ -1,3 +1,7 @@
+/**
+ * @module visualizations/color
+ */
+
 const R = require('ramda');
 const chroma = require('chroma-js');
 import { rgb, lab } from 'd3-color';
