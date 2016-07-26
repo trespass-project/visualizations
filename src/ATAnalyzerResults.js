@@ -21,45 +21,37 @@ export default class ATAnalyzerResults extends React.Component {
 		this.props.onHover(item);
 	}
 
-	onSelect(item, event) {
-		event.preventDefault();
-		this.props.onSelect(item);
+	onSelect(item, index, event) {
+		if (event) { event.preventDefault(); }
+		this.props.onSelect(item, index);
+	}
+
+	renderRow(result, index) {
+		return <tr
+			key={index}
+			style={{ background: (this.props.selectedIndex === index) ? 'grey' : undefined }}
+			onMouseEnter={R.partial(this.onHover, [result])}
+			onClick={R.partial(this.onSelect, [result, index])}
+		>
+			<td>{result.utility}</td>
+		</tr>;
 	}
 
 	render() {
 		const props = this.props;
-		const { parameterElemName, childElemName, attrKey } = trespass.attacktree;
+		const { attrKey } = trespass.attacktree;
 
 		const attacktrees = props.attacktrees
 			.map((attacktree) => {
 				const { utility } = attacktree[attrKey];
-				const leafNodes = trespass.attacktree.findLeafNodes(attacktree[childElemName]);
-
-				// total cost is sum of all leaf node costs
-				const totalCost = leafNodes
-					.reduce((sum, node) => {
-						return sum + node[parameterElemName].cost.value;
-					}, 0);
-
 				return {
 					attacktree,
 					utility,
-					totalCost,
-					isProfitable: (totalCost < utility),
-					profit: (utility - totalCost)
 				};
 			});
 
 		const sorted = R.sort(
-			(a, b) => {
-				if (a.isProfitable && !b.isProfitable) {
-					return -1;
-				} else if (!a.isProfitable && b.isProfitable) {
-					return 1;
-				} else {
-					return b.profit - a.profit;
-				}
-			},
+			(a, b) => (b.utility - a.utility),
 			attacktrees
 		);
 
@@ -68,26 +60,10 @@ export default class ATAnalyzerResults extends React.Component {
 				<thead>
 					<tr>
 						<td>Utility</td>
-						<td>Total cost</td>
-						<td>Profit</td>
-						<td>Profitable?</td>
 					</tr>
 				</thead>
 				<tbody>
-					{sorted
-						.map((result, index) => {
-							return <tr
-								key={index}
-								onMouseEnter={R.partial(this.onHover, [result])}
-								onClick={R.partial(this.onSelect, [result])}
-							>
-								<td>{result.utility}</td>
-								<td>{result.totalCost}</td>
-								<td>{result.profit.toFixed(2)}</td>
-								<td>{result.isProfitable ? 'yes' : 'no'}</td>
-							</tr>;
-						})
-					}
+					{sorted.map(this.renderRow)}
 				</tbody>
 			</table>
 		</div>;
@@ -98,6 +74,7 @@ ATAnalyzerResults.propTypes = {
 	attacktrees: React.PropTypes.array.isRequired,
 	onHover: React.PropTypes.func,
 	onSelect: React.PropTypes.func,
+	selectedIndex: React.PropTypes.number,
 };
 
 ATAnalyzerResults.defaultProps = {

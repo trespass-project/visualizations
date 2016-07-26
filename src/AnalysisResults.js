@@ -6,7 +6,7 @@
 
 import React from 'react';
 import autobind from 'class-autobind';
-
+const trespass = require('trespass.js');
 import AttacktreeVisualization from './AttacktreeVisualization.js';
 import ATAnalyzerResults from './ATAnalyzerResults.js';
 import ATEvaluatorResults from './ATEvaluatorResults.js';
@@ -22,8 +22,31 @@ export default class AnalysisResults extends React.Component {
 		};
 	}
 
-	selectATAResult(result) {
-		this.setState({ attacktree: result.attacktree });
+	selectATAResult(result, index) {
+		this.setState({
+			attacktree: result.attacktree,
+			selectedTool: 'ata',
+			selectedIndex: index,
+		});
+	}
+
+	selectATEResult(result, index) {
+		const props = this.props;
+
+		this.setState({
+			selectedTool: 'ate',
+			selectedIndex: index,
+		});
+
+		if (props.aplAttacktree) {
+			const subtree = trespass.attacktree.subtreeFromLeafLabels(
+				trespass.attacktree.getRootNode(props.aplAttacktree),
+				result.labels
+			);
+			this.setState({
+				attacktree: subtree,
+			});
+		}
 	}
 
 	render() {
@@ -36,7 +59,12 @@ export default class AnalysisResults extends React.Component {
 					<div>attack tree analyzer</div>
 					<ATAnalyzerResults
 						attacktrees={props.parsedATAResults}
+						profit={props.profit}
 						onSelect={this.selectATAResult}
+						selectedIndex={(state.selectedTool === 'ata')
+							? state.selectedIndex
+							: undefined
+						}
 					/>
 					{/*onHover*/}
 				</div>
@@ -47,6 +75,12 @@ export default class AnalysisResults extends React.Component {
 					<div>attack tree evaluator</div>
 					<ATEvaluatorResults
 						data={props.parsedATEResults}
+						profit={props.profit}
+						onSelect={this.selectATEResult}
+						selectedIndex={(state.selectedTool === 'ate')
+							? state.selectedIndex
+							: undefined
+						}
 					/>
 				</div>
 			</div>
@@ -64,6 +98,8 @@ export default class AnalysisResults extends React.Component {
 AnalysisResults.propTypes = {
 	parsedATAResults: React.PropTypes.array,
 	parsedATEResults: React.PropTypes.array,
+	aplAttacktree: React.PropTypes.object,
+	profit: React.PropTypes.number, // attacker gain
 };
 
 AnalysisResults.defaultProps = {

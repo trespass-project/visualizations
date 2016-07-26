@@ -14,6 +14,11 @@ import ateVis from './visualizations/ate.js';
 const sortByProbability = R.sortBy(R.prop('probability'));
 
 
+function isProfitable(profit, item) {
+	return profit > item.cost;
+}
+
+
 export default class ATEvaluatorResults extends React.Component {
 	constructor(props) {
 		super(props);
@@ -25,9 +30,20 @@ export default class ATEvaluatorResults extends React.Component {
 		this.props.onHover(item);
 	}
 
-	onSelect(item, event) {
-		event.preventDefault();
-		this.props.onSelect(item);
+	onSelect(item, index, event) {
+		if (event) { event.preventDefault(); }
+		this.props.onSelect(item, index);
+	}
+
+	renderRow(item, index) {
+		return <tr
+			key={index}
+			onMouseEnter={R.partial(this.onHover, [item])}
+			onClick={R.partial(this.onSelect, [item, index])}
+		>
+			<td>{item.probability}</td>
+			<td>{item.cost}</td>
+		</tr>;
 	}
 
 	renderTable(data) {
@@ -39,37 +55,38 @@ export default class ATEvaluatorResults extends React.Component {
 				</tr>
 			</thead>
 			<tbody>
-				{data
-					.map((item, index) => {
-						return <tr
-							key={index}
-							onMouseEnter={R.partial(this.onHover, [item])}
-							onClick={R.partial(this.onSelect, [item])}
-						>
-							<td>{item.probability}</td>
-							<td>{item.cost}</td>
-						</tr>;
-					})
-				}
+				{data.map(this.renderRow)}
 			</tbody>
 		</table>;
 	}
 
 	render() {
 		const props = this.props;
-
-		// TODO: can we say something about profitability here, too?
-
 		const sorted = sortByProbability(props.data)
+			.map((item) => {
+				if (props.profit) {
+					return Object.assign(
+						{},
+						item,
+						{ profitable: isProfitable(props.profit, item) }
+					);
+				}
+				return item;
+			})
 			.reverse();
+		const data = {
+			results: sorted,
+			profit: props.profit,
+		};
 
 		return <div className='ateVisualization' style={{ width: '100%' }}>
 			<div style={{ height: props.height || '100%', width: props.width || '100%' }}>
 				<Visualization
 					visualization={ateVis}
-					data={sorted}
+					data={data}
 					width={props.width}
 					height={props.height}
+					onSelect={this.onSelect}
 				/>
 			</div>
 			{(props.showTable)
@@ -82,6 +99,7 @@ export default class ATEvaluatorResults extends React.Component {
 
 ATEvaluatorResults.propTypes = {
 	data: React.PropTypes.array,
+	profit: React.PropTypes.number,
 	height: React.PropTypes.number,
 	width: React.PropTypes.number,
 	showTable: React.PropTypes.bool,
