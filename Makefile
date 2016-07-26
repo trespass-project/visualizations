@@ -6,6 +6,12 @@ buildDir = ./dist
 babelOptions = --source-maps -d $(buildDir) $(jsSourceDir)
 
 
+.PHONY: docs
+docs:
+	rm -rf $(docsDir)
+	$(npmBinDir)/jsdoc -c ./jsdoc.json --destination $(docsDir) --readme ./readme.md $(jsSourceDir)/*
+
+
 .PHONY: test
 test:
 	$(npmBinDir)/ava $(testsDir)
