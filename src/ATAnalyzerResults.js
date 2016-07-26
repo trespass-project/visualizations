@@ -4,7 +4,7 @@ const R = require('ramda');
 const trespass = require('trespass.js');
 
 
-export default class ATAVisualization extends React.Component {
+export default class ATAnalyzerResults extends React.Component {
 	constructor(props) {
 		super(props);
 		autobind(this);
@@ -88,13 +88,13 @@ export default class ATAVisualization extends React.Component {
 	}
 }
 
-ATAVisualization.propTypes = {
+ATAnalyzerResults.propTypes = {
 	attacktrees: React.PropTypes.array.isRequired,
 	onHover: React.PropTypes.func,
 	onSelect: React.PropTypes.func,
 };
 
-ATAVisualization.defaultProps = {
+ATAnalyzerResults.defaultProps = {
 	attacktrees: [],
 	onHover: () => {},
 	onSelect: () => {},

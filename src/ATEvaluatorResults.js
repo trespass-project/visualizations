@@ -8,7 +8,7 @@ import ateVis from './visualizations/ate.js';
 const sortByProbability = R.sortBy(R.prop('probability'));
 
 
-export default class ATEVisualization extends React.Component {
+export default class ATEvaluatorResults extends React.Component {
 	constructor(props) {
 		super(props);
 		autobind(this);
@@ -74,7 +74,7 @@ export default class ATEVisualization extends React.Component {
 	}
 }
 
-ATEVisualization.propTypes = {
+ATEvaluatorResults.propTypes = {
 	data: React.PropTypes.array,
 	height: React.PropTypes.number,
 	width: React.PropTypes.number,
@@ -83,7 +83,7 @@ ATEVisualization.propTypes = {
 	onSelect: React.PropTypes.func,
 };
 
-ATEVisualization.defaultProps = {
+ATEvaluatorResults.defaultProps = {
 	data: [],
 	height: 400,
 	width: 0,
