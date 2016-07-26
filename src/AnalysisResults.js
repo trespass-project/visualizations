@@ -30,6 +30,14 @@ export default class AnalysisResults extends React.Component {
 		});
 	}
 
+	selectATEResult(result, index) {
+		this.setState({
+			attacktree: undefined, // TODO: implement
+			selectedTool: 'ate',
+			selectedIndex: index,
+		});
+	}
+
 	render() {
 		const props = this.props;
 		const state = this.state;
