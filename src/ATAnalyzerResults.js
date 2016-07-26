@@ -21,9 +21,20 @@ export default class ATAnalyzerResults extends React.Component {
 		this.props.onHover(item);
 	}
 
-	onSelect(item, event) {
+	onSelect(item, index, event) {
 		event.preventDefault();
-		this.props.onSelect(item);
+		this.props.onSelect(item, index);
+	}
+
+	renderRow(result, index) {
+		return <tr
+			key={index}
+			style={{ background: (this.props.selectedIndex === index) ? 'grey' : undefined }}
+			onMouseEnter={R.partial(this.onHover, [result])}
+			onClick={R.partial(this.onSelect, [result, index])}
+		>
+			<td>{result.utility}</td>
+		</tr>;
 	}
 
 	render() {
@@ -52,17 +63,7 @@ export default class ATAnalyzerResults extends React.Component {
 					</tr>
 				</thead>
 				<tbody>
-					{sorted
-						.map((result, index) => {
-							return <tr
-								key={index}
-								onMouseEnter={R.partial(this.onHover, [result])}
-								onClick={R.partial(this.onSelect, [result])}
-							>
-								<td>{result.utility}</td>
-							</tr>;
-						})
-					}
+					{sorted.map(this.renderRow)}
 				</tbody>
 			</table>
 		</div>;
@@ -73,6 +74,7 @@ ATAnalyzerResults.propTypes = {
 	attacktrees: React.PropTypes.array.isRequired,
 	onHover: React.PropTypes.func,
 	onSelect: React.PropTypes.func,
+	selectedIndex: React.PropTypes.number,
 };
 
 ATAnalyzerResults.defaultProps = {
