@@ -10,6 +10,7 @@ import autobind from 'class-autobind';
 import {
 	hierarchy as d3Hierarchy,
 	tree as d3Tree
+	// cluster as d3Tree
 } from 'd3-hierarchy';
 import { zoom as d3Zoom } from 'd3-zoom';
 import {
@@ -258,7 +259,8 @@ export default class AttacktreeVisualization extends React.Component {
 		}
 
 		const tree = d3Tree()
-			.nodeSize([100, 100]);
+			.nodeSize([100, 100])
+			.separation((a, b) => 1);
 		tree(hierarchy);
 		const descendants = hierarchy.descendants();
 
