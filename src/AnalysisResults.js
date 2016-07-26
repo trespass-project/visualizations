@@ -6,7 +6,7 @@
 
 import React from 'react';
 import autobind from 'class-autobind';
-
+const trespass = require('trespass.js');
 import AttacktreeVisualization from './AttacktreeVisualization.js';
 import ATAnalyzerResults from './ATAnalyzerResults.js';
 import ATEvaluatorResults from './ATEvaluatorResults.js';
@@ -31,18 +31,27 @@ export default class AnalysisResults extends React.Component {
 	}
 
 	selectATEResult(result, index) {
+		const props = this.props;
+
 		this.setState({
-			attacktree: undefined, // TODO: implement
 			selectedTool: 'ate',
 			selectedIndex: index,
 		});
+
+		if (props.aplAttacktree) {
+			const subtree = trespass.attacktree.subtreeFromLeafLabels(
+				trespass.attacktree.getRootNode(props.aplAttacktree),
+				result.labels
+			);
+			this.setState({
+				attacktree: subtree,
+			});
+		}
 	}
 
 	render() {
 		const props = this.props;
 		const state = this.state;
-
-		const profit = props.profit || 20000;
 
 		return <div className='analysisResults'>
 			<div className='tools'>
@@ -50,7 +59,7 @@ export default class AnalysisResults extends React.Component {
 					<div>attack tree analyzer</div>
 					<ATAnalyzerResults
 						attacktrees={props.parsedATAResults}
-						profit={profit}
+						profit={props.profit}
 						onSelect={this.selectATAResult}
 						selectedIndex={(state.selectedTool === 'ata')
 							? state.selectedIndex
@@ -66,7 +75,8 @@ export default class AnalysisResults extends React.Component {
 					<div>attack tree evaluator</div>
 					<ATEvaluatorResults
 						data={props.parsedATEResults}
-						profit={profit}
+						profit={props.profit}
+						onSelect={this.selectATEResult}
 						selectedIndex={(state.selectedTool === 'ate')
 							? state.selectedIndex
 							: undefined
@@ -88,6 +98,7 @@ export default class AnalysisResults extends React.Component {
 AnalysisResults.propTypes = {
 	parsedATAResults: React.PropTypes.array,
 	parsedATEResults: React.PropTypes.array,
+	aplAttacktree: React.PropTypes.object,
 	profit: React.PropTypes.number, // attacker gain
 };
 

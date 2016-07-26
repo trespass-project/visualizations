@@ -154,6 +154,9 @@ visualization.update = (elem, props, _data) => {
 			.attr('class', 'node')
 			.attr('cx', (d) => xScale(d.probability))
 			.attr('cy', (d) => yScale(d.cost))
+			.on('click', (d, i) => {
+				(props.onSelect || (() => {}))(d, i);
+			})
 			.call(styleNode);
 };
 

@@ -30,9 +30,20 @@ export default class ATEvaluatorResults extends React.Component {
 		this.props.onHover(item);
 	}
 
-	onSelect(item, event) {
-		event.preventDefault();
-		this.props.onSelect(item);
+	onSelect(item, index, event) {
+		if (event) { event.preventDefault(); }
+		this.props.onSelect(item, index);
+	}
+
+	renderRow(item, index) {
+		return <tr
+			key={index}
+			onMouseEnter={R.partial(this.onHover, [item])}
+			onClick={R.partial(this.onSelect, [item, index])}
+		>
+			<td>{item.probability}</td>
+			<td>{item.cost}</td>
+		</tr>;
 	}
 
 	renderTable(data) {
@@ -44,18 +55,7 @@ export default class ATEvaluatorResults extends React.Component {
 				</tr>
 			</thead>
 			<tbody>
-				{data
-					.map((item, index) => {
-						return <tr
-							key={index}
-							onMouseEnter={R.partial(this.onHover, [item])}
-							onClick={R.partial(this.onSelect, [item])}
-						>
-							<td>{item.probability}</td>
-							<td>{item.cost}</td>
-						</tr>;
-					})
-				}
+				{data.map(this.renderRow)}
 			</tbody>
 		</table>;
 	}
@@ -86,6 +86,7 @@ export default class ATEvaluatorResults extends React.Component {
 					data={data}
 					width={props.width}
 					height={props.height}
+					onSelect={this.onSelect}
 				/>
 			</div>
 			{(props.showTable)
