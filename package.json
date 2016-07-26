@@ -9,6 +9,7 @@
     "start": "make start",
     "build": "make build",
     "prepublish": "npm run build",
+    "docs": "make docs",
     "lint": "make lint",
     "test": "make test",
     "test-watch": "make test-watch"
@@ -27,6 +28,7 @@
     "eslint-plugin-jsx-a11y": "^1.3.0",
     "eslint-plugin-react": "^5.1.1",
     "jquery": "^3.0.0",
+    "jsdoc": "^3.4.0",
     "jsdom": "^9.2.1",
     "react-addons-test-utils": "^15.1.0"
   },
