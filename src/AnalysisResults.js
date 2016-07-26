@@ -30,12 +30,15 @@ export default class AnalysisResults extends React.Component {
 		const props = this.props;
 		const state = this.state;
 
+		const profit = props.profit || 20000;
+
 		return <div className='analysisResults'>
 			<div className='tools'>
 				<div className='ataContainer'>
 					<div>attack tree analyzer</div>
 					<ATAnalyzerResults
 						attacktrees={props.parsedATAResults}
+						profit={profit}
 						onSelect={this.selectATAResult}
 					/>
 					{/*onHover*/}
@@ -47,7 +50,7 @@ export default class AnalysisResults extends React.Component {
 					<div>attack tree evaluator</div>
 					<ATEvaluatorResults
 						data={props.parsedATEResults}
-						profit={props.profit || 20000}
+						profit={profit}
 					/>
 				</div>
 			</div>
