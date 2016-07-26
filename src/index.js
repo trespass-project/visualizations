@@ -1,17 +1,24 @@
 import AnalysisResults from './AnalysisResults.js';
 import AttacktreeVisualization from './AttacktreeVisualization.js';
-import ATAVisualization from './ATAVisualization.js';
-import ATEVisualization from './ATEVisualization.js';
-const color = require('./colors.js');
+import ATAnalyzerResults from './ATAnalyzerResults.js';
+import ATEvaluatorResults from './ATEvaluatorResults.js';
 const ColorScale = require('./ColorScale.js');
+const color = require('./color.js');
 
 
 module.exports = {
-	AnalysisResults,
-	AttacktreeVisualization,
-	ATAVisualization,
-	ATEVisualization,
+	components: {
+		// visualization components
+		AttacktreeVisualization,
+		ATAnalyzerResults,
+		ATEvaluatorResults,
+
+		// higher level compositions
+		AnalysisResults,
+
+		// for testing
+		ColorScale,
+	},
 
 	color,
-	ColorScale,
 };
