@@ -47,6 +47,7 @@ export default class AnalysisResults extends React.Component {
 					<div>attack tree evaluator</div>
 					<ATEvaluatorResults
 						data={props.parsedATEResults}
+						profit={props.profit || 20000}
 					/>
 				</div>
 			</div>
@@ -64,6 +65,7 @@ export default class AnalysisResults extends React.Component {
 AnalysisResults.propTypes = {
 	parsedATAResults: React.PropTypes.array,
 	parsedATEResults: React.PropTypes.array,
+	profit: React.PropTypes.number, // attacker gain
 };
 
 AnalysisResults.defaultProps = {

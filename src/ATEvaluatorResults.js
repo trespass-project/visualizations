@@ -14,6 +14,11 @@ import ateVis from './visualizations/ate.js';
 const sortByProbability = R.sortBy(R.prop('probability'));
 
 
+function isProfitable(profit, item) {
+	return profit > item.cost;
+}
+
+
 export default class ATEvaluatorResults extends React.Component {
 	constructor(props) {
 		super(props);
@@ -57,17 +62,28 @@ export default class ATEvaluatorResults extends React.Component {
 
 	render() {
 		const props = this.props;
-
-		// TODO: can we say something about profitability here, too?
-
 		const sorted = sortByProbability(props.data)
+			.map((item) => {
+				if (props.profit) {
+					return Object.assign(
+						{},
+						item,
+						{ profitable: isProfitable(props.profit, item) }
+					);
+				}
+				return item;
+			})
 			.reverse();
+		const data = {
+			results: sorted,
+			profit: props.profit,
+		};
 
 		return <div className='ateVisualization' style={{ width: '100%' }}>
 			<div style={{ height: props.height || '100%', width: props.width || '100%' }}>
 				<Visualization
 					visualization={ateVis}
-					data={sorted}
+					data={data}
 					width={props.width}
 					height={props.height}
 				/>
@@ -82,6 +98,7 @@ export default class ATEvaluatorResults extends React.Component {
 
 ATEvaluatorResults.propTypes = {
 	data: React.PropTypes.array,
+	profit: React.PropTypes.number,
 	height: React.PropTypes.number,
 	width: React.PropTypes.number,
 	showTable: React.PropTypes.bool,
