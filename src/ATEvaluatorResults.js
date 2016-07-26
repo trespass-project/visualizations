@@ -35,6 +35,17 @@ export default class ATEvaluatorResults extends React.Component {
 		this.props.onSelect(item);
 	}
 
+	renderRow(item, index) {
+		return <tr
+			key={index}
+			onMouseEnter={R.partial(this.onHover, [item])}
+			onClick={R.partial(this.onSelect, [item, index])}
+		>
+			<td>{item.probability}</td>
+			<td>{item.cost}</td>
+		</tr>;
+	}
+
 	renderTable(data) {
 		return <table>
 			<thead>
@@ -44,18 +55,7 @@ export default class ATEvaluatorResults extends React.Component {
 				</tr>
 			</thead>
 			<tbody>
-				{data
-					.map((item, index) => {
-						return <tr
-							key={index}
-							onMouseEnter={R.partial(this.onHover, [item])}
-							onClick={R.partial(this.onSelect, [item])}
-						>
-							<td>{item.probability}</td>
-							<td>{item.cost}</td>
-						</tr>;
-					})
-				}
+				{data.map(this.renderRow)}
 			</tbody>
 		</table>;
 	}
