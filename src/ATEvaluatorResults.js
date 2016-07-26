@@ -74,12 +74,16 @@ export default class ATEvaluatorResults extends React.Component {
 				return item;
 			})
 			.reverse();
+		const data = {
+			results: sorted,
+			profit: props.profit,
+		};
 
 		return <div className='ateVisualization' style={{ width: '100%' }}>
 			<div style={{ height: props.height || '100%', width: props.width || '100%' }}>
 				<Visualization
 					visualization={ateVis}
-					data={sorted}
+					data={data}
 					width={props.width}
 					height={props.height}
 				/>

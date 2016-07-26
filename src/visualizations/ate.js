@@ -67,6 +67,8 @@ visualization.update = (elem, props, _data) => {
 	const data = _data || props.data;
 	if (!data) { return; }
 
+	const { results, profit } = data;
+
 	const rootSelection = d3Select(elem);
 	const $rootSelection = $(elem);
 	const rootGroup = rootSelection.select('g.root');
@@ -87,7 +89,7 @@ visualization.update = (elem, props, _data) => {
 	const w = _w - (2 * paddingHorizontal);
 	const h = _h - (2 * paddingVertical);
 
-	const maxCost = data.reduce(
+	const maxCost = results.reduce(
 		(acc, item) => Math.max(acc, item.cost),
 		0
 	);
@@ -112,9 +114,23 @@ visualization.update = (elem, props, _data) => {
 		.call(yAxis);
 
 
+	// profitability threshold line
+	if (profit) {
+		rootGroup.select('.profitThreshold').remove();
+		rootGroup.append('line')
+			.attr('class', 'profitThreshold')
+			.attr('x1', xScale(0))
+			.attr('y1', yScale(profit))
+			.attr('x2', xScale(1))
+			.attr('y2', yScale(profit))
+			.style('stroke', 'green')
+			.style('stroke-width', 1);
+	}
+
+
 	const connectionData = R.zip(
-		R.init(data),
-		R.tail(data)
+		R.init(results),
+		R.tail(results)
 	);
 
 	const line = d3Line()
@@ -131,7 +147,7 @@ visualization.update = (elem, props, _data) => {
 
 
 	const node = rootGroup.selectAll('.node')
-		.data(data);
+		.data(results);
 
 	node.enter()
 		.append('circle')
