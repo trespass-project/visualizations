@@ -30,9 +30,9 @@ export default class ATEvaluatorResults extends React.Component {
 		this.props.onHover(item);
 	}
 
-	onSelect(item, event) {
-		event.preventDefault();
-		this.props.onSelect(item);
+	onSelect(item, index, event) {
+		if (event) { event.preventDefault(); }
+		this.props.onSelect(item, index);
 	}
 
 	renderRow(item, index) {
@@ -86,6 +86,7 @@ export default class ATEvaluatorResults extends React.Component {
 					data={data}
 					width={props.width}
 					height={props.height}
+					onSelect={this.onSelect}
 				/>
 			</div>
 			{(props.showTable)

@@ -22,7 +22,7 @@ export default class ATAnalyzerResults extends React.Component {
 	}
 
 	onSelect(item, index, event) {
-		event.preventDefault();
+		if (event) { event.preventDefault(); }
 		this.props.onSelect(item, index);
 	}
 
