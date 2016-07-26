@@ -28,7 +28,7 @@ const visualization = {};
 function styleNode(node) {
 	return node
 		.attr('r', 5)
-		.style('fill', 'black')
+		.style('fill', (d) => ((d.profitable) ? 'green' : 'black'))
 		.style('stroke', 'none');
 }
 
