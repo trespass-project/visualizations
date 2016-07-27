@@ -26,46 +26,67 @@ export default class ATAnalyzerResults extends React.Component {
 		this.props.onSelect(item, index);
 	}
 
-	renderRow(result, index) {
-		return <tr
+	renderRow(result, index, maxUtility) {
+		const rowStyle = {
+			background: (this.props.selectedIndex === index)
+				? 'grey'
+				: undefined,
+			display: 'flex',
+			flexDirection: 'row',
+			borderTop: 'solid 1px black'
+		};
+		const utilityCellStyle = {
+			flex: 0,
+			borderRight: 'solid 1px black',
+			paddingRight: '0.2em',
+		};
+		const barCellStyle = {
+			flex: 1,
+		};
+		const barStyle = {
+			background: 'darkgrey',
+			width: `${((result.utility / maxUtility) * 100)}%`,
+			height: '100%',
+		};
+		return <div
 			key={index}
-			style={{ background: (this.props.selectedIndex === index) ? 'grey' : undefined }}
+			style={rowStyle}
 			onMouseEnter={R.partial(this.onHover, [result])}
 			onClick={R.partial(this.onSelect, [result, index])}
 		>
-			<td>{result.utility}</td>
-		</tr>;
+			<div style={utilityCellStyle}>{result.utility}</div>
+			<div style={barCellStyle}>
+				<div style={barStyle}></div>
+			</div>
+		</div>;
 	}
 
 	render() {
 		const props = this.props;
 		const { attrKey } = trespass.attacktree;
 
-		const attacktrees = props.attacktrees
+		const results = props.attacktrees
 			.map((attacktree) => {
 				const { utility } = attacktree[attrKey];
-				return {
-					attacktree,
-					utility,
-				};
+				return { attacktree, utility, };
 			});
 
-		const sorted = R.sort(
+		const maxUtility = R.reduce(
+			Math.max,
+			0,
+			results.map(R.prop('utility'))
+		);
+
+		const sortedResults = R.sort(
 			(a, b) => (b.utility - a.utility),
-			attacktrees
+			results
 		);
 
 		return <div className='ataVisualization'>
-			<table>
-				<thead>
-					<tr>
-						<td>Utility</td>
-					</tr>
-				</thead>
-				<tbody>
-					{sorted.map(this.renderRow)}
-				</tbody>
-			</table>
+			<div>
+				<div>Utility</div>
+				{sortedResults.map((result, index) => this.renderRow(result, index, maxUtility))}
+			</div>
 		</div>;
 	}
 }
