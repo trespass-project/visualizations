@@ -259,7 +259,7 @@ export default class AttacktreeVisualization extends React.Component {
 		}
 
 		const tree = d3Tree()
-			.nodeSize([100, 100])
+			.nodeSize([75, 100])
 			.separation((a, b) => 1);
 		tree(hierarchy);
 		const descendants = hierarchy.descendants();
