@@ -1,7 +1,5 @@
 # about
 
-*work in progress*
-
 modules:
 - `visualizations.components`: [react](https://facebook.github.io/react/) components for different visualizations:
 	- attack trees
@@ -10,6 +8,11 @@ modules:
 	- TODO: attop results
 - `visualizations.color`
 	- color scales
+
+
+## use
+
+don't forget to include `trespass-visualizations/dist/index.css`.
 
 
 ## documentation
