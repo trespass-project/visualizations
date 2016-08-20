@@ -6,6 +6,7 @@
 
 import React from 'react';
 import autobind from 'class-autobind';
+const classnames = require('classnames');
 const R = require('ramda');
 const trespass = require('trespass.js');
 
@@ -27,36 +28,24 @@ export default class ATAnalyzerResults extends React.Component {
 	}
 
 	renderRow(result, index, maxUtility) {
-		const rowStyle = {
-			background: (this.props.selectedIndex === index)
-				? 'grey'
-				: undefined,
-			display: 'flex',
-			flexDirection: 'row',
-			borderTop: 'solid 1px black'
-		};
-		const utilityCellStyle = {
-			flex: 0,
-			borderRight: 'solid 1px black',
-			paddingRight: '0.2em',
-		};
-		const barCellStyle = {
-			flex: 1,
-		};
+		const rowClasses = classnames(
+			'row',
+			{ selected: (this.props.selectedIndex === index) }
+		);
 		const barStyle = {
-			background: 'darkgrey',
 			width: `${((result.utility / maxUtility) * 100)}%`,
-			height: '100%',
 		};
 		return <div
 			key={index}
-			style={rowStyle}
+			className={rowClasses}
 			onMouseEnter={R.partial(this.onHover, [result])}
 			onClick={R.partial(this.onSelect, [result, index])}
 		>
-			<div style={utilityCellStyle}>{result.utility}</div>
-			<div style={barCellStyle}>
-				<div style={barStyle}></div>
+			<div className='utility-cell'>
+				{result.utility}
+			</div>
+			<div className='bar-cell'>
+				<div className='bar' style={barStyle} />
 			</div>
 		</div>;
 	}
@@ -82,7 +71,7 @@ export default class ATAnalyzerResults extends React.Component {
 			results
 		);
 
-		return <div className='ataVisualization'>
+		return <div className='ATAnalyzerResults'>
 			<div>
 				<div>Utility</div>
 				{sortedResults.map((result, index) => this.renderRow(result, index, maxUtility))}
