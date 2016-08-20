@@ -79,8 +79,13 @@ export default class ATEvaluatorResults extends React.Component {
 			profit: props.profit,
 		};
 
-		return <div className='ateVisualization' style={{ width: '100%' }}>
-			<div style={{ height: props.height || '100%', width: props.width || '100%' }}>
+		return <div className='ATEvaluatorResults'>
+			<div
+				style={{
+					height: props.height || '100%',
+					width: props.width || '100%'
+				}}
+			>
 				<Visualization
 					visualization={ateVis}
 					data={data}

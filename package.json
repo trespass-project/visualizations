@@ -1,6 +1,6 @@
 {
   "name": "trespass-visualizations",
-  "version": "0.10.1",
+  "version": "0.11.0",
   "description": "",
   "author": "freder.code@gmail.com",
   "private": "true",
@@ -27,6 +27,11 @@
     "eslint-plugin-import": "^1.9.2",
     "eslint-plugin-jsx-a11y": "^1.3.0",
     "eslint-plugin-react": "^5.1.1",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^3.1.1",
+    "gulp-babel": "^6.1.2",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-stylus": "^2.5.0",
     "jquery": "^3.0.0",
     "jsdoc": "^3.4.0",
     "jsdom": "^9.2.1",
@@ -35,6 +40,7 @@
   "dependencies": {
     "chroma-js": "^1.2.1",
     "class-autobind": "^0.1.2",
+    "classnames": "^2.2.5",
     "d3-axis": "^1.0.0",
     "d3-ease": "^1.0.0",
     "d3-hierarchy": "^1.0.0",
