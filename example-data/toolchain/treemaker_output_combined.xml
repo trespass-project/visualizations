@@ -1,0 +1,1839 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<adtree profit="5000" id="id-NJ-4Px_DwAl-model"  idsonly="true" >
+  <node refinement="conjunctive">
+    <label>get item entity_vim.VirtualMachine_vm-51 get fileX</label>
+    <node refinement="disjunctive">
+      <label>get  entity_vim.VirtualMachine_vm-51</label>
+      <node refinement="conjunctive">
+        <label>get item entity_vim.Datastore_datastore-41 get entity_vim.VirtualMachine_vm-51</label>
+        <node refinement="conjunctive">
+          <label>goto RoomDatacenter and get entity_vim.Datastore_datastore-41</label>
+          <node refinement="disjunctive">
+            <label>attacker cleo get ids for some policy at DoorDatacenter</label>
+            <node refinement="conjunctive">
+              <label>attacker cleo get all ids card pin</label>
+              <node refinement="disjunctive">
+                <label>get card</label>
+                <node refinement="disjunctive">
+                  <label>make some actor get card</label>
+                  <node refinement="disjunctive">
+                    <label>make terry get card</label>
+                    <node refinement="disjunctive">
+                      <label>MAKE cleo terry IN terry card sydney</label>
+                    </node>
+                  </node>
+                  <node refinement="disjunctive">
+                    <label>make big get card</label>
+                    <node refinement="disjunctive">
+                      <label>MAKE cleo big IN big card sydney</label>
+                    </node>
+                  </node>
+                  <node refinement="disjunctive">
+                    <label>make grey get card</label>
+                    <node refinement="disjunctive">
+                      <label>MAKE cleo grey IN grey card sydney</label>
+                    </node>
+                  </node>
+                  <node refinement="disjunctive">
+                    <label>make administrator get card</label>
+                    <node refinement="disjunctive">
+                      <label>MAKE cleo administrator IN administrator card sydney</label>
+                    </node>
+                  </node>
+                  <node refinement="disjunctive">
+                    <label>make administrators get card</label>
+                    <node refinement="disjunctive">
+                      <label>MAKE cleo administrators IN administrators card sydney</label>
+                    </node>
+                  </node>
+                  <node refinement="disjunctive">
+                    <label>make finn get card</label>
+                    <node refinement="disjunctive">
+                      <label>MAKE cleo finn IN finn card sydney</label>
+                    </node>
+                  </node>
+                  <node refinement="disjunctive">
+                    <label>make ethan get card</label>
+                    <node refinement="disjunctive">
+                      <label>MAKE cleo ethan IN ethan card sydney</label>
+                    </node>
+                  </node>
+                </node>
+                <node refinement="disjunctive">
+                  <label> IN cleo card sydney</label>
+                </node>
+              </node>
+              <node refinement="disjunctive">
+                <label>get pin</label>
+                <node refinement="disjunctive">
+                  <label>make some actor get pin</label>
+                  <node refinement="disjunctive">
+                    <label>make terry get pin</label>
+                    <node refinement="disjunctive">
+                      <label>attacker terry get data pin</label>
+                      <node refinement="conjunctive">
+                        <label>get item card and extract data pin</label>
+                        <node refinement="disjunctive">
+                          <label>MAKE cleo terry IN terry card sydney</label>
+                        </node>
+                        <node refinement="disjunctive">
+                          <label>MAKE cleo terry IN terry pin card</label>
+                        </node>
+                      </node>
+                      <node refinement="disjunctive">
+                        <label>MAKE cleo terry IN terry pin sydney</label>
+                      </node>
+                    </node>
+                  </node>
+                  <node refinement="disjunctive">
+                    <label>make big get pin</label>
+                    <node refinement="disjunctive">
+                      <label>attacker big get data pin</label>
+                      <node refinement="conjunctive">
+                        <label>get item card and extract data pin</label>
+                        <node refinement="disjunctive">
+                          <label>MAKE cleo big IN big card sydney</label>
+                        </node>
+                        <node refinement="disjunctive">
+                          <label>MAKE cleo big IN big pin card</label>
+                        </node>
+                      </node>
+                      <node refinement="disjunctive">
+                        <label>MAKE cleo big IN big pin sydney</label>
+                      </node>
+                    </node>
+                  </node>
+                  <node refinement="disjunctive">
+                    <label>make grey get pin</label>
+                    <node refinement="disjunctive">
+                      <label>attacker grey get data pin</label>
+                      <node refinement="conjunctive">
+                        <label>get item card and extract data pin</label>
+                        <node refinement="disjunctive">
+                          <label>MAKE cleo grey IN grey card sydney</label>
+                        </node>
+                        <node refinement="disjunctive">
+                          <label>MAKE cleo grey IN grey pin card</label>
+                        </node>
+                      </node>
+                      <node refinement="disjunctive">
+                        <label>MAKE cleo grey IN grey pin sydney</label>
+                      </node>
+                    </node>
+                  </node>
+                  <node refinement="disjunctive">
+                    <label>make administrator get pin</label>
+                    <node refinement="disjunctive">
+                      <label>attacker administrator get data pin</label>
+                      <node refinement="conjunctive">
+                        <label>get item card and extract data pin</label>
+                        <node refinement="disjunctive">
+                          <label>MAKE cleo administrator IN administrator card sydney</label>
+                        </node>
+                        <node refinement="disjunctive">
+                          <label>MAKE cleo administrator IN administrator pin card</label>
+                        </node>
+                      </node>
+                      <node refinement="disjunctive">
+                        <label>MAKE cleo administrator IN administrator pin sydney</label>
+                      </node>
+                    </node>
+                  </node>
+                  <node refinement="disjunctive">
+                    <label>make administrators get pin</label>
+                    <node refinement="disjunctive">
+                      <label>attacker administrators get data pin</label>
+                      <node refinement="conjunctive">
+                        <label>get item card and extract data pin</label>
+                        <node refinement="disjunctive">
+                          <label>MAKE cleo administrators IN administrators card sydney</label>
+                        </node>
+                        <node refinement="disjunctive">
+                          <label>MAKE cleo administrators IN administrators pin card</label>
+                        </node>
+                      </node>
+                      <node refinement="disjunctive">
+                        <label>MAKE cleo administrators IN administrators pin sydney</label>
+                      </node>
+                    </node>
+                  </node>
+                  <node refinement="disjunctive">
+                    <label>make finn get pin</label>
+                    <node refinement="disjunctive">
+                      <label>attacker finn get data pin</label>
+                      <node refinement="conjunctive">
+                        <label>get item card and extract data pin</label>
+                        <node refinement="disjunctive">
+                          <label>MAKE cleo finn IN finn card sydney</label>
+                        </node>
+                        <node refinement="disjunctive">
+                          <label>MAKE cleo finn IN finn pin card</label>
+                        </node>
+                      </node>
+                      <node refinement="disjunctive">
+                        <label>MAKE cleo finn IN finn pin sydney</label>
+                      </node>
+                    </node>
+                  </node>
+                  <node refinement="disjunctive">
+                    <label>make ethan get pin</label>
+                    <node refinement="disjunctive">
+                      <label>attacker ethan get data pin</label>
+                      <node refinement="conjunctive">
+                        <label>get item card and extract data pin</label>
+                        <node refinement="disjunctive">
+                          <label>MAKE cleo ethan IN ethan card sydney</label>
+                        </node>
+                        <node refinement="disjunctive">
+                          <label>MAKE cleo ethan IN ethan pin card</label>
+                        </node>
+                      </node>
+                      <node refinement="disjunctive">
+                        <label>MAKE cleo ethan IN ethan pin sydney</label>
+                      </node>
+                    </node>
+                  </node>
+                  <node refinement="disjunctive">
+                    <label>make sydney get pin</label>
+                    <node refinement="conjunctive">
+                      <label>get item card and extract data pin</label>
+                      <node refinement="disjunctive">
+                        <label>MAKE cleo sydney IN sydney pin card</label>
+                      </node>
+                    </node>
+                  </node>
+                </node>
+                <node refinement="disjunctive">
+                  <label>attacker cleo get data pin</label>
+                  <node refinement="conjunctive">
+                    <label>get item card and extract data pin</label>
+                    <node refinement="disjunctive">
+                      <label> IN cleo card sydney</label>
+                    </node>
+                    <node refinement="disjunctive">
+                      <label> IN cleo pin card</label>
+                    </node>
+                  </node>
+                  <node refinement="disjunctive">
+                    <label> IN cleo pin sydney</label>
+                  </node>
+                </node>
+              </node>
+            </node>
+            <node refinement="disjunctive">
+              <label> FORCE cleo DoorDatacenter</label>
+            </node>
+          </node>
+          <node refinement="disjunctive">
+            <label> IN cleo entity_vim.Datastore_datastore-41 RoomDatacenter</label>
+          </node>
+        </node>
+        <node refinement="disjunctive">
+          <label> IN cleo entity_vim.VirtualMachine_vm-51 entity_vim.Datastore_datastore-41</label>
+        </node>
+      </node>
+      <node refinement="conjunctive">
+        <label>get item entity_vim.Network_network-43 get entity_vim.VirtualMachine_vm-51</label>
+        <node refinement="conjunctive">
+          <label>goto RoomDatacenter and get entity_vim.Network_network-43</label>
+          <node refinement="disjunctive">
+            <label>attacker cleo get ids for some policy at DoorDatacenter</label>
+            <node refinement="conjunctive">
+              <label>attacker cleo get all ids card pin</label>
+              <node refinement="disjunctive">
+                <label>get card</label>
+                <node refinement="disjunctive">
+                  <label>make some actor get card</label>
+                  <node refinement="disjunctive">
+                    <label>make terry get card</label>
+                    <node refinement="disjunctive">
+                      <label>MAKE cleo terry IN terry card sydney</label>
+                    </node>
+                  </node>
+                  <node refinement="disjunctive">
+                    <label>make big get card</label>
+                    <node refinement="disjunctive">
+                      <label>MAKE cleo big IN big card sydney</label>
+                    </node>
+                  </node>
+                  <node refinement="disjunctive">
+                    <label>make grey get card</label>
+                    <node refinement="disjunctive">
+                      <label>MAKE cleo grey IN grey card sydney</label>
+                    </node>
+                  </node>
+                  <node refinement="disjunctive">
+                    <label>make administrator get card</label>
+                    <node refinement="disjunctive">
+                      <label>MAKE cleo administrator IN administrator card sydney</label>
+                    </node>
+                  </node>
+                  <node refinement="disjunctive">
+                    <label>make administrators get card</label>
+                    <node refinement="disjunctive">
+                      <label>MAKE cleo administrators IN administrators card sydney</label>
+                    </node>
+                  </node>
+                  <node refinement="disjunctive">
+                    <label>make finn get card</label>
+                    <node refinement="disjunctive">
+                      <label>MAKE cleo finn IN finn card sydney</label>
+                    </node>
+                  </node>
+                  <node refinement="disjunctive">
+                    <label>make ethan get card</label>
+                    <node refinement="disjunctive">
+                      <label>MAKE cleo ethan IN ethan card sydney</label>
+                    </node>
+                  </node>
+                </node>
+                <node refinement="disjunctive">
+                  <label> IN cleo card sydney</label>
+                </node>
+              </node>
+              <node refinement="disjunctive">
+                <label>get pin</label>
+                <node refinement="disjunctive">
+                  <label>make some actor get pin</label>
+                  <node refinement="disjunctive">
+                    <label>make terry get pin</label>
+                    <node refinement="disjunctive">
+                      <label>attacker terry get data pin</label>
+                      <node refinement="conjunctive">
+                        <label>get item card and extract data pin</label>
+                        <node refinement="disjunctive">
+                          <label>MAKE cleo terry IN terry card sydney</label>
+                        </node>
+                        <node refinement="disjunctive">
+                          <label>MAKE cleo terry IN terry pin card</label>
+                        </node>
+                      </node>
+                      <node refinement="disjunctive">
+                        <label>MAKE cleo terry IN terry pin sydney</label>
+                      </node>
+                    </node>
+                  </node>
+                  <node refinement="disjunctive">
+                    <label>make big get pin</label>
+                    <node refinement="disjunctive">
+                      <label>attacker big get data pin</label>
+                      <node refinement="conjunctive">
+                        <label>get item card and extract data pin</label>
+                        <node refinement="disjunctive">
+                          <label>MAKE cleo big IN big card sydney</label>
+                        </node>
+                        <node refinement="disjunctive">
+                          <label>MAKE cleo big IN big pin card</label>
+                        </node>
+                      </node>
+                      <node refinement="disjunctive">
+                        <label>MAKE cleo big IN big pin sydney</label>
+                      </node>
+                    </node>
+                  </node>
+                  <node refinement="disjunctive">
+                    <label>make grey get pin</label>
+                    <node refinement="disjunctive">
+                      <label>attacker grey get data pin</label>
+                      <node refinement="conjunctive">
+                        <label>get item card and extract data pin</label>
+                        <node refinement="disjunctive">
+                          <label>MAKE cleo grey IN grey card sydney</label>
+                        </node>
+                        <node refinement="disjunctive">
+                          <label>MAKE cleo grey IN grey pin card</label>
+                        </node>
+                      </node>
+                      <node refinement="disjunctive">
+                        <label>MAKE cleo grey IN grey pin sydney</label>
+                      </node>
+                    </node>
+                  </node>
+                  <node refinement="disjunctive">
+                    <label>make administrator get pin</label>
+                    <node refinement="disjunctive">
+                      <label>attacker administrator get data pin</label>
+                      <node refinement="conjunctive">
+                        <label>get item card and extract data pin</label>
+                        <node refinement="disjunctive">
+                          <label>MAKE cleo administrator IN administrator card sydney</label>
+                        </node>
+                        <node refinement="disjunctive">
+                          <label>MAKE cleo administrator IN administrator pin card</label>
+                        </node>
+                      </node>
+                      <node refinement="disjunctive">
+                        <label>MAKE cleo administrator IN administrator pin sydney</label>
+                      </node>
+                    </node>
+                  </node>
+                  <node refinement="disjunctive">
+                    <label>make administrators get pin</label>
+                    <node refinement="disjunctive">
+                      <label>attacker administrators get data pin</label>
+                      <node refinement="conjunctive">
+                        <label>get item card and extract data pin</label>
+                        <node refinement="disjunctive">
+                          <label>MAKE cleo administrators IN administrators card sydney</label>
+                        </node>
+                        <node refinement="disjunctive">
+                          <label>MAKE cleo administrators IN administrators pin card</label>
+                        </node>
+                      </node>
+                      <node refinement="disjunctive">
+                        <label>MAKE cleo administrators IN administrators pin sydney</label>
+                      </node>
+                    </node>
+                  </node>
+                  <node refinement="disjunctive">
+                    <label>make finn get pin</label>
+                    <node refinement="disjunctive">
+                      <label>attacker finn get data pin</label>
+                      <node refinement="conjunctive">
+                        <label>get item card and extract data pin</label>
+                        <node refinement="disjunctive">
+                          <label>MAKE cleo finn IN finn card sydney</label>
+                        </node>
+                        <node refinement="disjunctive">
+                          <label>MAKE cleo finn IN finn pin card</label>
+                        </node>
+                      </node>
+                      <node refinement="disjunctive">
+                        <label>MAKE cleo finn IN finn pin sydney</label>
+                      </node>
+                    </node>
+                  </node>
+                  <node refinement="disjunctive">
+                    <label>make ethan get pin</label>
+                    <node refinement="disjunctive">
+                      <label>attacker ethan get data pin</label>
+                      <node refinement="conjunctive">
+                        <label>get item card and extract data pin</label>
+                        <node refinement="disjunctive">
+                          <label>MAKE cleo ethan IN ethan card sydney</label>
+                        </node>
+                        <node refinement="disjunctive">
+                          <label>MAKE cleo ethan IN ethan pin card</label>
+                        </node>
+                      </node>
+                      <node refinement="disjunctive">
+                        <label>MAKE cleo ethan IN ethan pin sydney</label>
+                      </node>
+                    </node>
+                  </node>
+                  <node refinement="disjunctive">
+                    <label>make sydney get pin</label>
+                    <node refinement="conjunctive">
+                      <label>get item card and extract data pin</label>
+                      <node refinement="disjunctive">
+                        <label>MAKE cleo sydney IN sydney pin card</label>
+                      </node>
+                    </node>
+                  </node>
+                </node>
+                <node refinement="disjunctive">
+                  <label>attacker cleo get data pin</label>
+                  <node refinement="conjunctive">
+                    <label>get item card and extract data pin</label>
+                    <node refinement="disjunctive">
+                      <label> IN cleo card sydney</label>
+                    </node>
+                    <node refinement="disjunctive">
+                      <label> IN cleo pin card</label>
+                    </node>
+                  </node>
+                  <node refinement="disjunctive">
+                    <label> IN cleo pin sydney</label>
+                  </node>
+                </node>
+              </node>
+            </node>
+            <node refinement="disjunctive">
+              <label> FORCE cleo DoorDatacenter</label>
+            </node>
+          </node>
+          <node refinement="disjunctive">
+            <label> IN cleo entity_vim.Network_network-43 RoomDatacenter</label>
+          </node>
+        </node>
+        <node refinement="disjunctive">
+          <label> IN cleo entity_vim.VirtualMachine_vm-51 entity_vim.Network_network-43</label>
+        </node>
+      </node>
+      <node refinement="conjunctive">
+        <label>get item entity_vim.HostSystem_host-49 get entity_vim.VirtualMachine_vm-51</label>
+        <node refinement="disjunctive">
+          <label>get  entity_vim.HostSystem_host-49</label>
+          <node refinement="conjunctive">
+            <label>get item entity_vim.Datastore_datastore-41 get entity_vim.HostSystem_host-49</label>
+            <node refinement="conjunctive">
+              <label>goto RoomDatacenter and get entity_vim.Datastore_datastore-41</label>
+              <node refinement="disjunctive">
+                <label>attacker cleo get ids for some policy at DoorDatacenter</label>
+                <node refinement="conjunctive">
+                  <label>attacker cleo get all ids card pin</label>
+                  <node refinement="disjunctive">
+                    <label>get card</label>
+                    <node refinement="disjunctive">
+                      <label>make some actor get card</label>
+                      <node refinement="disjunctive">
+                        <label>make terry get card</label>
+                        <node refinement="disjunctive">
+                          <label>MAKE cleo terry IN terry card sydney</label>
+                        </node>
+                      </node>
+                      <node refinement="disjunctive">
+                        <label>make big get card</label>
+                        <node refinement="disjunctive">
+                          <label>MAKE cleo big IN big card sydney</label>
+                        </node>
+                      </node>
+                      <node refinement="disjunctive">
+                        <label>make grey get card</label>
+                        <node refinement="disjunctive">
+                          <label>MAKE cleo grey IN grey card sydney</label>
+                        </node>
+                      </node>
+                      <node refinement="disjunctive">
+                        <label>make administrator get card</label>
+                        <node refinement="disjunctive">
+                          <label>MAKE cleo administrator IN administrator card sydney</label>
+                        </node>
+                      </node>
+                      <node refinement="disjunctive">
+                        <label>make administrators get card</label>
+                        <node refinement="disjunctive">
+                          <label>MAKE cleo administrators IN administrators card sydney</label>
+                        </node>
+                      </node>
+                      <node refinement="disjunctive">
+                        <label>make finn get card</label>
+                        <node refinement="disjunctive">
+                          <label>MAKE cleo finn IN finn card sydney</label>
+                        </node>
+                      </node>
+                      <node refinement="disjunctive">
+                        <label>make ethan get card</label>
+                        <node refinement="disjunctive">
+                          <label>MAKE cleo ethan IN ethan card sydney</label>
+                        </node>
+                      </node>
+                    </node>
+                    <node refinement="disjunctive">
+                      <label> IN cleo card sydney</label>
+                    </node>
+                  </node>
+                  <node refinement="disjunctive">
+                    <label>get pin</label>
+                    <node refinement="disjunctive">
+                      <label>make some actor get pin</label>
+                      <node refinement="disjunctive">
+                        <label>make terry get pin</label>
+                        <node refinement="disjunctive">
+                          <label>attacker terry get data pin</label>
+                          <node refinement="conjunctive">
+                            <label>get item card and extract data pin</label>
+                            <node refinement="disjunctive">
+                              <label>MAKE cleo terry IN terry card sydney</label>
+                            </node>
+                            <node refinement="disjunctive">
+                              <label>MAKE cleo terry IN terry pin card</label>
+                            </node>
+                          </node>
+                          <node refinement="disjunctive">
+                            <label>MAKE cleo terry IN terry pin sydney</label>
+                          </node>
+                        </node>
+                      </node>
+                      <node refinement="disjunctive">
+                        <label>make big get pin</label>
+                        <node refinement="disjunctive">
+                          <label>attacker big get data pin</label>
+                          <node refinement="conjunctive">
+                            <label>get item card and extract data pin</label>
+                            <node refinement="disjunctive">
+                              <label>MAKE cleo big IN big card sydney</label>
+                            </node>
+                            <node refinement="disjunctive">
+                              <label>MAKE cleo big IN big pin card</label>
+                            </node>
+                          </node>
+                          <node refinement="disjunctive">
+                            <label>MAKE cleo big IN big pin sydney</label>
+                          </node>
+                        </node>
+                      </node>
+                      <node refinement="disjunctive">
+                        <label>make grey get pin</label>
+                        <node refinement="disjunctive">
+                          <label>attacker grey get data pin</label>
+                          <node refinement="conjunctive">
+                            <label>get item card and extract data pin</label>
+                            <node refinement="disjunctive">
+                              <label>MAKE cleo grey IN grey card sydney</label>
+                            </node>
+                            <node refinement="disjunctive">
+                              <label>MAKE cleo grey IN grey pin card</label>
+                            </node>
+                          </node>
+                          <node refinement="disjunctive">
+                            <label>MAKE cleo grey IN grey pin sydney</label>
+                          </node>
+                        </node>
+                      </node>
+                      <node refinement="disjunctive">
+                        <label>make administrator get pin</label>
+                        <node refinement="disjunctive">
+                          <label>attacker administrator get data pin</label>
+                          <node refinement="conjunctive">
+                            <label>get item card and extract data pin</label>
+                            <node refinement="disjunctive">
+                              <label>MAKE cleo administrator IN administrator card sydney</label>
+                            </node>
+                            <node refinement="disjunctive">
+                              <label>MAKE cleo administrator IN administrator pin card</label>
+                            </node>
+                          </node>
+                          <node refinement="disjunctive">
+                            <label>MAKE cleo administrator IN administrator pin sydney</label>
+                          </node>
+                        </node>
+                      </node>
+                      <node refinement="disjunctive">
+                        <label>make administrators get pin</label>
+                        <node refinement="disjunctive">
+                          <label>attacker administrators get data pin</label>
+                          <node refinement="conjunctive">
+                            <label>get item card and extract data pin</label>
+                            <node refinement="disjunctive">
+                              <label>MAKE cleo administrators IN administrators card sydney</label>
+                            </node>
+                            <node refinement="disjunctive">
+                              <label>MAKE cleo administrators IN administrators pin card</label>
+                            </node>
+                          </node>
+                          <node refinement="disjunctive">
+                            <label>MAKE cleo administrators IN administrators pin sydney</label>
+                          </node>
+                        </node>
+                      </node>
+                      <node refinement="disjunctive">
+                        <label>make finn get pin</label>
+                        <node refinement="disjunctive">
+                          <label>attacker finn get data pin</label>
+                          <node refinement="conjunctive">
+                            <label>get item card and extract data pin</label>
+                            <node refinement="disjunctive">
+                              <label>MAKE cleo finn IN finn card sydney</label>
+                            </node>
+                            <node refinement="disjunctive">
+                              <label>MAKE cleo finn IN finn pin card</label>
+                            </node>
+                          </node>
+                          <node refinement="disjunctive">
+                            <label>MAKE cleo finn IN finn pin sydney</label>
+                          </node>
+                        </node>
+                      </node>
+                      <node refinement="disjunctive">
+                        <label>make ethan get pin</label>
+                        <node refinement="disjunctive">
+                          <label>attacker ethan get data pin</label>
+                          <node refinement="conjunctive">
+                            <label>get item card and extract data pin</label>
+                            <node refinement="disjunctive">
+                              <label>MAKE cleo ethan IN ethan card sydney</label>
+                            </node>
+                            <node refinement="disjunctive">
+                              <label>MAKE cleo ethan IN ethan pin card</label>
+                            </node>
+                          </node>
+                          <node refinement="disjunctive">
+                            <label>MAKE cleo ethan IN ethan pin sydney</label>
+                          </node>
+                        </node>
+                      </node>
+                      <node refinement="disjunctive">
+                        <label>make sydney get pin</label>
+                        <node refinement="conjunctive">
+                          <label>get item card and extract data pin</label>
+                          <node refinement="disjunctive">
+                            <label>MAKE cleo sydney IN sydney pin card</label>
+                          </node>
+                        </node>
+                      </node>
+                    </node>
+                    <node refinement="disjunctive">
+                      <label>attacker cleo get data pin</label>
+                      <node refinement="conjunctive">
+                        <label>get item card and extract data pin</label>
+                        <node refinement="disjunctive">
+                          <label> IN cleo card sydney</label>
+                        </node>
+                        <node refinement="disjunctive">
+                          <label> IN cleo pin card</label>
+                        </node>
+                      </node>
+                      <node refinement="disjunctive">
+                        <label> IN cleo pin sydney</label>
+                      </node>
+                    </node>
+                  </node>
+                </node>
+                <node refinement="disjunctive">
+                  <label> FORCE cleo DoorDatacenter</label>
+                </node>
+              </node>
+              <node refinement="disjunctive">
+                <label> IN cleo entity_vim.Datastore_datastore-41 RoomDatacenter</label>
+              </node>
+            </node>
+            <node refinement="disjunctive">
+              <label> IN cleo entity_vim.HostSystem_host-49 entity_vim.Datastore_datastore-41</label>
+            </node>
+          </node>
+          <node refinement="conjunctive">
+            <label>get item entity_vim.Network_network-43 get entity_vim.HostSystem_host-49</label>
+            <node refinement="conjunctive">
+              <label>goto RoomDatacenter and get entity_vim.Network_network-43</label>
+              <node refinement="disjunctive">
+                <label>attacker cleo get ids for some policy at DoorDatacenter</label>
+                <node refinement="conjunctive">
+                  <label>attacker cleo get all ids card pin</label>
+                  <node refinement="disjunctive">
+                    <label>get card</label>
+                    <node refinement="disjunctive">
+                      <label>make some actor get card</label>
+                      <node refinement="disjunctive">
+                        <label>make terry get card</label>
+                        <node refinement="disjunctive">
+                          <label>MAKE cleo terry IN terry card sydney</label>
+                        </node>
+                      </node>
+                      <node refinement="disjunctive">
+                        <label>make big get card</label>
+                        <node refinement="disjunctive">
+                          <label>MAKE cleo big IN big card sydney</label>
+                        </node>
+                      </node>
+                      <node refinement="disjunctive">
+                        <label>make grey get card</label>
+                        <node refinement="disjunctive">
+                          <label>MAKE cleo grey IN grey card sydney</label>
+                        </node>
+                      </node>
+                      <node refinement="disjunctive">
+                        <label>make administrator get card</label>
+                        <node refinement="disjunctive">
+                          <label>MAKE cleo administrator IN administrator card sydney</label>
+                        </node>
+                      </node>
+                      <node refinement="disjunctive">
+                        <label>make administrators get card</label>
+                        <node refinement="disjunctive">
+                          <label>MAKE cleo administrators IN administrators card sydney</label>
+                        </node>
+                      </node>
+                      <node refinement="disjunctive">
+                        <label>make finn get card</label>
+                        <node refinement="disjunctive">
+                          <label>MAKE cleo finn IN finn card sydney</label>
+                        </node>
+                      </node>
+                      <node refinement="disjunctive">
+                        <label>make ethan get card</label>
+                        <node refinement="disjunctive">
+                          <label>MAKE cleo ethan IN ethan card sydney</label>
+                        </node>
+                      </node>
+                    </node>
+                    <node refinement="disjunctive">
+                      <label> IN cleo card sydney</label>
+                    </node>
+                  </node>
+                  <node refinement="disjunctive">
+                    <label>get pin</label>
+                    <node refinement="disjunctive">
+                      <label>make some actor get pin</label>
+                      <node refinement="disjunctive">
+                        <label>make terry get pin</label>
+                        <node refinement="disjunctive">
+                          <label>attacker terry get data pin</label>
+                          <node refinement="conjunctive">
+                            <label>get item card and extract data pin</label>
+                            <node refinement="disjunctive">
+                              <label>MAKE cleo terry IN terry card sydney</label>
+                            </node>
+                            <node refinement="disjunctive">
+                              <label>MAKE cleo terry IN terry pin card</label>
+                            </node>
+                          </node>
+                          <node refinement="disjunctive">
+                            <label>MAKE cleo terry IN terry pin sydney</label>
+                          </node>
+                        </node>
+                      </node>
+                      <node refinement="disjunctive">
+                        <label>make big get pin</label>
+                        <node refinement="disjunctive">
+                          <label>attacker big get data pin</label>
+                          <node refinement="conjunctive">
+                            <label>get item card and extract data pin</label>
+                            <node refinement="disjunctive">
+                              <label>MAKE cleo big IN big card sydney</label>
+                            </node>
+                            <node refinement="disjunctive">
+                              <label>MAKE cleo big IN big pin card</label>
+                            </node>
+                          </node>
+                          <node refinement="disjunctive">
+                            <label>MAKE cleo big IN big pin sydney</label>
+                          </node>
+                        </node>
+                      </node>
+                      <node refinement="disjunctive">
+                        <label>make grey get pin</label>
+                        <node refinement="disjunctive">
+                          <label>attacker grey get data pin</label>
+                          <node refinement="conjunctive">
+                            <label>get item card and extract data pin</label>
+                            <node refinement="disjunctive">
+                              <label>MAKE cleo grey IN grey card sydney</label>
+                            </node>
+                            <node refinement="disjunctive">
+                              <label>MAKE cleo grey IN grey pin card</label>
+                            </node>
+                          </node>
+                          <node refinement="disjunctive">
+                            <label>MAKE cleo grey IN grey pin sydney</label>
+                          </node>
+                        </node>
+                      </node>
+                      <node refinement="disjunctive">
+                        <label>make administrator get pin</label>
+                        <node refinement="disjunctive">
+                          <label>attacker administrator get data pin</label>
+                          <node refinement="conjunctive">
+                            <label>get item card and extract data pin</label>
+                            <node refinement="disjunctive">
+                              <label>MAKE cleo administrator IN administrator card sydney</label>
+                            </node>
+                            <node refinement="disjunctive">
+                              <label>MAKE cleo administrator IN administrator pin card</label>
+                            </node>
+                          </node>
+                          <node refinement="disjunctive">
+                            <label>MAKE cleo administrator IN administrator pin sydney</label>
+                          </node>
+                        </node>
+                      </node>
+                      <node refinement="disjunctive">
+                        <label>make administrators get pin</label>
+                        <node refinement="disjunctive">
+                          <label>attacker administrators get data pin</label>
+                          <node refinement="conjunctive">
+                            <label>get item card and extract data pin</label>
+                            <node refinement="disjunctive">
+                              <label>MAKE cleo administrators IN administrators card sydney</label>
+                            </node>
+                            <node refinement="disjunctive">
+                              <label>MAKE cleo administrators IN administrators pin card</label>
+                            </node>
+                          </node>
+                          <node refinement="disjunctive">
+                            <label>MAKE cleo administrators IN administrators pin sydney</label>
+                          </node>
+                        </node>
+                      </node>
+                      <node refinement="disjunctive">
+                        <label>make finn get pin</label>
+                        <node refinement="disjunctive">
+                          <label>attacker finn get data pin</label>
+                          <node refinement="conjunctive">
+                            <label>get item card and extract data pin</label>
+                            <node refinement="disjunctive">
+                              <label>MAKE cleo finn IN finn card sydney</label>
+                            </node>
+                            <node refinement="disjunctive">
+                              <label>MAKE cleo finn IN finn pin card</label>
+                            </node>
+                          </node>
+                          <node refinement="disjunctive">
+                            <label>MAKE cleo finn IN finn pin sydney</label>
+                          </node>
+                        </node>
+                      </node>
+                      <node refinement="disjunctive">
+                        <label>make ethan get pin</label>
+                        <node refinement="disjunctive">
+                          <label>attacker ethan get data pin</label>
+                          <node refinement="conjunctive">
+                            <label>get item card and extract data pin</label>
+                            <node refinement="disjunctive">
+                              <label>MAKE cleo ethan IN ethan card sydney</label>
+                            </node>
+                            <node refinement="disjunctive">
+                              <label>MAKE cleo ethan IN ethan pin card</label>
+                            </node>
+                          </node>
+                          <node refinement="disjunctive">
+                            <label>MAKE cleo ethan IN ethan pin sydney</label>
+                          </node>
+                        </node>
+                      </node>
+                      <node refinement="disjunctive">
+                        <label>make sydney get pin</label>
+                        <node refinement="conjunctive">
+                          <label>get item card and extract data pin</label>
+                          <node refinement="disjunctive">
+                            <label>MAKE cleo sydney IN sydney pin card</label>
+                          </node>
+                        </node>
+                      </node>
+                    </node>
+                    <node refinement="disjunctive">
+                      <label>attacker cleo get data pin</label>
+                      <node refinement="conjunctive">
+                        <label>get item card and extract data pin</label>
+                        <node refinement="disjunctive">
+                          <label> IN cleo card sydney</label>
+                        </node>
+                        <node refinement="disjunctive">
+                          <label> IN cleo pin card</label>
+                        </node>
+                      </node>
+                      <node refinement="disjunctive">
+                        <label> IN cleo pin sydney</label>
+                      </node>
+                    </node>
+                  </node>
+                </node>
+                <node refinement="disjunctive">
+                  <label> FORCE cleo DoorDatacenter</label>
+                </node>
+              </node>
+              <node refinement="disjunctive">
+                <label> IN cleo entity_vim.Network_network-43 RoomDatacenter</label>
+              </node>
+            </node>
+            <node refinement="disjunctive">
+              <label> IN cleo entity_vim.HostSystem_host-49 entity_vim.Network_network-43</label>
+            </node>
+          </node>
+          <node refinement="conjunctive">
+            <label>get item entity_vim.Network_network-44 get entity_vim.HostSystem_host-49</label>
+            <node refinement="conjunctive">
+              <label>goto RoomDatacenter and get entity_vim.Network_network-44</label>
+              <node refinement="disjunctive">
+                <label>attacker cleo get ids for some policy at DoorDatacenter</label>
+                <node refinement="conjunctive">
+                  <label>attacker cleo get all ids card pin</label>
+                  <node refinement="disjunctive">
+                    <label>get card</label>
+                    <node refinement="disjunctive">
+                      <label>make some actor get card</label>
+                      <node refinement="disjunctive">
+                        <label>make terry get card</label>
+                        <node refinement="disjunctive">
+                          <label>MAKE cleo terry IN terry card sydney</label>
+                        </node>
+                      </node>
+                      <node refinement="disjunctive">
+                        <label>make big get card</label>
+                        <node refinement="disjunctive">
+                          <label>MAKE cleo big IN big card sydney</label>
+                        </node>
+                      </node>
+                      <node refinement="disjunctive">
+                        <label>make grey get card</label>
+                        <node refinement="disjunctive">
+                          <label>MAKE cleo grey IN grey card sydney</label>
+                        </node>
+                      </node>
+                      <node refinement="disjunctive">
+                        <label>make administrator get card</label>
+                        <node refinement="disjunctive">
+                          <label>MAKE cleo administrator IN administrator card sydney</label>
+                        </node>
+                      </node>
+                      <node refinement="disjunctive">
+                        <label>make administrators get card</label>
+                        <node refinement="disjunctive">
+                          <label>MAKE cleo administrators IN administrators card sydney</label>
+                        </node>
+                      </node>
+                      <node refinement="disjunctive">
+                        <label>make finn get card</label>
+                        <node refinement="disjunctive">
+                          <label>MAKE cleo finn IN finn card sydney</label>
+                        </node>
+                      </node>
+                      <node refinement="disjunctive">
+                        <label>make ethan get card</label>
+                        <node refinement="disjunctive">
+                          <label>MAKE cleo ethan IN ethan card sydney</label>
+                        </node>
+                      </node>
+                    </node>
+                    <node refinement="disjunctive">
+                      <label> IN cleo card sydney</label>
+                    </node>
+                  </node>
+                  <node refinement="disjunctive">
+                    <label>get pin</label>
+                    <node refinement="disjunctive">
+                      <label>make some actor get pin</label>
+                      <node refinement="disjunctive">
+                        <label>make terry get pin</label>
+                        <node refinement="disjunctive">
+                          <label>attacker terry get data pin</label>
+                          <node refinement="conjunctive">
+                            <label>get item card and extract data pin</label>
+                            <node refinement="disjunctive">
+                              <label>MAKE cleo terry IN terry card sydney</label>
+                            </node>
+                            <node refinement="disjunctive">
+                              <label>MAKE cleo terry IN terry pin card</label>
+                            </node>
+                          </node>
+                          <node refinement="disjunctive">
+                            <label>MAKE cleo terry IN terry pin sydney</label>
+                          </node>
+                        </node>
+                      </node>
+                      <node refinement="disjunctive">
+                        <label>make big get pin</label>
+                        <node refinement="disjunctive">
+                          <label>attacker big get data pin</label>
+                          <node refinement="conjunctive">
+                            <label>get item card and extract data pin</label>
+                            <node refinement="disjunctive">
+                              <label>MAKE cleo big IN big card sydney</label>
+                            </node>
+                            <node refinement="disjunctive">
+                              <label>MAKE cleo big IN big pin card</label>
+                            </node>
+                          </node>
+                          <node refinement="disjunctive">
+                            <label>MAKE cleo big IN big pin sydney</label>
+                          </node>
+                        </node>
+                      </node>
+                      <node refinement="disjunctive">
+                        <label>make grey get pin</label>
+                        <node refinement="disjunctive">
+                          <label>attacker grey get data pin</label>
+                          <node refinement="conjunctive">
+                            <label>get item card and extract data pin</label>
+                            <node refinement="disjunctive">
+                              <label>MAKE cleo grey IN grey card sydney</label>
+                            </node>
+                            <node refinement="disjunctive">
+                              <label>MAKE cleo grey IN grey pin card</label>
+                            </node>
+                          </node>
+                          <node refinement="disjunctive">
+                            <label>MAKE cleo grey IN grey pin sydney</label>
+                          </node>
+                        </node>
+                      </node>
+                      <node refinement="disjunctive">
+                        <label>make administrator get pin</label>
+                        <node refinement="disjunctive">
+                          <label>attacker administrator get data pin</label>
+                          <node refinement="conjunctive">
+                            <label>get item card and extract data pin</label>
+                            <node refinement="disjunctive">
+                              <label>MAKE cleo administrator IN administrator card sydney</label>
+                            </node>
+                            <node refinement="disjunctive">
+                              <label>MAKE cleo administrator IN administrator pin card</label>
+                            </node>
+                          </node>
+                          <node refinement="disjunctive">
+                            <label>MAKE cleo administrator IN administrator pin sydney</label>
+                          </node>
+                        </node>
+                      </node>
+                      <node refinement="disjunctive">
+                        <label>make administrators get pin</label>
+                        <node refinement="disjunctive">
+                          <label>attacker administrators get data pin</label>
+                          <node refinement="conjunctive">
+                            <label>get item card and extract data pin</label>
+                            <node refinement="disjunctive">
+                              <label>MAKE cleo administrators IN administrators card sydney</label>
+                            </node>
+                            <node refinement="disjunctive">
+                              <label>MAKE cleo administrators IN administrators pin card</label>
+                            </node>
+                          </node>
+                          <node refinement="disjunctive">
+                            <label>MAKE cleo administrators IN administrators pin sydney</label>
+                          </node>
+                        </node>
+                      </node>
+                      <node refinement="disjunctive">
+                        <label>make finn get pin</label>
+                        <node refinement="disjunctive">
+                          <label>attacker finn get data pin</label>
+                          <node refinement="conjunctive">
+                            <label>get item card and extract data pin</label>
+                            <node refinement="disjunctive">
+                              <label>MAKE cleo finn IN finn card sydney</label>
+                            </node>
+                            <node refinement="disjunctive">
+                              <label>MAKE cleo finn IN finn pin card</label>
+                            </node>
+                          </node>
+                          <node refinement="disjunctive">
+                            <label>MAKE cleo finn IN finn pin sydney</label>
+                          </node>
+                        </node>
+                      </node>
+                      <node refinement="disjunctive">
+                        <label>make ethan get pin</label>
+                        <node refinement="disjunctive">
+                          <label>attacker ethan get data pin</label>
+                          <node refinement="conjunctive">
+                            <label>get item card and extract data pin</label>
+                            <node refinement="disjunctive">
+                              <label>MAKE cleo ethan IN ethan card sydney</label>
+                            </node>
+                            <node refinement="disjunctive">
+                              <label>MAKE cleo ethan IN ethan pin card</label>
+                            </node>
+                          </node>
+                          <node refinement="disjunctive">
+                            <label>MAKE cleo ethan IN ethan pin sydney</label>
+                          </node>
+                        </node>
+                      </node>
+                      <node refinement="disjunctive">
+                        <label>make sydney get pin</label>
+                        <node refinement="conjunctive">
+                          <label>get item card and extract data pin</label>
+                          <node refinement="disjunctive">
+                            <label>MAKE cleo sydney IN sydney pin card</label>
+                          </node>
+                        </node>
+                      </node>
+                    </node>
+                    <node refinement="disjunctive">
+                      <label>attacker cleo get data pin</label>
+                      <node refinement="conjunctive">
+                        <label>get item card and extract data pin</label>
+                        <node refinement="disjunctive">
+                          <label> IN cleo card sydney</label>
+                        </node>
+                        <node refinement="disjunctive">
+                          <label> IN cleo pin card</label>
+                        </node>
+                      </node>
+                      <node refinement="disjunctive">
+                        <label> IN cleo pin sydney</label>
+                      </node>
+                    </node>
+                  </node>
+                </node>
+                <node refinement="disjunctive">
+                  <label> FORCE cleo DoorDatacenter</label>
+                </node>
+              </node>
+              <node refinement="disjunctive">
+                <label> IN cleo entity_vim.Network_network-44 RoomDatacenter</label>
+              </node>
+            </node>
+            <node refinement="disjunctive">
+              <label> IN cleo entity_vim.HostSystem_host-49 entity_vim.Network_network-44</label>
+            </node>
+          </node>
+          <node refinement="conjunctive">
+            <label>get item entity_vim.Network_network-42 get entity_vim.HostSystem_host-49</label>
+            <node refinement="conjunctive">
+              <label>goto RoomDatacenter and get entity_vim.Network_network-42</label>
+              <node refinement="disjunctive">
+                <label>attacker cleo get ids for some policy at DoorDatacenter</label>
+                <node refinement="conjunctive">
+                  <label>attacker cleo get all ids card pin</label>
+                  <node refinement="disjunctive">
+                    <label>get card</label>
+                    <node refinement="disjunctive">
+                      <label>make some actor get card</label>
+                      <node refinement="disjunctive">
+                        <label>make terry get card</label>
+                        <node refinement="disjunctive">
+                          <label>MAKE cleo terry IN terry card sydney</label>
+                        </node>
+                      </node>
+                      <node refinement="disjunctive">
+                        <label>make big get card</label>
+                        <node refinement="disjunctive">
+                          <label>MAKE cleo big IN big card sydney</label>
+                        </node>
+                      </node>
+                      <node refinement="disjunctive">
+                        <label>make grey get card</label>
+                        <node refinement="disjunctive">
+                          <label>MAKE cleo grey IN grey card sydney</label>
+                        </node>
+                      </node>
+                      <node refinement="disjunctive">
+                        <label>make administrator get card</label>
+                        <node refinement="disjunctive">
+                          <label>MAKE cleo administrator IN administrator card sydney</label>
+                        </node>
+                      </node>
+                      <node refinement="disjunctive">
+                        <label>make administrators get card</label>
+                        <node refinement="disjunctive">
+                          <label>MAKE cleo administrators IN administrators card sydney</label>
+                        </node>
+                      </node>
+                      <node refinement="disjunctive">
+                        <label>make finn get card</label>
+                        <node refinement="disjunctive">
+                          <label>MAKE cleo finn IN finn card sydney</label>
+                        </node>
+                      </node>
+                      <node refinement="disjunctive">
+                        <label>make ethan get card</label>
+                        <node refinement="disjunctive">
+                          <label>MAKE cleo ethan IN ethan card sydney</label>
+                        </node>
+                      </node>
+                    </node>
+                    <node refinement="disjunctive">
+                      <label> IN cleo card sydney</label>
+                    </node>
+                  </node>
+                  <node refinement="disjunctive">
+                    <label>get pin</label>
+                    <node refinement="disjunctive">
+                      <label>make some actor get pin</label>
+                      <node refinement="disjunctive">
+                        <label>make terry get pin</label>
+                        <node refinement="disjunctive">
+                          <label>attacker terry get data pin</label>
+                          <node refinement="conjunctive">
+                            <label>get item card and extract data pin</label>
+                            <node refinement="disjunctive">
+                              <label>MAKE cleo terry IN terry card sydney</label>
+                            </node>
+                            <node refinement="disjunctive">
+                              <label>MAKE cleo terry IN terry pin card</label>
+                            </node>
+                          </node>
+                          <node refinement="disjunctive">
+                            <label>MAKE cleo terry IN terry pin sydney</label>
+                          </node>
+                        </node>
+                      </node>
+                      <node refinement="disjunctive">
+                        <label>make big get pin</label>
+                        <node refinement="disjunctive">
+                          <label>attacker big get data pin</label>
+                          <node refinement="conjunctive">
+                            <label>get item card and extract data pin</label>
+                            <node refinement="disjunctive">
+                              <label>MAKE cleo big IN big card sydney</label>
+                            </node>
+                            <node refinement="disjunctive">
+                              <label>MAKE cleo big IN big pin card</label>
+                            </node>
+                          </node>
+                          <node refinement="disjunctive">
+                            <label>MAKE cleo big IN big pin sydney</label>
+                          </node>
+                        </node>
+                      </node>
+                      <node refinement="disjunctive">
+                        <label>make grey get pin</label>
+                        <node refinement="disjunctive">
+                          <label>attacker grey get data pin</label>
+                          <node refinement="conjunctive">
+                            <label>get item card and extract data pin</label>
+                            <node refinement="disjunctive">
+                              <label>MAKE cleo grey IN grey card sydney</label>
+                            </node>
+                            <node refinement="disjunctive">
+                              <label>MAKE cleo grey IN grey pin card</label>
+                            </node>
+                          </node>
+                          <node refinement="disjunctive">
+                            <label>MAKE cleo grey IN grey pin sydney</label>
+                          </node>
+                        </node>
+                      </node>
+                      <node refinement="disjunctive">
+                        <label>make administrator get pin</label>
+                        <node refinement="disjunctive">
+                          <label>attacker administrator get data pin</label>
+                          <node refinement="conjunctive">
+                            <label>get item card and extract data pin</label>
+                            <node refinement="disjunctive">
+                              <label>MAKE cleo administrator IN administrator card sydney</label>
+                            </node>
+                            <node refinement="disjunctive">
+                              <label>MAKE cleo administrator IN administrator pin card</label>
+                            </node>
+                          </node>
+                          <node refinement="disjunctive">
+                            <label>MAKE cleo administrator IN administrator pin sydney</label>
+                          </node>
+                        </node>
+                      </node>
+                      <node refinement="disjunctive">
+                        <label>make administrators get pin</label>
+                        <node refinement="disjunctive">
+                          <label>attacker administrators get data pin</label>
+                          <node refinement="conjunctive">
+                            <label>get item card and extract data pin</label>
+                            <node refinement="disjunctive">
+                              <label>MAKE cleo administrators IN administrators card sydney</label>
+                            </node>
+                            <node refinement="disjunctive">
+                              <label>MAKE cleo administrators IN administrators pin card</label>
+                            </node>
+                          </node>
+                          <node refinement="disjunctive">
+                            <label>MAKE cleo administrators IN administrators pin sydney</label>
+                          </node>
+                        </node>
+                      </node>
+                      <node refinement="disjunctive">
+                        <label>make finn get pin</label>
+                        <node refinement="disjunctive">
+                          <label>attacker finn get data pin</label>
+                          <node refinement="conjunctive">
+                            <label>get item card and extract data pin</label>
+                            <node refinement="disjunctive">
+                              <label>MAKE cleo finn IN finn card sydney</label>
+                            </node>
+                            <node refinement="disjunctive">
+                              <label>MAKE cleo finn IN finn pin card</label>
+                            </node>
+                          </node>
+                          <node refinement="disjunctive">
+                            <label>MAKE cleo finn IN finn pin sydney</label>
+                          </node>
+                        </node>
+                      </node>
+                      <node refinement="disjunctive">
+                        <label>make ethan get pin</label>
+                        <node refinement="disjunctive">
+                          <label>attacker ethan get data pin</label>
+                          <node refinement="conjunctive">
+                            <label>get item card and extract data pin</label>
+                            <node refinement="disjunctive">
+                              <label>MAKE cleo ethan IN ethan card sydney</label>
+                            </node>
+                            <node refinement="disjunctive">
+                              <label>MAKE cleo ethan IN ethan pin card</label>
+                            </node>
+                          </node>
+                          <node refinement="disjunctive">
+                            <label>MAKE cleo ethan IN ethan pin sydney</label>
+                          </node>
+                        </node>
+                      </node>
+                      <node refinement="disjunctive">
+                        <label>make sydney get pin</label>
+                        <node refinement="conjunctive">
+                          <label>get item card and extract data pin</label>
+                          <node refinement="disjunctive">
+                            <label>MAKE cleo sydney IN sydney pin card</label>
+                          </node>
+                        </node>
+                      </node>
+                    </node>
+                    <node refinement="disjunctive">
+                      <label>attacker cleo get data pin</label>
+                      <node refinement="conjunctive">
+                        <label>get item card and extract data pin</label>
+                        <node refinement="disjunctive">
+                          <label> IN cleo card sydney</label>
+                        </node>
+                        <node refinement="disjunctive">
+                          <label> IN cleo pin card</label>
+                        </node>
+                      </node>
+                      <node refinement="disjunctive">
+                        <label> IN cleo pin sydney</label>
+                      </node>
+                    </node>
+                  </node>
+                </node>
+                <node refinement="disjunctive">
+                  <label> FORCE cleo DoorDatacenter</label>
+                </node>
+              </node>
+              <node refinement="disjunctive">
+                <label> IN cleo entity_vim.Network_network-42 RoomDatacenter</label>
+              </node>
+            </node>
+            <node refinement="disjunctive">
+              <label> IN cleo entity_vim.HostSystem_host-49 entity_vim.Network_network-42</label>
+            </node>
+          </node>
+          <node refinement="conjunctive">
+            <label>get item entity_vim.Network_network-45 get entity_vim.HostSystem_host-49</label>
+            <node refinement="conjunctive">
+              <label>goto RoomDatacenter and get entity_vim.Network_network-45</label>
+              <node refinement="disjunctive">
+                <label>attacker cleo get ids for some policy at DoorDatacenter</label>
+                <node refinement="conjunctive">
+                  <label>attacker cleo get all ids card pin</label>
+                  <node refinement="disjunctive">
+                    <label>get card</label>
+                    <node refinement="disjunctive">
+                      <label>make some actor get card</label>
+                      <node refinement="disjunctive">
+                        <label>make terry get card</label>
+                        <node refinement="disjunctive">
+                          <label>MAKE cleo terry IN terry card sydney</label>
+                        </node>
+                      </node>
+                      <node refinement="disjunctive">
+                        <label>make big get card</label>
+                        <node refinement="disjunctive">
+                          <label>MAKE cleo big IN big card sydney</label>
+                        </node>
+                      </node>
+                      <node refinement="disjunctive">
+                        <label>make grey get card</label>
+                        <node refinement="disjunctive">
+                          <label>MAKE cleo grey IN grey card sydney</label>
+                        </node>
+                      </node>
+                      <node refinement="disjunctive">
+                        <label>make administrator get card</label>
+                        <node refinement="disjunctive">
+                          <label>MAKE cleo administrator IN administrator card sydney</label>
+                        </node>
+                      </node>
+                      <node refinement="disjunctive">
+                        <label>make administrators get card</label>
+                        <node refinement="disjunctive">
+                          <label>MAKE cleo administrators IN administrators card sydney</label>
+                        </node>
+                      </node>
+                      <node refinement="disjunctive">
+                        <label>make finn get card</label>
+                        <node refinement="disjunctive">
+                          <label>MAKE cleo finn IN finn card sydney</label>
+                        </node>
+                      </node>
+                      <node refinement="disjunctive">
+                        <label>make ethan get card</label>
+                        <node refinement="disjunctive">
+                          <label>MAKE cleo ethan IN ethan card sydney</label>
+                        </node>
+                      </node>
+                    </node>
+                    <node refinement="disjunctive">
+                      <label> IN cleo card sydney</label>
+                    </node>
+                  </node>
+                  <node refinement="disjunctive">
+                    <label>get pin</label>
+                    <node refinement="disjunctive">
+                      <label>make some actor get pin</label>
+                      <node refinement="disjunctive">
+                        <label>make terry get pin</label>
+                        <node refinement="disjunctive">
+                          <label>attacker terry get data pin</label>
+                          <node refinement="conjunctive">
+                            <label>get item card and extract data pin</label>
+                            <node refinement="disjunctive">
+                              <label>MAKE cleo terry IN terry card sydney</label>
+                            </node>
+                            <node refinement="disjunctive">
+                              <label>MAKE cleo terry IN terry pin card</label>
+                            </node>
+                          </node>
+                          <node refinement="disjunctive">
+                            <label>MAKE cleo terry IN terry pin sydney</label>
+                          </node>
+                        </node>
+                      </node>
+                      <node refinement="disjunctive">
+                        <label>make big get pin</label>
+                        <node refinement="disjunctive">
+                          <label>attacker big get data pin</label>
+                          <node refinement="conjunctive">
+                            <label>get item card and extract data pin</label>
+                            <node refinement="disjunctive">
+                              <label>MAKE cleo big IN big card sydney</label>
+                            </node>
+                            <node refinement="disjunctive">
+                              <label>MAKE cleo big IN big pin card</label>
+                            </node>
+                          </node>
+                          <node refinement="disjunctive">
+                            <label>MAKE cleo big IN big pin sydney</label>
+                          </node>
+                        </node>
+                      </node>
+                      <node refinement="disjunctive">
+                        <label>make grey get pin</label>
+                        <node refinement="disjunctive">
+                          <label>attacker grey get data pin</label>
+                          <node refinement="conjunctive">
+                            <label>get item card and extract data pin</label>
+                            <node refinement="disjunctive">
+                              <label>MAKE cleo grey IN grey card sydney</label>
+                            </node>
+                            <node refinement="disjunctive">
+                              <label>MAKE cleo grey IN grey pin card</label>
+                            </node>
+                          </node>
+                          <node refinement="disjunctive">
+                            <label>MAKE cleo grey IN grey pin sydney</label>
+                          </node>
+                        </node>
+                      </node>
+                      <node refinement="disjunctive">
+                        <label>make administrator get pin</label>
+                        <node refinement="disjunctive">
+                          <label>attacker administrator get data pin</label>
+                          <node refinement="conjunctive">
+                            <label>get item card and extract data pin</label>
+                            <node refinement="disjunctive">
+                              <label>MAKE cleo administrator IN administrator card sydney</label>
+                            </node>
+                            <node refinement="disjunctive">
+                              <label>MAKE cleo administrator IN administrator pin card</label>
+                            </node>
+                          </node>
+                          <node refinement="disjunctive">
+                            <label>MAKE cleo administrator IN administrator pin sydney</label>
+                          </node>
+                        </node>
+                      </node>
+                      <node refinement="disjunctive">
+                        <label>make administrators get pin</label>
+                        <node refinement="disjunctive">
+                          <label>attacker administrators get data pin</label>
+                          <node refinement="conjunctive">
+                            <label>get item card and extract data pin</label>
+                            <node refinement="disjunctive">
+                              <label>MAKE cleo administrators IN administrators card sydney</label>
+                            </node>
+                            <node refinement="disjunctive">
+                              <label>MAKE cleo administrators IN administrators pin card</label>
+                            </node>
+                          </node>
+                          <node refinement="disjunctive">
+                            <label>MAKE cleo administrators IN administrators pin sydney</label>
+                          </node>
+                        </node>
+                      </node>
+                      <node refinement="disjunctive">
+                        <label>make finn get pin</label>
+                        <node refinement="disjunctive">
+                          <label>attacker finn get data pin</label>
+                          <node refinement="conjunctive">
+                            <label>get item card and extract data pin</label>
+                            <node refinement="disjunctive">
+                              <label>MAKE cleo finn IN finn card sydney</label>
+                            </node>
+                            <node refinement="disjunctive">
+                              <label>MAKE cleo finn IN finn pin card</label>
+                            </node>
+                          </node>
+                          <node refinement="disjunctive">
+                            <label>MAKE cleo finn IN finn pin sydney</label>
+                          </node>
+                        </node>
+                      </node>
+                      <node refinement="disjunctive">
+                        <label>make ethan get pin</label>
+                        <node refinement="disjunctive">
+                          <label>attacker ethan get data pin</label>
+                          <node refinement="conjunctive">
+                            <label>get item card and extract data pin</label>
+                            <node refinement="disjunctive">
+                              <label>MAKE cleo ethan IN ethan card sydney</label>
+                            </node>
+                            <node refinement="disjunctive">
+                              <label>MAKE cleo ethan IN ethan pin card</label>
+                            </node>
+                          </node>
+                          <node refinement="disjunctive">
+                            <label>MAKE cleo ethan IN ethan pin sydney</label>
+                          </node>
+                        </node>
+                      </node>
+                      <node refinement="disjunctive">
+                        <label>make sydney get pin</label>
+                        <node refinement="conjunctive">
+                          <label>get item card and extract data pin</label>
+                          <node refinement="disjunctive">
+                            <label>MAKE cleo sydney IN sydney pin card</label>
+                          </node>
+                        </node>
+                      </node>
+                    </node>
+                    <node refinement="disjunctive">
+                      <label>attacker cleo get data pin</label>
+                      <node refinement="conjunctive">
+                        <label>get item card and extract data pin</label>
+                        <node refinement="disjunctive">
+                          <label> IN cleo card sydney</label>
+                        </node>
+                        <node refinement="disjunctive">
+                          <label> IN cleo pin card</label>
+                        </node>
+                      </node>
+                      <node refinement="disjunctive">
+                        <label> IN cleo pin sydney</label>
+                      </node>
+                    </node>
+                  </node>
+                </node>
+                <node refinement="disjunctive">
+                  <label> FORCE cleo DoorDatacenter</label>
+                </node>
+              </node>
+              <node refinement="disjunctive">
+                <label> IN cleo entity_vim.Network_network-45 RoomDatacenter</label>
+              </node>
+            </node>
+            <node refinement="disjunctive">
+              <label> IN cleo entity_vim.HostSystem_host-49 entity_vim.Network_network-45</label>
+            </node>
+          </node>
+          <node refinement="conjunctive">
+            <label>goto RoomDatacenter and get entity_vim.HostSystem_host-49</label>
+            <node refinement="disjunctive">
+              <label>attacker cleo get ids for some policy at DoorDatacenter</label>
+              <node refinement="conjunctive">
+                <label>attacker cleo get all ids card pin</label>
+                <node refinement="disjunctive">
+                  <label>get card</label>
+                  <node refinement="disjunctive">
+                    <label>make some actor get card</label>
+                    <node refinement="disjunctive">
+                      <label>make terry get card</label>
+                      <node refinement="disjunctive">
+                        <label>MAKE cleo terry IN terry card sydney</label>
+                      </node>
+                    </node>
+                    <node refinement="disjunctive">
+                      <label>make big get card</label>
+                      <node refinement="disjunctive">
+                        <label>MAKE cleo big IN big card sydney</label>
+                      </node>
+                    </node>
+                    <node refinement="disjunctive">
+                      <label>make grey get card</label>
+                      <node refinement="disjunctive">
+                        <label>MAKE cleo grey IN grey card sydney</label>
+                      </node>
+                    </node>
+                    <node refinement="disjunctive">
+                      <label>make administrator get card</label>
+                      <node refinement="disjunctive">
+                        <label>MAKE cleo administrator IN administrator card sydney</label>
+                      </node>
+                    </node>
+                    <node refinement="disjunctive">
+                      <label>make administrators get card</label>
+                      <node refinement="disjunctive">
+                        <label>MAKE cleo administrators IN administrators card sydney</label>
+                      </node>
+                    </node>
+                    <node refinement="disjunctive">
+                      <label>make finn get card</label>
+                      <node refinement="disjunctive">
+                        <label>MAKE cleo finn IN finn card sydney</label>
+                      </node>
+                    </node>
+                    <node refinement="disjunctive">
+                      <label>make ethan get card</label>
+                      <node refinement="disjunctive">
+                        <label>MAKE cleo ethan IN ethan card sydney</label>
+                      </node>
+                    </node>
+                  </node>
+                  <node refinement="disjunctive">
+                    <label> IN cleo card sydney</label>
+                  </node>
+                </node>
+                <node refinement="disjunctive">
+                  <label>get pin</label>
+                  <node refinement="disjunctive">
+                    <label>make some actor get pin</label>
+                    <node refinement="disjunctive">
+                      <label>make terry get pin</label>
+                      <node refinement="disjunctive">
+                        <label>attacker terry get data pin</label>
+                        <node refinement="conjunctive">
+                          <label>get item card and extract data pin</label>
+                          <node refinement="disjunctive">
+                            <label>MAKE cleo terry IN terry card sydney</label>
+                          </node>
+                          <node refinement="disjunctive">
+                            <label>MAKE cleo terry IN terry pin card</label>
+                          </node>
+                        </node>
+                        <node refinement="disjunctive">
+                          <label>MAKE cleo terry IN terry pin sydney</label>
+                        </node>
+                      </node>
+                    </node>
+                    <node refinement="disjunctive">
+                      <label>make big get pin</label>
+                      <node refinement="disjunctive">
+                        <label>attacker big get data pin</label>
+                        <node refinement="conjunctive">
+                          <label>get item card and extract data pin</label>
+                          <node refinement="disjunctive">
+                            <label>MAKE cleo big IN big card sydney</label>
+                          </node>
+                          <node refinement="disjunctive">
+                            <label>MAKE cleo big IN big pin card</label>
+                          </node>
+                        </node>
+                        <node refinement="disjunctive">
+                          <label>MAKE cleo big IN big pin sydney</label>
+                        </node>
+                      </node>
+                    </node>
+                    <node refinement="disjunctive">
+                      <label>make grey get pin</label>
+                      <node refinement="disjunctive">
+                        <label>attacker grey get data pin</label>
+                        <node refinement="conjunctive">
+                          <label>get item card and extract data pin</label>
+                          <node refinement="disjunctive">
+                            <label>MAKE cleo grey IN grey card sydney</label>
+                          </node>
+                          <node refinement="disjunctive">
+                            <label>MAKE cleo grey IN grey pin card</label>
+                          </node>
+                        </node>
+                        <node refinement="disjunctive">
+                          <label>MAKE cleo grey IN grey pin sydney</label>
+                        </node>
+                      </node>
+                    </node>
+                    <node refinement="disjunctive">
+                      <label>make administrator get pin</label>
+                      <node refinement="disjunctive">
+                        <label>attacker administrator get data pin</label>
+                        <node refinement="conjunctive">
+                          <label>get item card and extract data pin</label>
+                          <node refinement="disjunctive">
+                            <label>MAKE cleo administrator IN administrator card sydney</label>
+                          </node>
+                          <node refinement="disjunctive">
+                            <label>MAKE cleo administrator IN administrator pin card</label>
+                          </node>
+                        </node>
+                        <node refinement="disjunctive">
+                          <label>MAKE cleo administrator IN administrator pin sydney</label>
+                        </node>
+                      </node>
+                    </node>
+                    <node refinement="disjunctive">
+                      <label>make administrators get pin</label>
+                      <node refinement="disjunctive">
+                        <label>attacker administrators get data pin</label>
+                        <node refinement="conjunctive">
+                          <label>get item card and extract data pin</label>
+                          <node refinement="disjunctive">
+                            <label>MAKE cleo administrators IN administrators card sydney</label>
+                          </node>
+                          <node refinement="disjunctive">
+                            <label>MAKE cleo administrators IN administrators pin card</label>
+                          </node>
+                        </node>
+                        <node refinement="disjunctive">
+                          <label>MAKE cleo administrators IN administrators pin sydney</label>
+                        </node>
+                      </node>
+                    </node>
+                    <node refinement="disjunctive">
+                      <label>make finn get pin</label>
+                      <node refinement="disjunctive">
+                        <label>attacker finn get data pin</label>
+                        <node refinement="conjunctive">
+                          <label>get item card and extract data pin</label>
+                          <node refinement="disjunctive">
+                            <label>MAKE cleo finn IN finn card sydney</label>
+                          </node>
+                          <node refinement="disjunctive">
+                            <label>MAKE cleo finn IN finn pin card</label>
+                          </node>
+                        </node>
+                        <node refinement="disjunctive">
+                          <label>MAKE cleo finn IN finn pin sydney</label>
+                        </node>
+                      </node>
+                    </node>
+                    <node refinement="disjunctive">
+                      <label>make ethan get pin</label>
+                      <node refinement="disjunctive">
+                        <label>attacker ethan get data pin</label>
+                        <node refinement="conjunctive">
+                          <label>get item card and extract data pin</label>
+                          <node refinement="disjunctive">
+                            <label>MAKE cleo ethan IN ethan card sydney</label>
+                          </node>
+                          <node refinement="disjunctive">
+                            <label>MAKE cleo ethan IN ethan pin card</label>
+                          </node>
+                        </node>
+                        <node refinement="disjunctive">
+                          <label>MAKE cleo ethan IN ethan pin sydney</label>
+                        </node>
+                      </node>
+                    </node>
+                    <node refinement="disjunctive">
+                      <label>make sydney get pin</label>
+                      <node refinement="conjunctive">
+                        <label>get item card and extract data pin</label>
+                        <node refinement="disjunctive">
+                          <label>MAKE cleo sydney IN sydney pin card</label>
+                        </node>
+                      </node>
+                    </node>
+                  </node>
+                  <node refinement="disjunctive">
+                    <label>attacker cleo get data pin</label>
+                    <node refinement="conjunctive">
+                      <label>get item card and extract data pin</label>
+                      <node refinement="disjunctive">
+                        <label> IN cleo card sydney</label>
+                      </node>
+                      <node refinement="disjunctive">
+                        <label> IN cleo pin card</label>
+                      </node>
+                    </node>
+                    <node refinement="disjunctive">
+                      <label> IN cleo pin sydney</label>
+                    </node>
+                  </node>
+                </node>
+              </node>
+              <node refinement="disjunctive">
+                <label> FORCE cleo DoorDatacenter</label>
+              </node>
+            </node>
+            <node refinement="disjunctive">
+              <label> IN cleo entity_vim.HostSystem_host-49 RoomDatacenter</label>
+            </node>
+          </node>
+        </node>
+        <node refinement="disjunctive">
+          <label> IN cleo entity_vim.VirtualMachine_vm-51 entity_vim.HostSystem_host-49</label>
+        </node>
+      </node>
+    </node>
+    <node refinement="disjunctive">
+      <label> IN cleo fileX entity_vim.VirtualMachine_vm-51</label>
+    </node>
+  </node>
+</adtree>

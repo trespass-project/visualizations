@@ -103,7 +103,7 @@ const layouts = {
 function makeZoomBehavior(rootGroup, rootSelection) {
 	const zoomThreshold = 0.6;
 	const zoom = d3Zoom()
-		.scaleExtent([0.1, 10])
+		.scaleExtent([0.01, 10])
 		.on('zoom', () => {
 			// https://github.com/d3/d3-zoom#zoomTransform
 			const scaleFactor = d3Event.transform.k;
@@ -259,7 +259,7 @@ export default class AttacktreeVisualization extends React.Component {
 		}
 
 		const tree = d3Tree()
-			.nodeSize([100, 100])
+			.nodeSize([75, 100])
 			.separation((a, b) => 1);
 		tree(hierarchy);
 		const descendants = hierarchy.descendants();
