@@ -38,4 +38,5 @@ build:
 .PHONY: build-watch
 build-watch:
 	rm -rf $(buildDir)
-	babel --watch $(babelOptions)
+	# babel --watch $(babelOptions)
+	gulp watch
