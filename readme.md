@@ -1,7 +1,5 @@
 # about
 
-*work in progress*
-
 modules:
 - `visualizations.components`: react components for different visualizations:
 	- attack trees
@@ -17,6 +15,11 @@ modules:
 ```
 npm install
 ```
+
+
+# development
+
+when using the package `npm link`ed, don't forget to run `make build-watch`.
 
 
 # documentation
