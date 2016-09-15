@@ -52,7 +52,7 @@
     "ramda": "^0.21.0",
     "react": "^15.1.0",
     "react-dom": "^15.1.0",
-    "trespass.js": "^0.15.0"
+    "trespass.js": "^0.24.1"
   },
   "ava": {
     "require": [
