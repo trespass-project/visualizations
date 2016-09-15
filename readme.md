@@ -3,7 +3,7 @@
 *work in progress*
 
 modules:
-- `visualizations.components`: [react](https://facebook.github.io/react/) components for different visualizations:
+- `visualizations.components`: react components for different visualizations:
 	- attack trees
 	- attack tree analyzer results
 	- attack tree evaluator results
@@ -12,7 +12,14 @@ modules:
 	- color scales
 
 
-## documentation
+# setup
+
+```
+npm install
+```
+
+
+# documentation
 
 to generate the documentation, run:
 
