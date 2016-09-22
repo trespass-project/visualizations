@@ -183,7 +183,6 @@ export default class AttacktreeVisualization extends React.Component {
 			});
 
 			this.updateHierarchy(this.props.attacktree);
-
 			this.initZoom();
 		}, 0);
 	}
@@ -274,9 +273,7 @@ export default class AttacktreeVisualization extends React.Component {
 				fontSize={theme.node.labelFontSize}
 				textAnchor={labelTextAnchor}
 				transform={`rotate(${theme.node.labelRotation})`}
-			>
-				{d.data.label}
-			</text>
+			>{d.data.label}</text>
 		</g>;
 	}
 
@@ -321,7 +318,10 @@ export default class AttacktreeVisualization extends React.Component {
 		});
 
 		return <svg>
-			<g className='root' transform={`translate(${theme.padding}, ${theme.padding})`}>
+			<g
+				className='root'
+				transform={`translate(${theme.padding}, ${theme.padding})`}
+			>
 				<g className='edges'>
 					{R.tail(descendants)
 						.map((d, index) => this.renderEdge(d, index, layout))
