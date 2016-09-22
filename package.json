@@ -1,6 +1,6 @@
 {
   "name": "trespass-visualizations",
-  "version": "0.11.0",
+  "version": "0.12.0",
   "description": "",
   "author": "freder.code@gmail.com",
   "private": "true",
@@ -52,7 +52,7 @@
     "ramda": "^0.21.0",
     "react": "^15.1.0",
     "react-dom": "^15.1.0",
-    "trespass.js": "^0.15.0"
+    "trespass.js": "^0.24.1"
   },
   "ava": {
     "require": [

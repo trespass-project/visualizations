@@ -53,10 +53,17 @@ export default class AnalysisResults extends React.Component {
 		const props = this.props;
 		const state = this.state;
 
-		return <div className='analysisResults'>
+		return <div className='AnalysisResults'>
+			<div className='visualization'>
+				<AttacktreeVisualization
+					attacktree={state.attacktree}
+					layout={undefined}
+				/>
+			</div>
+
 			<div className='tools'>
-				<div className='ataContainer'>
-					<div>attack tree analyzer</div>
+				<div>
+					<h2>attack tree analyzer</h2>
 					<ATAnalyzerResults
 						attacktrees={props.parsedATAResults}
 						profit={props.profit}
@@ -71,8 +78,8 @@ export default class AnalysisResults extends React.Component {
 
 				<hr />
 
-				<div className='ateContainer'>
-					<div>attack tree evaluator</div>
+				<div>
+					<h2>attack tree evaluator</h2>
 					<ATEvaluatorResults
 						data={props.parsedATEResults}
 						profit={props.profit}
@@ -83,13 +90,6 @@ export default class AnalysisResults extends React.Component {
 						}
 					/>
 				</div>
-			</div>
-
-			<div className='visualization'>
-				<AttacktreeVisualization
-					attacktree={state.attacktree}
-					layout={undefined}
-				/>
 			</div>
 		</div>;
 	}

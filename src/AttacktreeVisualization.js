@@ -19,11 +19,10 @@ import {
 } from 'd3-selection';
 const $ = require('jquery');
 const R = require('ramda');
-const trespass = require('trespass.js');
 
 import theme from './theme.js';
 
-
+const trespass = require('trespass.js');
 const trespassAttacktree = trespass.attacktree;
 const { childElemName, getRootNode } = trespassAttacktree;
 
@@ -138,6 +137,31 @@ function expandCollapse(d) {
 }
 
 
+function renderConjConnection(d, conjSibLeft, offset=0) {
+	if (!conjSibLeft) { return null; }
+
+	const x1 = conjSibLeft._container.x - d.x;
+	const y1 = conjSibLeft._container.y - d.y;
+	const l = Math.sqrt((x1 * x1) + (y1 * y1));
+	const factor = offset / l;
+	const offsetVector = {
+		x: x1 * factor,
+		y: y1 * factor,
+	};
+	return <line
+		style={{
+			stroke: 'rgba(0, 0, 0, 0.3)',
+			strokeWidth: 15,
+			fill: 'none'
+		}}
+		x1={offsetVector.x}
+		y1={offsetVector.y}
+		x2={x1 - offsetVector.x}
+		y2={y1 - offsetVector.y}
+	/>;
+}
+
+
 export default class AttacktreeVisualization extends React.Component {
 	constructor(props) {
 		super(props);
@@ -219,11 +243,18 @@ export default class AttacktreeVisualization extends React.Component {
 			? 'end'
 			: 'start';
 
+		const conjunctiveConnection = renderConjConnection(
+			d,
+			d.data.conjunctiveSiblingLeft,
+			(theme.node.radius + 7)
+		);
+
 		return <g
 			key={index}
 			className='node'
 			transform={`translate(${d.x}, ${d.y})`}
 		>
+			{conjunctiveConnection}
 			<circle
 				r={theme.node.radius}
 				fill={fill}
@@ -284,12 +315,17 @@ export default class AttacktreeVisualization extends React.Component {
 			// store original position
 			d.x0 = d.x;
 			d.y0 = d.y;
+
+			// store reference to container object
+			d.data._container = d;
 		});
 
 		return <svg>
 			<g className='root' transform={`translate(${theme.padding}, ${theme.padding})`}>
 				<g className='edges'>
-					{R.tail(descendants).map((d, index) => this.renderEdge(d, index, layout))}
+					{R.tail(descendants)
+						.map((d, index) => this.renderEdge(d, index, layout))
+					}
 				</g>
 				<g className='nodes'>
 					{descendants.map(this.renderNode)}
