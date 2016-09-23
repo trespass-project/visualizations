@@ -10,6 +10,13 @@ modules:
 	- color scales
 
 
+# installation
+
+```
+npm install trespass-visualizations
+```
+
+
 # setup
 
 ```
