@@ -1,3 +1,14 @@
-.*
+.DS_Store
+node_modules
+*.sublime-project
+*.sublime-workspace
+npm-debug.log
+todo.md
 src
-test
+tests
+example-data
+Makefile
+gulpfile.js
+.*
+jsdoc.json
+docs
