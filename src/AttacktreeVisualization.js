@@ -228,14 +228,28 @@ export default class AttacktreeVisualization extends React.Component {
 	}
 
 	renderNode(d, index) {
+		const attributes = d.data[trespass.attacktree.attrKey];
+		const isDefenseNode = (
+			attributes
+			&& attributes.switchRole
+			&& attributes.switchRole === 'yes'
+		);
+
+		const fillColor = (isDefenseNode)
+			? theme.node.fillDefense
+			: theme.node.fill;
+		const collapsedColor = (isDefenseNode)
+			? theme.node.fillDefenseCollapsed
+			: theme.node.fillCollapsed;
+
 		const fill = d.children
-			? theme.node.fill
+			? fillColor
 			: d._children
-				? theme.node.fillCollapsed
+				? collapsedColor
 				: 'white';
 		const stroke = d.children
 			? 'none'
-			: theme.node.fill;
+			: fillColor;
 
 		const labelX = (d.children ? -1 : 1) * (theme.node.radius + 5);
 		const labelTextAnchor = d.children
