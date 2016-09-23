@@ -13,6 +13,9 @@ export default {
 		fill: trespassRed,
 		fillCollapsed: 'rgb(255, 110, 100)',
 
+		fillDefense: 'rgb(92, 230, 147)',
+		fillDefenseCollapsed: 'rgb(180, 230, 195)',
+
 		labelFontSize: 12,
 		labelRotation: 15,
 	},
