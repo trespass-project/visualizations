@@ -37,3 +37,6 @@ gulp.task('watch', ['babel', 'stylus'], () => {
 	gulp.watch(jsSources, ['babel']);
 	gulp.watch(stylSources, ['stylus']);
 });
+
+
+gulp.task('default', ['babel', 'stylus']);

@@ -32,7 +32,8 @@ lint:
 .PHONY: build
 build:
 	rm -rf $(buildDir)
-	babel $(babelOptions)
+	# babel $(babelOptions)
+	gulp
 
 
 .PHONY: build-watch
