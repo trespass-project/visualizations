@@ -33,10 +33,16 @@ gulp.task('stylus', [], () => {
 });
 
 
+gulp.task('example-data', [], () => {
+	return gulp.src('./example-data/**/*')
+		.pipe(gulp.dest(path.join(buildDir, 'example-data')));
+});
+
+
 gulp.task('watch', ['babel', 'stylus'], () => {
 	gulp.watch(jsSources, ['babel']);
 	gulp.watch(stylSources, ['stylus']);
 });
 
 
-gulp.task('default', ['babel', 'stylus']);
+gulp.task('default', ['babel', 'stylus', 'example-data']);
