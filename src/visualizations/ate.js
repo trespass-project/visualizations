@@ -35,8 +35,9 @@ function styleNode(node) {
 function styleLine(line) {
 	return line
 		.style('fill', 'none')
-		.style('stroke', 'gray')
-		.style('stroke-dasharray', '2, 2')
+		.style('stroke', 'rgba(0, 0, 0, 0.7)')
+		.attr('shape-rendering', 'crispEdges')
+		// .style('stroke-dasharray', '2, 2')
 		.style('pointer-events', 'none');
 }
 
@@ -65,6 +66,7 @@ visualization.init = (elem, props) => {
 				.style('fill', 'black')
 				.style('text-anchor', 'end')
 				.attr('dy', '-5')
+				.style('font-weight', 'bold')
 				.text('cost');
 
 	axesGroup
@@ -75,7 +77,28 @@ visualization.init = (elem, props) => {
 				.style('fill', 'black')
 				.style('text-anchor', 'end')
 				.attr('dy', '28')
+				.style('font-weight', 'bold')
 				.text('probability');
+
+	const tooltipGroup = rootGroup
+		.append('g')
+			.attr('class', 'tooltip')
+			.style('pointer-events', 'none')
+			.style('opacity', 0);
+	tooltipGroup
+		.append('text')
+			.attr('class', 'cost')
+			.attr('dy', '3')
+			.style('fill', 'rgb(255, 40, 0)')
+			.style('font-weight', 'bold')
+			.text('');
+	tooltipGroup
+		.append('text')
+			.attr('class', 'probability')
+			.attr('dy', '16')
+			.style('fill', 'rgb(255, 40, 0)')
+			.style('font-weight', 'bold')
+			.text('');
 };
 
 
@@ -89,6 +112,7 @@ visualization.update = (elem, props, _data) => {
 	const $rootSelection = $(elem);
 	const rootGroup = rootSelection.select('g.root');
 	const frontierGroup = rootSelection.select('g.frontier');
+	const tooltipGroup = rootSelection.select('g.tooltip');
 
 	const rootWidth = $rootSelection.width();
 	const rootHeight = $rootSelection.height();
@@ -118,13 +142,17 @@ visualization.update = (elem, props, _data) => {
 		.domain([maxCost, 0.0])
 		.range([0, h]);
 	const yAxis = d3AxisLeft(yScale)
-		.ticks(10);
+		.ticks(10)
+		.tickPadding(7)
+		.tickSize(-w);
 
 	const xScale = d3ScaleLinear()
 		.domain([0.0, 1.0])
 		.range([0, w]);
 	const xAxis = d3AxisBottom(xScale)
-		.ticks(10);
+		.ticks(10)
+		.tickPadding(7)
+		.tickSize(-h);
 
 	rootGroup.select('.xAxis')
 		.attr('transform', `translate(0, ${h})`)
@@ -133,6 +161,9 @@ visualization.update = (elem, props, _data) => {
 	rootGroup.select('.yAxis')
 		.call(yAxis);
 
+	rootGroup.selectAll('.tick line')
+		.style('opacity', '0.15')
+		.attr('shape-rendering', 'crispEdges');
 
 	// profitability threshold line
 	if (profit) {
@@ -177,7 +208,19 @@ visualization.update = (elem, props, _data) => {
 			.on('click', (d, i) => {
 				(props.onSelect || (() => {}))(d, i);
 			})
-			.call(styleNode);
+			.call(styleNode)
+			.on('mouseover', (d) => {
+				tooltipGroup.select('text.cost')
+					.text(`cost: ${d.cost}`);
+				tooltipGroup.select('text.probability')
+					.text(`prob.: ${d.probability}`);
+				tooltipGroup
+					.attr('transform', `translate(${xScale(d.probability) + 15}, ${yScale(d.cost)})`)
+					.style('opacity', 1);
+			})
+			.on('mouseout', (d) => {
+				tooltipGroup.style('opacity', 0);
+			});
 
 	rootGroup.selectAll('.node')
 		.attr('r', (d, i) => {
@@ -187,8 +230,8 @@ visualization.update = (elem, props, _data) => {
 		})
 		.style('fill', (d, i) => {
 			return (i === props.selectedIndex)
-				? 'black'
-				: 'rgb(255, 40, 0)';
+				? 'rgb(255, 40, 0)'
+				: 'black';
 		});
 };
 
