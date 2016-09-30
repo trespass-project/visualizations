@@ -79,6 +79,26 @@ visualization.init = (elem, props) => {
 				.attr('dy', '28')
 				.style('font-weight', 'bold')
 				.text('probability');
+
+	const tooltipGroup = rootGroup
+		.append('g')
+			.attr('class', 'tooltip')
+			.style('pointer-events', 'none')
+			.style('opacity', 0);
+	tooltipGroup
+		.append('text')
+			.attr('class', 'cost')
+			.attr('dy', '3')
+			.style('fill', 'rgb(255, 40, 0)')
+			.style('font-weight', 'bold')
+			.text('');
+	tooltipGroup
+		.append('text')
+			.attr('class', 'probability')
+			.attr('dy', '16')
+			.style('fill', 'rgb(255, 40, 0)')
+			.style('font-weight', 'bold')
+			.text('');
 };
 
 
@@ -92,6 +112,7 @@ visualization.update = (elem, props, _data) => {
 	const $rootSelection = $(elem);
 	const rootGroup = rootSelection.select('g.root');
 	const frontierGroup = rootSelection.select('g.frontier');
+	const tooltipGroup = rootSelection.select('g.tooltip');
 
 	const rootWidth = $rootSelection.width();
 	const rootHeight = $rootSelection.height();
@@ -187,7 +208,19 @@ visualization.update = (elem, props, _data) => {
 			.on('click', (d, i) => {
 				(props.onSelect || (() => {}))(d, i);
 			})
-			.call(styleNode);
+			.call(styleNode)
+			.on('mouseover', (d) => {
+				tooltipGroup.select('text.cost')
+					.text(`cost: ${d.cost}`);
+				tooltipGroup.select('text.probability')
+					.text(`prob.: ${d.probability}`);
+				tooltipGroup
+					.attr('transform', `translate(${xScale(d.probability) + 15}, ${yScale(d.cost)})`)
+					.style('opacity', 1);
+			})
+			.on('mouseout', (d) => {
+				tooltipGroup.style('opacity', 0);
+			});
 
 	rootGroup.selectAll('.node')
 		.attr('r', (d, i) => {
