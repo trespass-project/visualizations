@@ -28,8 +28,12 @@ const visualization = {};
 function styleNode(node) {
 	return node
 		.attr('r', 5)
-		.style('fill', (d) => ((d.profitable) ? 'green' : 'black'))
-		.style('stroke', 'none');
+		.style('fill', (d) => ((d.profitable)
+			? 'green' // TODO: use the right colors
+			: 'rgb(255, 40, 0)'
+		))
+		.style('stroke', 'none')
+		.style('cursor', 'pointer');
 }
 
 
@@ -37,7 +41,8 @@ function styleLine(line) {
 	return line
 		.style('fill', 'none')
 		.style('stroke', 'gray')
-		.style('stroke-dasharray', '3, 3');
+		.style('stroke-dasharray', '2, 2')
+		.style('pointer-events', 'none');
 }
 
 
