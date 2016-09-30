@@ -27,11 +27,6 @@ const visualization = {};
 
 function styleNode(node) {
 	return node
-		.attr('r', 5)
-		.style('fill', (d) => ((d.profitable)
-			? 'green' // TODO: use the right colors
-			: 'rgb(255, 40, 0)'
-		))
 		.style('stroke', 'none')
 		.style('cursor', 'pointer');
 }
@@ -178,6 +173,18 @@ visualization.update = (elem, props, _data) => {
 				(props.onSelect || (() => {}))(d, i);
 			})
 			.call(styleNode);
+
+	rootGroup.selectAll('.node')
+		.attr('r', (d, i) => {
+			return (i === props.selectedIndex)
+				? 7
+				: 5;
+		})
+		.style('fill', (d, i) => {
+			return (i === props.selectedIndex)
+				? 'black'
+				: 'rgb(255, 40, 0)';
+		});
 };
 
 
