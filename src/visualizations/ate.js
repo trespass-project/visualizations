@@ -55,11 +55,23 @@ visualization.init = (elem, props) => {
 
 	axesGroup
 		.append('g')
-			.attr('class', 'yAxis');
+			.attr('class', 'yAxis')
+			.append('text')
+				.attr('class', 'yAxisLabel')
+				.style('fill', 'black')
+				.style('text-anchor', 'end')
+				.attr('dy', '-5')
+				.text('cost');
 
 	axesGroup
 		.append('g')
-			.attr('class', 'xAxis');
+			.attr('class', 'xAxis')
+			.append('text')
+				.attr('class', 'xAxisLabel')
+				.style('fill', 'black')
+				.style('text-anchor', 'end')
+				.attr('dy', '28')
+				.text('probability');
 };
 
 
@@ -87,7 +99,10 @@ visualization.update = (elem, props, _data) => {
 	// 	.style('height', _h);
 
 	const w = _w - (2 * paddingHorizontal);
-	const h = _h - (2 * paddingVertical);
+	const h = _h - (2 * paddingVertical + 10);
+
+	d3Select('.xAxisLabel')
+		.attr('x', w);
 
 	const maxCost = results.reduce(
 		(acc, item) => Math.max(acc, item.cost),
