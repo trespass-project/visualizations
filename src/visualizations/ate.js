@@ -49,6 +49,10 @@ visualization.init = (elem, props) => {
 			.attr('class', 'root')
 			.attr('transform', `translate(${paddingHorizontal}, ${paddingVertical})`);
 
+	const frontierGroup = rootGroup
+		.append('g')
+			.attr('class', 'frontier');
+
 	const axesGroup = rootGroup
 		.append('g')
 			.attr('class', 'axes');
@@ -84,6 +88,7 @@ visualization.update = (elem, props, _data) => {
 	const rootSelection = d3Select(elem);
 	const $rootSelection = $(elem);
 	const rootGroup = rootSelection.select('g.root');
+	const frontierGroup = rootSelection.select('g.frontier');
 
 	const rootWidth = $rootSelection.width();
 	const rootHeight = $rootSelection.height();
@@ -152,7 +157,7 @@ visualization.update = (elem, props, _data) => {
 		.curve(d3CurveStepBefore)
 		.x((d) => xScale(d.probability))
 		.y((d) => yScale(d.cost));
-	const connection = rootGroup.selectAll('.line')
+	const connection = frontierGroup.selectAll('.line')
 		.data(connectionData);
 
 	connection.enter()
@@ -186,6 +191,5 @@ visualization.update = (elem, props, _data) => {
 				: 'rgb(255, 40, 0)';
 		});
 };
-
 
 export default visualization;
