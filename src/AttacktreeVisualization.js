@@ -191,9 +191,9 @@ export default class AttacktreeVisualization extends React.Component {
 		this.updateHierarchy(nextProps.attacktree);
 	}
 
-	componentDidUpdate(prevProps, prevState) {
-		this.initZoom();
-	}
+	// componentDidUpdate(prevProps, prevState) {
+	// 	this.initZoom();
+	// }
 
 	updateHierarchy(attacktree) {
 		if (!attacktree) {
@@ -263,7 +263,7 @@ export default class AttacktreeVisualization extends React.Component {
 		);
 
 		return <g
-			key={index}
+			key={/*`${*/index/*}-${d.data.label}`*/}
 			className='node'
 			transform={`translate(${d.x}, ${d.y})`}
 		>
@@ -292,8 +292,7 @@ export default class AttacktreeVisualization extends React.Component {
 	}
 
 	render() {
-		const props = this.props;
-		const state = this.state;
+		const { props, state } = this;
 
 		const { hierarchy } = state;
 		if (!hierarchy) {
