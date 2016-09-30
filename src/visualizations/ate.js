@@ -35,8 +35,9 @@ function styleNode(node) {
 function styleLine(line) {
 	return line
 		.style('fill', 'none')
-		.style('stroke', 'gray')
-		.style('stroke-dasharray', '2, 2')
+		.style('stroke', 'rgba(0, 0, 0, 0.7)')
+		.attr('shape-rendering', 'crispEdges')
+		// .style('stroke-dasharray', '2, 2')
 		.style('pointer-events', 'none');
 }
 
@@ -65,6 +66,7 @@ visualization.init = (elem, props) => {
 				.style('fill', 'black')
 				.style('text-anchor', 'end')
 				.attr('dy', '-5')
+				.style('font-weight', 'bold')
 				.text('cost');
 
 	axesGroup
@@ -75,6 +77,7 @@ visualization.init = (elem, props) => {
 				.style('fill', 'black')
 				.style('text-anchor', 'end')
 				.attr('dy', '28')
+				.style('font-weight', 'bold')
 				.text('probability');
 };
 
@@ -118,13 +121,17 @@ visualization.update = (elem, props, _data) => {
 		.domain([maxCost, 0.0])
 		.range([0, h]);
 	const yAxis = d3AxisLeft(yScale)
-		.ticks(10);
+		.ticks(10)
+		.tickPadding(7)
+		.tickSize(-w);
 
 	const xScale = d3ScaleLinear()
 		.domain([0.0, 1.0])
 		.range([0, w]);
 	const xAxis = d3AxisBottom(xScale)
-		.ticks(10);
+		.ticks(10)
+		.tickPadding(7)
+		.tickSize(-h);
 
 	rootGroup.select('.xAxis')
 		.attr('transform', `translate(0, ${h})`)
@@ -133,6 +140,9 @@ visualization.update = (elem, props, _data) => {
 	rootGroup.select('.yAxis')
 		.call(yAxis);
 
+	rootGroup.selectAll('.tick line')
+		.style('opacity', '0.15')
+		.attr('shape-rendering', 'crispEdges');
 
 	// profitability threshold line
 	if (profit) {
@@ -187,8 +197,8 @@ visualization.update = (elem, props, _data) => {
 		})
 		.style('fill', (d, i) => {
 			return (i === props.selectedIndex)
-				? 'black'
-				: 'rgb(255, 40, 0)';
+				? 'rgb(255, 40, 0)'
+				: 'black';
 		});
 };
 
