@@ -89,9 +89,11 @@ export default class ATEvaluatorResults extends React.Component {
 				<Visualization
 					visualization={ateVis}
 					data={data}
-					width={props.width}
-					height={props.height}
-					onSelect={this.onSelect}
+					{...R.omit([
+						'data',
+						'profit',
+						'showTable',
+					], props)}
 				/>
 			</div>
 			{(props.showTable)
@@ -110,6 +112,7 @@ ATEvaluatorResults.propTypes = {
 	showTable: React.PropTypes.bool,
 	onHover: React.PropTypes.func,
 	onSelect: React.PropTypes.func,
+	selectedIndex: React.PropTypes.number,
 };
 
 ATEvaluatorResults.defaultProps = {

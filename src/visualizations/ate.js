@@ -27,9 +27,8 @@ const visualization = {};
 
 function styleNode(node) {
 	return node
-		.attr('r', 5)
-		.style('fill', (d) => ((d.profitable) ? 'green' : 'black'))
-		.style('stroke', 'none');
+		.style('stroke', 'none')
+		.style('cursor', 'pointer');
 }
 
 
@@ -37,7 +36,8 @@ function styleLine(line) {
 	return line
 		.style('fill', 'none')
 		.style('stroke', 'gray')
-		.style('stroke-dasharray', '3, 3');
+		.style('stroke-dasharray', '2, 2')
+		.style('pointer-events', 'none');
 }
 
 
@@ -48,6 +48,10 @@ visualization.init = (elem, props) => {
 		.append('g')
 			.attr('class', 'root')
 			.attr('transform', `translate(${paddingHorizontal}, ${paddingVertical})`);
+
+	const frontierGroup = rootGroup
+		.append('g')
+			.attr('class', 'frontier');
 
 	const axesGroup = rootGroup
 		.append('g')
@@ -84,6 +88,7 @@ visualization.update = (elem, props, _data) => {
 	const rootSelection = d3Select(elem);
 	const $rootSelection = $(elem);
 	const rootGroup = rootSelection.select('g.root');
+	const frontierGroup = rootSelection.select('g.frontier');
 
 	const rootWidth = $rootSelection.width();
 	const rootHeight = $rootSelection.height();
@@ -152,7 +157,7 @@ visualization.update = (elem, props, _data) => {
 		.curve(d3CurveStepBefore)
 		.x((d) => xScale(d.probability))
 		.y((d) => yScale(d.cost));
-	const connection = rootGroup.selectAll('.line')
+	const connection = frontierGroup.selectAll('.line')
 		.data(connectionData);
 
 	connection.enter()
@@ -173,7 +178,18 @@ visualization.update = (elem, props, _data) => {
 				(props.onSelect || (() => {}))(d, i);
 			})
 			.call(styleNode);
-};
 
+	rootGroup.selectAll('.node')
+		.attr('r', (d, i) => {
+			return (i === props.selectedIndex)
+				? 7
+				: 5;
+		})
+		.style('fill', (d, i) => {
+			return (i === props.selectedIndex)
+				? 'black'
+				: 'rgb(255, 40, 0)';
+		});
+};
 
 export default visualization;
