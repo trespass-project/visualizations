@@ -13,6 +13,7 @@ import {
 	// cluster as d3Tree
 } from 'd3-hierarchy';
 import { zoom as d3Zoom } from 'd3-zoom';
+import { path as d3Path } from 'd3-path';
 import {
 	event as d3Event,
 	select as d3Select
@@ -25,6 +26,16 @@ import theme from './theme.js';
 
 const trespass = require('trespass.js');
 const { childElemName, getRootNode } = trespass.attacktree;
+
+
+function rad2Deg(a) {
+	return a * (180 / Math.PI);
+}
+
+
+function deg2Rad(a) {
+	return (a / 360) * (2 * Math.PI);
+}
 
 
 function line(p1, p2) {
@@ -173,7 +184,7 @@ function expandCollapse(d) {
 }
 
 
-function renderConjConnection(d, conjSibLeft, offset=0) {
+function renderConjConnection(d, conjSibLeft, offset=0, layoutName) {
 	if (!conjSibLeft) { return null; }
 
 	const x = conjSibLeft._container.x - d.x;
@@ -184,7 +195,6 @@ function renderConjConnection(d, conjSibLeft, offset=0) {
 		x: x * factor,
 		y: y * factor,
 	};
-
 	const x1 = offsetVector.x;
 	const y1 = offsetVector.y;
 	const x2 = x - offsetVector.x;
@@ -195,6 +205,41 @@ function renderConjConnection(d, conjSibLeft, offset=0) {
 		strokeWidth: 15,
 		fill: 'none'
 	};
+
+	if (layoutName === 'radial') {
+		const p = d3Path();
+		const radius = getVectorLength(d.x, d.y);
+		const a1 = /*rad2Deg*/(
+			Math.atan2(
+				d.y,
+				d.x
+			)
+		);
+		const a2 = /*rad2Deg*/(
+			Math.atan2(
+				conjSibLeft._container.y,
+				conjSibLeft._container.x
+			)
+		);
+		const offsetAngle = Math.acos(
+			((radius * radius) + (radius * radius) - (offset * offset)) /
+			(2 * radius * radius)
+		);
+		p.arc(
+			0,
+			0,
+			radius,
+			a1 + offsetAngle,
+			a2 - offsetAngle,
+			false
+		);
+		return <g transform={`translate(${-d.x}, ${-d.y})`}>
+			<path
+				style={style}
+				d={p.toString()}
+			/>
+		</g>;
+	}
 
 	return <line
 		style={style}
@@ -272,7 +317,7 @@ export default class AttacktreeVisualization extends React.Component {
 		/>;
 	}
 
-	renderNode(d, index) {
+	renderNode(d, index, layoutName) {
 		const attributes = d.data[trespass.attacktree.attrKey];
 		const isDefenseNode = (
 			attributes
@@ -304,7 +349,8 @@ export default class AttacktreeVisualization extends React.Component {
 		const conjunctiveConnection = renderConjConnection(
 			d,
 			d.data.conjunctiveSiblingLeft,
-			(theme.node.radius + 7)
+			(theme.node.radius + 7),
+			layoutName
 		);
 
 		return <g
@@ -396,7 +442,9 @@ export default class AttacktreeVisualization extends React.Component {
 					}
 				</g>
 				<g className='nodes'>
-					{descendants.map(this.renderNode)}
+					{descendants
+						.map((d, index) => this.renderNode(d, index, props.layout))
+					}
 				</g>
 			</g>
 		</svg>;
