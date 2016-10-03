@@ -191,9 +191,10 @@ export default class AttacktreeVisualization extends React.Component {
 		this.updateHierarchy(nextProps.attacktree);
 	}
 
-	// componentDidUpdate(prevProps, prevState) {
-	// 	this.initZoom();
-	// }
+	// don't remove
+	componentDidUpdate(prevProps, prevState) {
+		this.initZoom();
+	}
 
 	updateHierarchy(attacktree) {
 		if (!attacktree) {
