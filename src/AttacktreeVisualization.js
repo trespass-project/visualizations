@@ -19,12 +19,20 @@ import {
 } from 'd3-selection';
 const $ = require('jquery');
 const R = require('ramda');
+const mout = require('mout');
 
 import theme from './theme.js';
 
 const trespass = require('trespass.js');
-const trespassAttacktree = trespass.attacktree;
-const { childElemName, getRootNode } = trespassAttacktree;
+const { childElemName, getRootNode } = trespass.attacktree;
+
+
+function line(p1, p2) {
+	return [
+		'M', `${p1.x}, ${p1.y}`,
+		'L', `${p2.x}, ${p2.y}`
+	].join(' ');
+}
 
 
 function pathifyBezier(p1, c1, c2, p2) {
@@ -35,6 +43,7 @@ function pathifyBezier(p1, c1, c2, p2) {
 		`${p2.x}, ${p2.y}`
 	].join(' ');
 }
+
 
 function diagonalBezier(p1, p2, dir) {
 	const distX = (p2.x - p1.x);
@@ -82,10 +91,10 @@ const layouts = {
 			};
 		},
 		// edgePath: (x1, y1, x2, y2) => {
-		// 	return line([
+		// 	return line(
 		// 		{ x: x1, y: y1 },
 		// 		{ x: x2, y: y2 },
-		// 	]);
+		// 	);
 		// },
 		edgePath: (x1, y1, x2, y2) => {
 			const { p1, c1, c2, p2 } = diagonalBezier(
@@ -94,6 +103,28 @@ const layouts = {
 				'horizontal'
 			);
 			return pathifyBezier(p1, c1, c2, p2);
+		},
+	},
+
+	radial: {
+		projection: (x, y, minMaxX, xSize) => {
+			const angle = mout.math.map(
+				x,
+				minMaxX.min,
+				minMaxX.max + xSize,
+				0,
+				2 * Math.PI
+			);
+			return {
+				x: Math.sin(angle) * y,
+				y: Math.cos(angle) * y,
+			};
+		},
+		edgePath: (x1, y1, x2, y2) => {
+			return line(
+				{ x: x1, y: y1 },
+				{ x: x2, y: y2 },
+			);
 		},
 	},
 };
@@ -300,25 +331,35 @@ export default class AttacktreeVisualization extends React.Component {
 			return <svg></svg>;
 		}
 
+		const xSize = 75;
+		const ySize = 100;
 		const tree = d3Tree()
-			.nodeSize([75, 100])
+			.nodeSize([xSize, ySize])
 			.separation((a, b) => 1);
 		tree(hierarchy);
 		const descendants = hierarchy.descendants();
 
 		const layout = layouts[props.layout];
+
+		const minMaxX = descendants
+			.reduce((acc, d) => {
+				acc.min = Math.min(acc.min, d.x);
+				acc.max = Math.max(acc.max, d.x);
+				return acc;
+			}, { min: 0, max: 0 });
+
 		descendants.forEach((d) => {
 			// adjust node position, based on selected layout
 
-			const pr = layout.projection(d.x, d.y);
-			d.x = pr.x;
-			d.y = pr.y;
+			const projected = layout.projection(d.x, d.y, minMaxX, xSize);
+			d.x = projected.x;
+			d.y = projected.y;
 
-			if (props.layout === 'regular') {
+			if (R.contains(props.layout, ['regular', 'circular'])) {
 				// horizontally center root node
 				d.x += state.w / 2;
 			}
-			if (props.layout === 'ltr') {
+			if (R.contains(props.layout, ['ltr', 'circular'])) {
 				// vertically center root node
 				d.y += state.h / 2;
 			}
