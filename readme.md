@@ -2,10 +2,10 @@
 
 modules:
 - `visualizations.components`: react components for different visualizations:
-	- attack trees
-	- attack tree analyzer results
-	- attack tree evaluator results
-	- TODO: attop results
+	- attack (defense) trees (`AttacktreeVisualization`)
+	- analysis results:
+		- attack tree analyzer (`ATAnalyzerResults`)
+		- attack tree evaluator (`ATEvaluatorResults`)
 - `visualizations.color`
 	- color scales
 
