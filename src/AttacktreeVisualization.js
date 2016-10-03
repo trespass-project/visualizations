@@ -13,18 +13,41 @@ import {
 	// cluster as d3Tree
 } from 'd3-hierarchy';
 import { zoom as d3Zoom } from 'd3-zoom';
+import { path as d3Path } from 'd3-path';
 import {
 	event as d3Event,
 	select as d3Select
 } from 'd3-selection';
 const $ = require('jquery');
 const R = require('ramda');
+const mout = require('mout');
 
 import theme from './theme.js';
 
 const trespass = require('trespass.js');
-const trespassAttacktree = trespass.attacktree;
-const { childElemName, getRootNode } = trespassAttacktree;
+const { childElemName, getRootNode } = trespass.attacktree;
+
+
+const xSize = 75;
+const ySize = 100;
+
+
+function rad2Deg(a) {
+	return a * (180 / Math.PI);
+}
+
+
+function deg2Rad(a) {
+	return (a / 360) * (2 * Math.PI);
+}
+
+
+function line(p1, p2) {
+	return [
+		'M', `${p1.x}, ${p1.y}`,
+		'L', `${p2.x}, ${p2.y}`
+	].join(' ');
+}
 
 
 function pathifyBezier(p1, c1, c2, p2) {
@@ -35,6 +58,7 @@ function pathifyBezier(p1, c1, c2, p2) {
 		`${p2.x}, ${p2.y}`
 	].join(' ');
 }
+
 
 function diagonalBezier(p1, p2, dir) {
 	const distX = (p2.x - p1.x);
@@ -82,10 +106,10 @@ const layouts = {
 			};
 		},
 		// edgePath: (x1, y1, x2, y2) => {
-		// 	return line([
+		// 	return line(
 		// 		{ x: x1, y: y1 },
 		// 		{ x: x2, y: y2 },
-		// 	]);
+		// 	);
 		// },
 		edgePath: (x1, y1, x2, y2) => {
 			const { p1, c1, c2, p2 } = diagonalBezier(
@@ -96,7 +120,34 @@ const layouts = {
 			return pathifyBezier(p1, c1, c2, p2);
 		},
 	},
+
+	radial: {
+		projection: (x, y, minMaxX) => {
+			const angle = mout.math.map(
+				x,
+				minMaxX.min,
+				minMaxX.max + xSize,
+				0,
+				2 * Math.PI
+			);
+			return {
+				x: Math.sin(angle) * y,
+				y: Math.cos(angle) * y,
+			};
+		},
+		edgePath: (x1, y1, x2, y2) => {
+			return line(
+				{ x: x1, y: y1 },
+				{ x: x2, y: y2 }
+			);
+		},
+	},
 };
+
+
+function getVectorLength(x, y) {
+	return Math.sqrt((x * x) + (y * y));
+}
 
 
 function makeZoomBehavior(rootGroup, rootSelection) {
@@ -137,27 +188,69 @@ function expandCollapse(d) {
 }
 
 
-function renderConjConnection(d, conjSibLeft, offset=0) {
+function renderConjConnection(d, conjSibLeft, offset=0, layoutName) {
 	if (!conjSibLeft) { return null; }
 
-	const x1 = conjSibLeft._container.x - d.x;
-	const y1 = conjSibLeft._container.y - d.y;
-	const l = Math.sqrt((x1 * x1) + (y1 * y1));
+	const x = conjSibLeft._container.x - d.x;
+	const y = conjSibLeft._container.y - d.y;
+	const l = getVectorLength(x, y);
 	const factor = offset / l;
 	const offsetVector = {
-		x: x1 * factor,
-		y: y1 * factor,
+		x: x * factor,
+		y: y * factor,
 	};
+	const x1 = offsetVector.x;
+	const y1 = offsetVector.y;
+	const x2 = x - offsetVector.x;
+	const y2 = y - offsetVector.y;
+
+	const style = {
+		stroke: 'rgba(0, 0, 0, 0.3)',
+		strokeWidth: 15,
+		fill: 'none'
+	};
+
+	if (layoutName === 'radial') {
+		const p = d3Path();
+		const radius = getVectorLength(d.x, d.y);
+		const a1 = /*rad2Deg*/(
+			Math.atan2(
+				d.y,
+				d.x
+			)
+		);
+		const a2 = /*rad2Deg*/(
+			Math.atan2(
+				conjSibLeft._container.y,
+				conjSibLeft._container.x
+			)
+		);
+		const offsetAngle = Math.acos(
+			((radius * radius) + (radius * radius) - (offset * offset)) /
+			(2 * radius * radius)
+		);
+		p.arc(
+			0,
+			0,
+			radius,
+			a1 + offsetAngle,
+			a2 - offsetAngle,
+			false
+		);
+		return <g transform={`translate(${-d.x}, ${-d.y})`}>
+			<path
+				style={style}
+				d={p.toString()}
+			/>
+		</g>;
+	}
+
 	return <line
-		style={{
-			stroke: 'rgba(0, 0, 0, 0.3)',
-			strokeWidth: 15,
-			fill: 'none'
-		}}
-		x1={offsetVector.x}
-		y1={offsetVector.y}
-		x2={x1 - offsetVector.x}
-		y2={y1 - offsetVector.y}
+		style={style}
+		x1={x1}
+		y1={y1}
+		x2={x2}
+		y2={y2}
 	/>;
 }
 
@@ -228,7 +321,7 @@ export default class AttacktreeVisualization extends React.Component {
 		/>;
 	}
 
-	renderNode(d, index) {
+	renderNode(d, index, layoutName) {
 		const attributes = d.data[trespass.attacktree.attrKey];
 		const isDefenseNode = (
 			attributes
@@ -260,7 +353,8 @@ export default class AttacktreeVisualization extends React.Component {
 		const conjunctiveConnection = renderConjConnection(
 			d,
 			d.data.conjunctiveSiblingLeft,
-			(theme.node.radius + 7)
+			(theme.node.radius + 7),
+			layoutName
 		);
 
 		return <g
@@ -301,24 +395,32 @@ export default class AttacktreeVisualization extends React.Component {
 		}
 
 		const tree = d3Tree()
-			.nodeSize([75, 100])
+			.nodeSize([xSize, ySize])
 			.separation((a, b) => 1);
 		tree(hierarchy);
 		const descendants = hierarchy.descendants();
 
 		const layout = layouts[props.layout];
+
+		const minMaxX = descendants
+			.reduce((acc, d) => {
+				acc.min = Math.min(acc.min, d.x);
+				acc.max = Math.max(acc.max, d.x);
+				return acc;
+			}, { min: 0, max: 0 });
+
 		descendants.forEach((d) => {
 			// adjust node position, based on selected layout
 
-			const pr = layout.projection(d.x, d.y);
-			d.x = pr.x;
-			d.y = pr.y;
+			const projected = layout.projection(d.x, d.y, minMaxX);
+			d.x = projected.x;
+			d.y = projected.y;
 
-			if (props.layout === 'regular') {
+			if (R.contains(props.layout, ['regular', 'circular'])) {
 				// horizontally center root node
 				d.x += state.w / 2;
 			}
-			if (props.layout === 'ltr') {
+			if (R.contains(props.layout, ['ltr', 'circular'])) {
 				// vertically center root node
 				d.y += state.h / 2;
 			}
@@ -342,7 +444,9 @@ export default class AttacktreeVisualization extends React.Component {
 					}
 				</g>
 				<g className='nodes'>
-					{descendants.map(this.renderNode)}
+					{descendants
+						.map((d, index) => this.renderNode(d, index, props.layout))
+					}
 				</g>
 			</g>
 		</svg>;
