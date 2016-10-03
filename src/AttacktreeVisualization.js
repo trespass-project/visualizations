@@ -176,24 +176,32 @@ function expandCollapse(d) {
 function renderConjConnection(d, conjSibLeft, offset=0) {
 	if (!conjSibLeft) { return null; }
 
-	const x1 = conjSibLeft._container.x - d.x;
-	const y1 = conjSibLeft._container.y - d.y;
-	const l = getVectorLength(x1, y1);
+	const x = conjSibLeft._container.x - d.x;
+	const y = conjSibLeft._container.y - d.y;
+	const l = getVectorLength(x, y);
 	const factor = offset / l;
 	const offsetVector = {
-		x: x1 * factor,
-		y: y1 * factor,
+		x: x * factor,
+		y: y * factor,
 	};
+
+	const x1 = offsetVector.x;
+	const y1 = offsetVector.y;
+	const x2 = x - offsetVector.x;
+	const y2 = y - offsetVector.y;
+
+	const style = {
+		stroke: 'rgba(0, 0, 0, 0.3)',
+		strokeWidth: 15,
+		fill: 'none'
+	};
+
 	return <line
-		style={{
-			stroke: 'rgba(0, 0, 0, 0.3)',
-			strokeWidth: 15,
-			fill: 'none'
-		}}
-		x1={offsetVector.x}
-		y1={offsetVector.y}
-		x2={x1 - offsetVector.x}
-		y2={y1 - offsetVector.y}
+		style={style}
+		x1={x1}
+		y1={y1}
+		x2={x2}
+		y2={y2}
 	/>;
 }
 
