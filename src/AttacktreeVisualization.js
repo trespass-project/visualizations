@@ -28,6 +28,10 @@ const trespass = require('trespass.js');
 const { childElemName, getRootNode } = trespass.attacktree;
 
 
+const xSize = 75;
+const ySize = 100;
+
+
 function rad2Deg(a) {
 	return a * (180 / Math.PI);
 }
@@ -118,7 +122,7 @@ const layouts = {
 	},
 
 	radial: {
-		projection: (x, y, minMaxX, xSize) => {
+		projection: (x, y, minMaxX) => {
 			const angle = mout.math.map(
 				x,
 				minMaxX.min,
@@ -390,8 +394,6 @@ export default class AttacktreeVisualization extends React.Component {
 			return <svg></svg>;
 		}
 
-		const xSize = 75;
-		const ySize = 100;
 		const tree = d3Tree()
 			.nodeSize([xSize, ySize])
 			.separation((a, b) => 1);
@@ -410,7 +412,7 @@ export default class AttacktreeVisualization extends React.Component {
 		descendants.forEach((d) => {
 			// adjust node position, based on selected layout
 
-			const projected = layout.projection(d.x, d.y, minMaxX, xSize);
+			const projected = layout.projection(d.x, d.y, minMaxX);
 			d.x = projected.x;
 			d.y = projected.y;
 
