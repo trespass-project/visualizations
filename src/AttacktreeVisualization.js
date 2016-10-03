@@ -123,11 +123,16 @@ const layouts = {
 		edgePath: (x1, y1, x2, y2) => {
 			return line(
 				{ x: x1, y: y1 },
-				{ x: x2, y: y2 },
+				{ x: x2, y: y2 }
 			);
 		},
 	},
 };
+
+
+function getVectorLength(x, y) {
+	return Math.sqrt((x * x) + (y * y));
+}
 
 
 function makeZoomBehavior(rootGroup, rootSelection) {
@@ -173,7 +178,7 @@ function renderConjConnection(d, conjSibLeft, offset=0) {
 
 	const x1 = conjSibLeft._container.x - d.x;
 	const y1 = conjSibLeft._container.y - d.y;
-	const l = Math.sqrt((x1 * x1) + (y1 * y1));
+	const l = getVectorLength(x1, y1);
 	const factor = offset / l;
 	const offsetVector = {
 		x: x1 * factor,
