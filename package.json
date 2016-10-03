@@ -1,6 +1,6 @@
 {
   "name": "trespass-visualizations",
-  "version": "0.14.3",
+  "version": "0.14.4",
   "description": "TREsPASS visualization components",
   "author": "freder.code+trespass@gmail.com",
   "main": "./dist",
