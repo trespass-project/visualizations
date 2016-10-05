@@ -1,5 +1,7 @@
 const path = require('path');
 const gulp = require('gulp');
+const plumber = require('gulp-plumber');
+const gutil = require('gulp-util');
 const babel = require('gulp-babel');
 const sourcemaps = require('gulp-sourcemaps');
 const stylus = require('gulp-stylus');
@@ -14,6 +16,16 @@ const stylEntry = path.join(sourceDir, 'index.styl');
 
 gulp.task('babel', [], () => {
 	return gulp.src(jsSources)
+		.pipe(
+			plumber(function(err) {
+				const prefix = gutil.colors.red(
+					`Error (${err.plugin}):  ${err.message}`
+				);
+				const msg = `${prefix}\n${err.stack}`;
+				gutil.log(msg);
+				this.emit('end');
+			})
+		)
 		.pipe(sourcemaps.init())
 		.pipe(babel({ presets: ['es2015', 'react'] }))
 		.pipe(sourcemaps.write('.'))
