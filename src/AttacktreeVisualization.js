@@ -313,13 +313,20 @@ export default class AttacktreeVisualization extends React.Component {
 	}
 
 	renderEdge(d, index, layout) {
+		const style = Object.assign(
+			{},
+			{
+				fill: 'none',
+				stroke: theme.edge.stroke,
+				strokeWidth: theme.edge.strokeWidth,
+			},
+			this.props.overrideEdgeStyle(d, index, layout)
+		);
 		return <path
 			key={index}
 			className='link'
+			style={style}
 			d={layout.edgePath(d.x, d.y, d.parent.x, d.parent.y)}
-			fill={'none'}
-			stroke={theme.edge.stroke}
-			strokeWidth={theme.edge.strokeWidth}
 		/>;
 	}
 
@@ -359,6 +366,16 @@ export default class AttacktreeVisualization extends React.Component {
 			layoutName
 		);
 
+		const style = Object.assign(
+			{},
+			{
+				fill,
+				stroke,
+				strokeWidth: 3,
+			},
+			this.props.overrideNodeStyle(d, index, layoutName)
+		);
+
 		return <g
 			key={/*`${*/index/*}-${d.data.label}`*/}
 			className='node'
@@ -367,9 +384,7 @@ export default class AttacktreeVisualization extends React.Component {
 			{conjunctiveConnection}
 			<circle
 				r={theme.node.radius}
-				fill={fill}
-				stroke={stroke}
-				strokeWidth={3}
+				style={style}
 				onClick={(event) => {
 					event.preventDefault();
 					expandCollapse(d);
@@ -458,9 +473,13 @@ export default class AttacktreeVisualization extends React.Component {
 AttacktreeVisualization.propTypes = {
 	attacktree: React.PropTypes.object/*.isRequired*/,
 	layout: React.PropTypes.string/*.isRequired*/,
+	overrideEdgeStyle: React.PropTypes.func,
+	overrideNodeStyle: React.PropTypes.func,
 };
 
 AttacktreeVisualization.defaultProps = {
 	// attacktree: null,
 	layout: 'regular',
+	overrideEdgeStyle: (d, index, layout) => ({}),
+	overrideNodeStyle: (d, index, layoutName) => ({}),
 };
