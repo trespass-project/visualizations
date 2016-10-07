@@ -258,8 +258,8 @@ export default class AttacktreeVisualization extends React.Component {
 
 		this.state = {
 			hierarchy: null,
-			w: undefined,
-			h: undefined,
+			w: 0,
+			h: 0,
 		};
 	}
 
