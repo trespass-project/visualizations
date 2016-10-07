@@ -32,16 +32,26 @@ const xSize = 75;
 const ySize = 100;
 
 
+const rad2DegFactor = (180 / Math.PI);
 function rad2Deg(a) {
-	return a * (180 / Math.PI);
+	return a * rad2DegFactor;
 }
 
 
+const deg2RadFactor = (2 * Math.PI) / 360;
 function deg2Rad(a) {
-	return (a / 360) * (2 * Math.PI);
+	return a * deg2RadFactor;
 }
 
 
+function getVectorLength(x, y) {
+	return Math.sqrt(
+		Math.pow(x, 2) + Math.pow(y, 2)
+	);
+}
+
+
+// TODO: `d3-path` already has this functionality
 function line(p1, p2) {
 	return [
 		'M', `${p1.x}, ${p1.y}`,
@@ -50,6 +60,7 @@ function line(p1, p2) {
 }
 
 
+// TODO: `d3-path` already has this functionality
 function pathifyBezier(p1, c1, c2, p2) {
 	return [
 		'M', `${p1.x}, ${p1.y}`,
@@ -63,13 +74,15 @@ function pathifyBezier(p1, c1, c2, p2) {
 function diagonalBezier(p1, p2, dir) {
 	const distX = (p2.x - p1.x);
 	const distY = (p2.y - p1.y);
+
 	if (dir === 'vertical'
 		|| (Math.abs(distX) <= Math.abs(distY))) {
 		const m = p1.y + (distY / 2);
 		const c1 = { x: p1.x, y: m };
 		const c2 = { x: p2.x, y: m };
 		return { p1, c1, c2, p2 };
-	} else if (dir === 'horizontal'
+	}
+	else if (dir === 'horizontal'
 		|| (Math.abs(distX) >= Math.abs(distY))) {
 		const m = p1.x + (distX / 2);
 		const c1 = { x: m, y: p1.y };
@@ -105,12 +118,6 @@ const layouts = {
 				y: x,
 			};
 		},
-		// edgePath: (x1, y1, x2, y2) => {
-		// 	return line(
-		// 		{ x: x1, y: y1 },
-		// 		{ x: x2, y: y2 },
-		// 	);
-		// },
 		edgePath: (x1, y1, x2, y2) => {
 			const { p1, c1, c2, p2 } = diagonalBezier(
 				{ x: x1, y: y1 },
@@ -143,11 +150,6 @@ const layouts = {
 		},
 	},
 };
-
-
-function getVectorLength(x, y) {
-	return Math.sqrt((x * x) + (y * y));
-}
 
 
 function makeZoomBehavior(rootGroup, rootSelection) {
@@ -311,13 +313,20 @@ export default class AttacktreeVisualization extends React.Component {
 	}
 
 	renderEdge(d, index, layout) {
+		const style = Object.assign(
+			{},
+			{
+				fill: 'none',
+				stroke: theme.edge.stroke,
+				strokeWidth: theme.edge.strokeWidth,
+			},
+			this.props.overrideEdgeStyle(d, index, layout)
+		);
 		return <path
 			key={index}
 			className='link'
+			style={style}
 			d={layout.edgePath(d.x, d.y, d.parent.x, d.parent.y)}
-			fill={'none'}
-			stroke={theme.edge.stroke}
-			strokeWidth={theme.edge.strokeWidth}
 		/>;
 	}
 
@@ -357,6 +366,16 @@ export default class AttacktreeVisualization extends React.Component {
 			layoutName
 		);
 
+		const style = Object.assign(
+			{},
+			{
+				fill,
+				stroke,
+				strokeWidth: 3,
+			},
+			this.props.overrideNodeStyle(d, index, layoutName)
+		);
+
 		return <g
 			key={/*`${*/index/*}-${d.data.label}`*/}
 			className='node'
@@ -365,9 +384,7 @@ export default class AttacktreeVisualization extends React.Component {
 			{conjunctiveConnection}
 			<circle
 				r={theme.node.radius}
-				fill={fill}
-				stroke={stroke}
-				strokeWidth={3}
+				style={style}
 				onClick={(event) => {
 					event.preventDefault();
 					expandCollapse(d);
@@ -456,9 +473,13 @@ export default class AttacktreeVisualization extends React.Component {
 AttacktreeVisualization.propTypes = {
 	attacktree: React.PropTypes.object/*.isRequired*/,
 	layout: React.PropTypes.string/*.isRequired*/,
+	overrideEdgeStyle: React.PropTypes.func,
+	overrideNodeStyle: React.PropTypes.func,
 };
 
 AttacktreeVisualization.defaultProps = {
 	// attacktree: null,
 	layout: 'regular',
+	overrideEdgeStyle: (d, index, layout) => ({}),
+	overrideNodeStyle: (d, index, layoutName) => ({}),
 };
