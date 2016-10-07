@@ -61,7 +61,8 @@ export default class ATEvaluatorResults extends React.Component {
 	}
 
 	render() {
-		const props = this.props;
+		const { props } = this;
+
 		const sorted = sortByProbability(props.data)
 			.map((item) => {
 				if (props.profit) {
