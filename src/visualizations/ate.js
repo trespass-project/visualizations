@@ -15,6 +15,10 @@ import {
 const R = require('ramda');
 const $ = require('jquery');
 
+
+const noop = () => {};
+
+
 // TODO: theme
 // import theme from '../theme.js';
 const paddingHorizontal = 50;
@@ -206,7 +210,13 @@ visualization.update = (elem, props, _data) => {
 			.attr('cx', (d) => xScale(d.probability))
 			.attr('cy', (d) => yScale(d.cost))
 			.on('click', (d, i) => {
-				(props.onSelect || (() => {}))(d, i);
+				(props.onSelect || noop)(d, i);
+			})
+			.on('mouseenter', (d, i) => {
+				(props.onHover || noop)(d, i);
+			})
+			.on('mouseleave', (d, i) => {
+				(props.onHoverOut || noop)(d, i);
 			})
 			.call(styleNode)
 			.on('mouseover', (d) => {

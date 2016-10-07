@@ -25,9 +25,14 @@ export default class ATEvaluatorResults extends React.Component {
 		autobind(this);
 	}
 
-	onHover(item, event) {
-		event.preventDefault();
+	onHover(item, index, event) {
+		// event.preventDefault();
 		this.props.onHover(item);
+	}
+
+	onHoverOut(/*item, index, */event) {
+		// event.preventDefault();
+		this.props.onHoverOut(/*item*/);
 	}
 
 	onSelect(item, index, event) {
@@ -38,7 +43,8 @@ export default class ATEvaluatorResults extends React.Component {
 	renderRow(item, index) {
 		return <tr
 			key={index}
-			onMouseEnter={R.partial(this.onHover, [item])}
+			onMouseEnter={R.partial(this.onHover, [item, index])}
+			onMouseOut={R.partial(this.onHover, [/*item, index*/])}
 			onClick={R.partial(this.onSelect, [item, index])}
 		>
 			<td>{item.probability}</td>
@@ -112,6 +118,7 @@ ATEvaluatorResults.propTypes = {
 	width: React.PropTypes.number,
 	showTable: React.PropTypes.bool,
 	onHover: React.PropTypes.func,
+	onHoverOut: React.PropTypes.func,
 	onSelect: React.PropTypes.func,
 	selectedIndex: React.PropTypes.number,
 };
@@ -122,5 +129,6 @@ ATEvaluatorResults.defaultProps = {
 	width: 0,
 	showTable: false,
 	onHover: () => {},
+	onHoverOut: () => {},
 	onSelect: () => {},
 };
