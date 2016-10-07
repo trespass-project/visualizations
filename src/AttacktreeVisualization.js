@@ -247,13 +247,7 @@ function renderConjConnection(d, conjSibLeft, offset=0, layoutName) {
 		</g>;
 	}
 
-	return <line
-		style={style}
-		x1={x1}
-		y1={y1}
-		x2={x2}
-		y2={y2}
-	/>;
+	return <line style={style} x1={x1} y1={y1} x2={x2} y2={y2} />;
 }
 
 
@@ -264,8 +258,8 @@ export default class AttacktreeVisualization extends React.Component {
 
 		this.state = {
 			hierarchy: null,
-			w: undefined,
-			h: undefined,
+			w: 0,
+			h: 0,
 		};
 	}
 
