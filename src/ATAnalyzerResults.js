@@ -17,9 +17,14 @@ export default class ATAnalyzerResults extends React.Component {
 		autobind(this);
 	}
 
-	onHover(item, event) {
-		event.preventDefault();
-		this.props.onHover(item);
+	onHover(item, index, event) {
+		// event.preventDefault();
+		this.props.onHover(item, index);
+	}
+
+	onHoverOut(/*item, index,*/ event) {
+		// event.preventDefault();
+		this.props.onHoverOut(/*item, index*/);
 	}
 
 	onSelect(item, index, event) {
@@ -38,7 +43,8 @@ export default class ATAnalyzerResults extends React.Component {
 		return <div
 			key={index}
 			className={rowClasses}
-			onMouseEnter={R.partial(this.onHover, [result])}
+			onMouseEnter={R.partial(this.onHover, [result, index])}
+			onMouseLeave={R.partial(this.onHoverOut, [/*result, index*/])}
 			onClick={R.partial(this.onSelect, [result, index])}
 		>
 			<div className='utility-cell'>
@@ -83,6 +89,7 @@ export default class ATAnalyzerResults extends React.Component {
 ATAnalyzerResults.propTypes = {
 	attacktrees: React.PropTypes.array.isRequired,
 	onHover: React.PropTypes.func,
+	onHoverOut: React.PropTypes.func,
 	onSelect: React.PropTypes.func,
 	selectedIndex: React.PropTypes.number,
 };
@@ -90,5 +97,6 @@ ATAnalyzerResults.propTypes = {
 ATAnalyzerResults.defaultProps = {
 	attacktrees: [],
 	onHover: () => {},
+	onHoverOut: () => {},
 	onSelect: () => {},
 };
