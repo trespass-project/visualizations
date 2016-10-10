@@ -22,6 +22,7 @@ const $ = require('jquery');
 const R = require('ramda');
 const mout = require('mout');
 
+const paletteGenerator = require('./libs/chroma.palette-gen.js');
 import theme from './theme.js';
 
 const trespass = require('trespass.js');
@@ -271,13 +272,13 @@ export default class AttacktreeVisualization extends React.Component {
 				h: $elem.height(),
 			});
 
-			this.updateHierarchy(this.props.attacktree);
+			this.updateHierarchy(this.props);
 			this.initZoom();
 		}, 0);
 	}
 
 	componentWillReceiveProps(nextProps) {
-		this.updateHierarchy(nextProps.attacktree);
+		this.updateHierarchy(nextProps);
 	}
 
 	// don't remove
@@ -285,14 +286,87 @@ export default class AttacktreeVisualization extends React.Component {
 		this.initZoom();
 	}
 
-	updateHierarchy(attacktree) {
+	updateHierarchy({ attacktree, showSimilarity }) {
 		if (!attacktree) {
 			return;
 		}
+
 		const hierarchy = d3Hierarchy(
 			getRootNode(attacktree),
 			R.prop(childElemName)
 		);
+
+		if (showSimilarity) {
+			const nodes = trespass.attacktree.getAllNodes(
+				trespass.attacktree.getRootNode(attacktree)
+			);
+			const getUniqueLabels = R.pipe(
+				R.map(R.prop('label')),
+				R.map(R.toLower),
+				R.uniq
+			);
+			// const groupLabelsByAction = R.pipe(
+			// 	getUniqueLabels,
+			// 	(label) => {
+			// 		console.log(label);
+			// 		return label;
+			// 	},
+			// 	R.map(trespass.attacktree.parseLabel),
+			// 	R.groupBy(
+			// 		R.pipe(
+			// 			(parsedLabel) => {
+			// 				console.log(parsedLabel[0]);
+			// 				if (parsedLabel[0].action === 'attacker') {
+			// 					if (!parsedLabel[1]) {
+			// 						console.log(parsedLabel);
+			// 					}
+			// 					return parsedLabel[1];
+			// 				} else {
+			// 					return parsedLabel[0];
+			// 				}
+			// 			},
+			// 			R.prop('action')
+			// 		)
+			// 	)
+			// );
+			// const groupedLabels = groupLabelsByAction(nodes);
+			const uniqueLabels = R.sortBy(R.identity, getUniqueLabels(nodes));
+
+			const colors = paletteGenerator.generate(
+				uniqueLabels.length, // number of colors to generate
+				(color) => { // this function filters valid colors...
+					const hcl = color.hcl();
+					return (hcl[0] >= 0)
+						&& (hcl[0] <= 360)
+						// ...for a specific range of hues
+						// && (hcl[1] >= 0)
+						// && (hcl[1] <= 3)
+						// && (hcl[2] >= 0)
+						// && (hcl[2] <= 1.5)
+						;
+				},
+				false, // using force vector instead of k-means
+				50 // steps (quality)
+			);
+
+			// sort colors by differentiation
+			const sortedColors = paletteGenerator.diffSort(colors);
+			const sortedColorsStr = sortedColors
+				.map(R.prop('_rgb'))
+				.map((rgba) => `rgba(${rgba.join(',')})`);
+			const uniqueColorsMap = R.zipObj(
+				uniqueLabels,
+				sortedColorsStr
+			);
+			this.setState({
+				uniqueColorsMap,
+			});
+		} else {
+			this.setState({
+				uniqueColorsMap: null
+			});
+		}
+
 		this.setState({ hierarchy });
 	}
 
@@ -316,6 +390,13 @@ export default class AttacktreeVisualization extends React.Component {
 			},
 			this.props.overrideEdgeStyle(d, index, layout)
 		);
+
+		if (this.state.uniqueColorsMap) {
+			style.stroke = this.state.uniqueColorsMap[
+				R.toLower(d.data.label)
+			];
+		}
+
 		return <path
 			key={index}
 			className='link'
@@ -469,6 +550,7 @@ AttacktreeVisualization.propTypes = {
 	layout: React.PropTypes.string/*.isRequired*/,
 	overrideEdgeStyle: React.PropTypes.func,
 	overrideNodeStyle: React.PropTypes.func,
+	showSimilarity: React.PropTypes.bool,
 };
 
 AttacktreeVisualization.defaultProps = {
@@ -476,4 +558,5 @@ AttacktreeVisualization.defaultProps = {
 	layout: 'regular',
 	overrideEdgeStyle: (d, index, layout) => ({}),
 	overrideNodeStyle: (d, index, layoutName) => ({}),
+	showSimilarity: false,
 };
