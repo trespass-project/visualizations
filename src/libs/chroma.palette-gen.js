@@ -1,30 +1,11 @@
-/**
-      chroma.palette-gen.js - a palette generator for data scientists
-	  based on Chroma.js HCL color space
-      Copyright (C) 2016  Mathieu Jacomy
-  
-  	The JavaScript code in this page is free software: you can
-      redistribute it and/or modify it under the terms of the GNU
-      General Public License (GNU GPL) as published by the Free Software
-      Foundation, either version 3 of the License, or (at your option)
-      any later version.  The code is distributed WITHOUT ANY WARRANTY;
-      without even the implied warranty of MERCHANTABILITY or FITNESS
-      FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
-  
-      As additional permission under GNU GPL version 3 section 7, you
-      may distribute non-source (e.g., minimized or compacted) forms of
-      that code without the copy of the GNU GPL normally required by
-      section 4, provided you include this license notice and a URL
-      through which recipients can access the Corresponding Source.  
-  */
- 
-// v0.2
- 
+// adapted from:
+// https://github.com/medialab/iwanthue/blob/master/js/libs/chroma.palette-gen.js
+
 var paletteGenerator = (function(undefined){
-	ns = {}
+	var ns = {};
 
 	ns.generate = function(colorsCount, checkColor, forceMode, quality, ultra_precision, distanceType){
-		console.log('Generate palettes for '+colorsCount+' colors using color distance "'+distanceType+'"')
+		// console.log('Generate palettes for '+colorsCount+' colors using color distance "'+distanceType+'"')
 		// Default
 		if(colorsCount === undefined)
 			colorsCount = 8;
@@ -38,15 +19,15 @@ var paletteGenerator = (function(undefined){
 
 		if(forceMode){
 			// Force Vector Mode
-			
+
 			var colors = [];
-			
+
 			// It will be necessary to check if a Lab color exists in the rgb space.
 			function checkLab(lab){
 				var color = chroma.lab(lab[0], lab[1], lab[2]);
 				return ns.validateLab(lab) && checkColor(color);
 			}
-			
+
 			// Init
 			var vectors = {};
 			for(i=0; i<colorsCount; i++){
@@ -57,7 +38,7 @@ var paletteGenerator = (function(undefined){
 				}
 				colors.push(color);
 			}
-			
+
 			// Force vector: repulsion
 			var repulsion = 100;
 			var speed = 100;
@@ -72,7 +53,7 @@ var paletteGenerator = (function(undefined){
 					var colorA = colors[i];
 					for(j=0; j<i; j++){
 						var colorB = colors[j];
-						
+
 						// repulsion force
 						var dl = colorA[0]-colorB[0];
 						var da = colorA[1]-colorB[1];
@@ -80,11 +61,11 @@ var paletteGenerator = (function(undefined){
 						var d = ns.getColorDistance(colorA, colorB, distanceType)
 						if(d>0){
 							var force = repulsion/Math.pow(d,2);
-							
+
 							vectors[i].dl += dl * force / d;
 							vectors[i].da += da * force / d;
 							vectors[i].db += db * force / d;
-							
+
 							vectors[j].dl -= dl * force / d;
 							vectors[j].da -= da * force / d;
 							vectors[j].db -= db * force / d;
@@ -110,9 +91,9 @@ var paletteGenerator = (function(undefined){
 				}
 			}
 			return colors.map(function(lab){return chroma.lab(lab[0], lab[1], lab[2]);});
-			
+
 		} else {
-			
+
 			// K-Means Mode
 			function checkColor2(lab){
 				// Check that a color is valid: it must verify our checkColor condition, but also be in the color space
@@ -120,7 +101,7 @@ var paletteGenerator = (function(undefined){
 				var hcl = color.hcl();
 				return ns.validateLab(lab) && checkColor(color);
 			}
-			
+
 			var kMeans = [];
 			for(i=0; i<colorsCount; i++){
 				var lab = [100*Math.random(),100*(2*Math.random()-1),100*(2*Math.random()-1)];
@@ -130,7 +111,7 @@ var paletteGenerator = (function(undefined){
 				kMeans.push(lab);
 			}
 
-			
+
 			var colorSamples = [];
 			var samplesClosest = [];
 			if(ultra_precision){
@@ -156,7 +137,7 @@ var paletteGenerator = (function(undefined){
 					}
 				}
 			}
-			
+
 			// Steps
 			var steps = quality;
 			while(steps-- > 0){
@@ -173,7 +154,7 @@ var paletteGenerator = (function(undefined){
 						}
 					}
 				}
-				
+
 				// Samples -> kMeans
 				var freeColorSamples = colorSamples.slice(0);
 				for(j=0; j<kMeans.length; j++){
@@ -192,7 +173,7 @@ var paletteGenerator = (function(undefined){
 						candidateKMean[1] /= count;
 						candidateKMean[2] /= count;
 					}
-					
+
 					if(count!=0 && checkColor2([candidateKMean[0], candidateKMean[1], candidateKMean[2]]) && candidateKMean){
 						kMeans[j] = candidateKMean;
 					} else {
@@ -378,7 +359,7 @@ var paletteGenerator = (function(undefined){
 
 		// Get data from type
 		var confuse_x = ns.confusionLines[type].x;
-		var confuse_y = ns.confusionLines[type].y; 
+		var confuse_y = ns.confusionLines[type].y;
 		var confuse_m = ns.confusionLines[type].m;
 		var confuse_yint = ns.confusionLines[type].yint;
 
@@ -410,8 +391,8 @@ var paletteGenerator = (function(undefined){
 		var X = deviate_x * Y / deviate_y;
 		var Z = (1.0 - (deviate_x + deviate_y)) * Y / deviate_y;
 		// Neutral grey calculated from luminance (in D65)
-		var neutral_X = 0.312713 * Y / 0.329016; 
-		var neutral_Z = 0.358271 * Y / 0.329016; 
+		var neutral_X = 0.312713 * Y / 0.329016;
+		var neutral_Z = 0.358271 * Y / 0.329016;
 		// Difference between simulated color and neutral grey
 		var diff_X = neutral_X - X;
 		var diff_Z = neutral_Z - Z;
@@ -427,8 +408,8 @@ var paletteGenerator = (function(undefined){
 		var fit_g = ((dg < 0.0 ? 0.0 : 1.0) - dg) / diff_g;
 		var fit_b = ((db < 0.0 ? 0.0 : 1.0) - db) / diff_b;
 		var adjust = Math.max( // highest value
-			(fit_r > 1.0 || fit_r < 0.0) ? 0.0 : fit_r, 
-			(fit_g > 1.0 || fit_g < 0.0) ? 0.0 : fit_g, 
+			(fit_r > 1.0 || fit_r < 0.0) ? 0.0 : fit_r,
+			(fit_g > 1.0 || fit_g < 0.0) ? 0.0 : fit_g,
 			(fit_b > 1.0 || fit_b < 0.0) ? 0.0 : fit_b
 		);
 		// Shift proportional to the greatest shift
@@ -440,7 +421,7 @@ var paletteGenerator = (function(undefined){
 		dg = Math.pow(dg, 1.0 / 2.2);
 		db = Math.pow(db, 1.0 / 2.2);
 		// Anomylize colors
-		dr = sr * (1.0 - amount) + dr * amount; 
+		dr = sr * (1.0 - amount) + dr * amount;
 		dg = sg * (1.0 - amount) + dg * amount;
 		db = sb * (1.0 - amount) + db * amount;
 		var dcolor = chroma.rgb(dr, dg, db);
@@ -451,20 +432,20 @@ var paletteGenerator = (function(undefined){
 
 	ns.validateLab = function(lab) {
 		// Code from Chroma.js 2016
-		
+
 		var LAB_CONSTANTS = {
-	    // Corresponds roughly to RGB brighter/darker
-	    Kn: 18,
-	    
-	    // D65 standard referent
-	    Xn: 0.950470,
-	    Yn: 1,
-	    Zn: 1.088830,
-			
-	    t0: 0.137931034,  // 4 / 29
-	    t1: 0.206896552,  // 6 / 29
-	    t2: 0.12841855,   // 3 * t1 * t1
-	    t3: 0.008856452   // t1 * t1 * t1
+		// Corresponds roughly to RGB brighter/darker
+		Kn: 18,
+
+		// D65 standard referent
+		Xn: 0.950470,
+		Yn: 1,
+		Zn: 1.088830,
+
+		t0: 0.137931034,  // 4 / 29
+		t1: 0.206896552,  // 6 / 29
+		t2: 0.12841855,   // 3 * t1 * t1
+		t3: 0.008856452   // t1 * t1 * t1
 		}
 
 		var l = lab[0]
@@ -472,29 +453,31 @@ var paletteGenerator = (function(undefined){
 		var b = lab[2]
 
 		var y = (l + 16) / 116
-    var x = (isNaN(a)) ? (y) : (y + a / 500)
-    var z = (isNaN(b)) ? (y) : (y - b / 200)
+	var x = (isNaN(a)) ? (y) : (y + a / 500)
+	var z = (isNaN(b)) ? (y) : (y - b / 200)
 
-    y = LAB_CONSTANTS.Yn * lab_xyz(y)
-    x = LAB_CONSTANTS.Xn * lab_xyz(x)
-    z = LAB_CONSTANTS.Zn * lab_xyz(z)
+	y = LAB_CONSTANTS.Yn * lab_xyz(y)
+	x = LAB_CONSTANTS.Xn * lab_xyz(x)
+	z = LAB_CONSTANTS.Zn * lab_xyz(z)
 
-    var r = xyz_rgb( 3.2404542 * x - 1.5371385 * y - 0.4985314 * z)  // D65 -> sRGB
-    var g = xyz_rgb( -0.9692660 * x + 1.8760108 * y + 0.0415560 * z)
-    var b = xyz_rgb( 0.0556434 * x - 0.2040259 * y + 1.0572252 * z)
+	var r = xyz_rgb( 3.2404542 * x - 1.5371385 * y - 0.4985314 * z)  // D65 -> sRGB
+	var g = xyz_rgb( -0.9692660 * x + 1.8760108 * y + 0.0415560 * z)
+	var b = xyz_rgb( 0.0556434 * x - 0.2040259 * y + 1.0572252 * z)
 
-    return r >= 0 && r <= 255
-    		&& g >= 0 && g <= 255
-    		&& b >= 0 && b <= 255
+	return r >= 0 && r <= 255
+			&& g >= 0 && g <= 255
+			&& b >= 0 && b <= 255
 
-    function xyz_rgb(r) {
-	    return Math.round(255 * ( (r <= 0.00304) ? (12.92 * r) : (1.055 * Math.pow(r, 1 / 2.4) - 0.055) ) )
-	  }
+	function xyz_rgb(r) {
+		return Math.round(255 * ( (r <= 0.00304) ? (12.92 * r) : (1.055 * Math.pow(r, 1 / 2.4) - 0.055) ) )
+	}
 
-		function lab_xyz(t) {
-		  return (t > LAB_CONSTANTS.t1) ? (t * t * t) : ( LAB_CONSTANTS.t2 * (t - LAB_CONSTANTS.t0) )
+	function lab_xyz(t) {
+		return (t > LAB_CONSTANTS.t1) ? (t * t * t) : ( LAB_CONSTANTS.t2 * (t - LAB_CONSTANTS.t0) )
 		}
 	}
 
 	return ns
 })();
+
+module.exports = paletteGenerator;
