@@ -1,20 +1,15 @@
+const R = require('ramda');
 const d3Scale = require('d3-scale');
 
 
 const rad2DegFactor = 180 / Math.PI;
 const rad2Deg =
-module.exports.rad2Deg =
-function rad2Deg(a) {
-	return a * rad2DegFactor;
-};
+module.exports.rad2Deg = R.multiply(rad2DegFactor);
 
 
 const deg2RadFactor = Math.PI / 180;
 const deg2Rad =
-module.exports.deg2Rad =
-function deg2Rad(a) {
-	return a * deg2RadFactor;
-};
+module.exports.deg2Rad = R.multiply(deg2RadFactor);
 
 
 const getVectorLength =
@@ -35,7 +30,7 @@ function angleFromCartesianCoords(x, y) {
 
 const xToPolarAngle =
 module.exports.xToPolarAngle =
-function(minMaxAngle, minMaxX) {
+function xToPolarAngle(minMaxAngle, minMaxX) {
 	return d3Scale.scaleLinear()
 		.domain([minMaxX.min, minMaxX.max])
 		.range([minMaxAngle.min, minMaxAngle.max]);
@@ -61,7 +56,7 @@ function polarProjection(minMaxAngle=defaultMinMaxAngle, minMaxX, x, y) {
 	const angleRad = xToPolarAngle(minMaxAngle, minMaxX)(x);
 	const radius = y;
 	return polarToCartesian(angleRad, radius);
-}
+};
 
 
 const polarToCartesian =
