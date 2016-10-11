@@ -2,14 +2,14 @@ const R = require('ramda');
 const d3Scale = require('d3-scale');
 
 
-const rad2DegFactor = 180 / Math.PI;
-const rad2Deg =
-module.exports.rad2Deg = R.multiply(rad2DegFactor);
+const radToDegFactor = 180 / Math.PI;
+const radToDeg =
+module.exports.radToDeg = R.multiply(radToDegFactor);
 
 
-const deg2RadFactor = Math.PI / 180;
-const deg2Rad =
-module.exports.deg2Rad = R.multiply(deg2RadFactor);
+const degToRadFactor = Math.PI / 180;
+const degToRad =
+module.exports.degToRad = R.multiply(degToRadFactor);
 
 
 const getVectorLength =
