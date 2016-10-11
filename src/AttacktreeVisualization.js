@@ -72,23 +72,23 @@ function pathifyBezier(p1, c1, c2, p2) {
 }
 
 
-function diagonalBezier(p1, p2, dir) {
-	const distX = (p2.x - p1.x);
-	const distY = (p2.y - p1.y);
+function diagonalBezier(toPt, fromPt, dir) {
+	const distX = (fromPt.x - toPt.x);
+	const distY = (fromPt.y - toPt.y);
 
 	if (dir === 'vertical'
 		|| (Math.abs(distX) <= Math.abs(distY))) {
-		const m = p1.y + (distY / 2);
-		const c1 = { x: p1.x, y: m };
-		const c2 = { x: p2.x, y: m };
-		return { p1, c1, c2, p2 };
+		const m = toPt.y + (distY / 2);
+		const c1 = { x: toPt.x, y: m };
+		const c2 = { x: fromPt.x, y: m };
+		return { p1: toPt, c1, c2, p2: fromPt };
 	}
 	else if (dir === 'horizontal'
 		|| (Math.abs(distX) >= Math.abs(distY))) {
-		const m = p1.x + (distX / 2);
-		const c1 = { x: m, y: p1.y };
-		const c2 = { x: m, y: p2.y };
-		return { p1, c1, c2, p2 };
+		const m = toPt.x + (distX / 2);
+		const c1 = { x: m, y: toPt.y };
+		const c2 = { x: m, y: fromPt.y };
+		return { p1: toPt, c1, c2, p2: fromPt };
 	}
 }
 
