@@ -24,6 +24,7 @@ const mout = require('mout');
 
 const paletteGenerator = require('./libs/chroma.palette-gen.js');
 import theme from './theme.js';
+const utils = require('./utils.js');
 
 const trespass = require('trespass.js');
 const { childElemName, getRootNode } = trespass.attacktree;
@@ -31,25 +32,6 @@ const { childElemName, getRootNode } = trespass.attacktree;
 
 const xSize = 75;
 const ySize = 100;
-
-
-const rad2DegFactor = (180 / Math.PI);
-function rad2Deg(a) {
-	return a * rad2DegFactor;
-}
-
-
-const deg2RadFactor = (2 * Math.PI) / 360;
-function deg2Rad(a) {
-	return a * deg2RadFactor;
-}
-
-
-function getVectorLength(x, y) {
-	return Math.sqrt(
-		Math.pow(x, 2) + Math.pow(y, 2)
-	);
-}
 
 
 // TODO: `d3-path` already has this functionality
@@ -131,17 +113,14 @@ const layouts = {
 
 	radial: {
 		projection: (x, y, minMaxX) => {
-			const angle = mout.math.map(
+			const angleRad = mout.math.map(
 				x,
 				minMaxX.min,
 				minMaxX.max + xSize,
 				0,
 				2 * Math.PI
 			);
-			return {
-				x: Math.sin(angle) * y,
-				y: Math.cos(angle) * y,
-			};
+			return utils.polarToCartesian(angleRad, y);
 		},
 		edgePath: (x1, y1, x2, y2) => {
 			return line(
@@ -196,7 +175,7 @@ function renderConjConnection(d, conjSibLeft, offset=0, layoutName) {
 
 	const x = conjSibLeft._container.x - d.x;
 	const y = conjSibLeft._container.y - d.y;
-	const l = getVectorLength(x, y);
+	const l = utils.getVectorLength(x, y);
 	const factor = offset / l;
 	const offsetVector = {
 		x: x * factor,
@@ -215,18 +194,14 @@ function renderConjConnection(d, conjSibLeft, offset=0, layoutName) {
 
 	if (layoutName === 'radial') {
 		const p = d3Path();
-		const radius = getVectorLength(d.x, d.y);
-		const a1 = /*rad2Deg*/(
-			Math.atan2(
-				d.y,
-				d.x
-			)
+		const radius = utils.getVectorLength(d.x, d.y);
+		const a1 = utils.angleFromCartesianCoords(
+			d.x,
+			d.y
 		);
-		const a2 = /*rad2Deg*/(
-			Math.atan2(
-				conjSibLeft._container.y,
-				conjSibLeft._container.x
-			)
+		const a2 = utils.angleFromCartesianCoords(
+			conjSibLeft._container.x,
+			conjSibLeft._container.y
 		);
 		const offsetAngle = Math.acos(
 			((radius * radius) + (radius * radius) - (offset * offset)) /
