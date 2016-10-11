@@ -1,3 +1,6 @@
+const d3Scale = require('d3-scale');
+
+
 const rad2DegFactor = 180 / Math.PI;
 const rad2Deg =
 module.exports.rad2Deg =
@@ -30,14 +33,35 @@ function angleFromCartesianCoords(x, y) {
 };
 
 
-const cartesianToPolar =
-module.exports.cartesianToPolar =
-function cartesianToPolar(x, y) {
-	return {
-		radius: getVectorLength(x, y),
-		angleRad: angleFromCartesianCoords(x, y),
-	};
+const xToPolarAngle =
+module.exports.xToPolarAngle =
+function(minMaxAngle, minMaxX) {
+	return d3Scale.scaleLinear()
+		.domain([minMaxX.min, minMaxX.max])
+		.range([minMaxAngle.min, minMaxAngle.max]);
 };
+
+
+// const cartesianToPolar =
+// module.exports.cartesianToPolar =
+// function cartesianToPolar(x, y) {
+// 	return {
+// 		radius: getVectorLength(x, y),
+// 		angleRad: angleFromCartesianCoords(x, y),
+// 	};
+// };
+
+
+const defaultMinMaxAngle =
+module.exports.defaultMinMaxAngle = { min: 0, max: 2 * Math.PI };
+
+const polarProjection =
+module.exports.polarProjection =
+function polarProjection(minMaxAngle=defaultMinMaxAngle, minMaxX, x, y) {
+	const angleRad = xToPolarAngle(minMaxAngle, minMaxX)(x);
+	const radius = y;
+	return polarToCartesian(angleRad, radius);
+}
 
 
 const polarToCartesian =

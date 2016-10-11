@@ -20,7 +20,6 @@ import {
 } from 'd3-selection';
 const $ = require('jquery');
 const R = require('ramda');
-const mout = require('mout');
 
 const paletteGenerator = require('./libs/chroma.palette-gen.js');
 import theme from './theme.js';
@@ -113,14 +112,11 @@ const layouts = {
 
 	radial: {
 		projection: (x, y, minMaxX) => {
-			const angleRad = mout.math.map(
-				x,
-				minMaxX.min,
-				minMaxX.max + xSize,
-				0,
-				2 * Math.PI
+			return utils.polarProjection(
+				utils.defaultMinMaxAngle,
+				Object.assign({}, minMaxX, { max: minMaxX.max + xSize }),
+				x, y
 			);
-			return utils.polarToCartesian(angleRad, y);
 		},
 		edgePath: (x1, y1, x2, y2) => {
 			return line(
