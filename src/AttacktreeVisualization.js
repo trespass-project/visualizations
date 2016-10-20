@@ -156,8 +156,8 @@ const layouts = {
 				p.arc(
 					0, 0,
 					betweenRadius,
-					angle1/* - (0.05 * angleDiff)*/,
-					angle2 + (0.05 * angleDiff),
+					angle1,
+					angle2/* + (0.05 * angleDiff)*/,
 					!counterClockwise
 				);
 			}
