@@ -124,7 +124,6 @@ const layouts = {
 		edgePath: (x1, y1, x2, y2, minMaxX) => {
 			let angle1 = utils.angleFromCartesianCoords(x1, y1);
 			let angle2 = utils.angleFromCartesianCoords(x2, y2);
-
 			if (x1 === 0 && y1 === 0) {
 				angle1 = angle2;
 			}
@@ -133,7 +132,6 @@ const layouts = {
 			}
 
 			const angleDiff = angle1 - angle2;
-
 			const counterClockwise = (angleDiff < 0);
 			// const betweenAngle = (counterClockwise)
 			// 	? angle2 + (Math.abs(angleDiff) / 2)
@@ -143,22 +141,30 @@ const layouts = {
 			const r2 = utils.getVectorLength(x2, y2);
 			const betweenRadius = Math.min(r1, r2) + (Math.abs(r1 - r2) / 2);
 
-			// const betweenPt = utils.polarToCartesian(
-			// 	betweenAngle,
+			const p = d3Path();
+
+			// connection 1
+			p.moveTo(x1, y1);
+			// const p1 = utils.polarToCartesian(
+			// 	angle1,
 			// 	betweenRadius
 			// );
+			// p.lineTo(p1.x, p1.y);
 
-			const p = d3Path();
-			p.moveTo(x1, y1);
+			// middle segment (only if needed)
 			if (angle1 !== angle2) {
 				p.arc(
 					0, 0,
 					betweenRadius,
-					angle1, angle2,
+					angle1/* - (0.05 * angleDiff)*/,
+					angle2 + (0.05 * angleDiff),
 					!counterClockwise
 				);
 			}
+
+			// connection 2
 			p.lineTo(x2, y2);
+
 			return p.toString();
 		},
 	},
