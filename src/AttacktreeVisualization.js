@@ -20,10 +20,10 @@ import {
 } from 'd3-selection';
 const $ = require('jquery');
 const R = require('ramda');
-const mout = require('mout');
 
 const paletteGenerator = require('./libs/chroma.palette-gen.js');
 import theme from './theme.js';
+const utils = require('./utils.js');
 
 const trespass = require('trespass.js');
 const { childElemName, getRootNode } = trespass.attacktree;
@@ -31,25 +31,6 @@ const { childElemName, getRootNode } = trespass.attacktree;
 
 const xSize = 75;
 const ySize = 100;
-
-
-const rad2DegFactor = (180 / Math.PI);
-function rad2Deg(a) {
-	return a * rad2DegFactor;
-}
-
-
-const deg2RadFactor = (2 * Math.PI) / 360;
-function deg2Rad(a) {
-	return a * deg2RadFactor;
-}
-
-
-function getVectorLength(x, y) {
-	return Math.sqrt(
-		Math.pow(x, 2) + Math.pow(y, 2)
-	);
-}
 
 
 // TODO: `d3-path` already has this functionality
@@ -72,23 +53,23 @@ function pathifyBezier(p1, c1, c2, p2) {
 }
 
 
-function diagonalBezier(p1, p2, dir) {
-	const distX = (p2.x - p1.x);
-	const distY = (p2.y - p1.y);
+function diagonalBezier(toPt, fromPt, dir) {
+	const distX = (fromPt.x - toPt.x);
+	const distY = (fromPt.y - toPt.y);
 
 	if (dir === 'vertical'
 		|| (Math.abs(distX) <= Math.abs(distY))) {
-		const m = p1.y + (distY / 2);
-		const c1 = { x: p1.x, y: m };
-		const c2 = { x: p2.x, y: m };
-		return { p1, c1, c2, p2 };
+		const m = toPt.y + (distY / 2);
+		const c1 = { x: toPt.x, y: m };
+		const c2 = { x: fromPt.x, y: m };
+		return { p1: toPt, c1, c2, p2: fromPt };
 	}
 	else if (dir === 'horizontal'
 		|| (Math.abs(distX) >= Math.abs(distY))) {
-		const m = p1.x + (distX / 2);
-		const c1 = { x: m, y: p1.y };
-		const c2 = { x: m, y: p2.y };
-		return { p1, c1, c2, p2 };
+		const m = toPt.x + (distX / 2);
+		const c1 = { x: m, y: toPt.y };
+		const c2 = { x: m, y: fromPt.y };
+		return { p1: toPt, c1, c2, p2: fromPt };
 	}
 }
 
@@ -102,6 +83,7 @@ const layouts = {
 				y,
 			};
 		},
+
 		edgePath: (x1, y1, x2, y2) => {
 			const { p1, c1, c2, p2 } = diagonalBezier(
 				{ x: x1, y: y1 },
@@ -119,6 +101,7 @@ const layouts = {
 				y: x,
 			};
 		},
+
 		edgePath: (x1, y1, x2, y2) => {
 			const { p1, c1, c2, p2 } = diagonalBezier(
 				{ x: x1, y: y1 },
@@ -131,23 +114,58 @@ const layouts = {
 
 	radial: {
 		projection: (x, y, minMaxX) => {
-			const angle = mout.math.map(
-				x,
-				minMaxX.min,
-				minMaxX.max + xSize,
-				0,
-				2 * Math.PI
+			return utils.polarProjection(
+				utils.defaultMinMaxAngle,
+				Object.assign({}, minMaxX, { max: minMaxX.max + xSize }),
+				x, y
 			);
-			return {
-				x: Math.sin(angle) * y,
-				y: Math.cos(angle) * y,
-			};
 		},
-		edgePath: (x1, y1, x2, y2) => {
-			return line(
-				{ x: x1, y: y1 },
-				{ x: x2, y: y2 }
-			);
+
+		edgePath: (x1, y1, x2, y2, minMaxX) => {
+			let angle1 = utils.angleFromCartesianCoords(x1, y1);
+			let angle2 = utils.angleFromCartesianCoords(x2, y2);
+			if (x1 === 0 && y1 === 0) {
+				angle1 = angle2;
+			}
+			if (x2 === 0 && y2 === 0) {
+				angle2 = angle1;
+			}
+
+			const angleDiff = angle1 - angle2;
+			const counterClockwise = (angleDiff < 0);
+			// const betweenAngle = (counterClockwise)
+			// 	? angle2 + (Math.abs(angleDiff) / 2)
+			// 	: angle1 - (Math.abs(angleDiff) / 2);
+
+			const r1 = utils.getVectorLength(x1, y1);
+			const r2 = utils.getVectorLength(x2, y2);
+			const betweenRadius = Math.min(r1, r2) + (Math.abs(r1 - r2) / 2);
+
+			const p = d3Path();
+
+			// connection 1
+			p.moveTo(x1, y1);
+			// const p1 = utils.polarToCartesian(
+			// 	angle1,
+			// 	betweenRadius
+			// );
+			// p.lineTo(p1.x, p1.y);
+
+			// middle segment (only if needed)
+			if (angle1 !== angle2) {
+				p.arc(
+					0, 0,
+					betweenRadius,
+					angle1/* - (0.05 * angleDiff)*/,
+					angle2 + (0.05 * angleDiff),
+					!counterClockwise
+				);
+			}
+
+			// connection 2
+			p.lineTo(x2, y2);
+
+			return p.toString();
 		},
 	},
 };
@@ -196,7 +214,7 @@ function renderConjConnection(d, conjSibLeft, offset=0, layoutName) {
 
 	const x = conjSibLeft._container.x - d.x;
 	const y = conjSibLeft._container.y - d.y;
-	const l = getVectorLength(x, y);
+	const l = utils.getVectorLength(x, y);
 	const factor = offset / l;
 	const offsetVector = {
 		x: x * factor,
@@ -215,18 +233,14 @@ function renderConjConnection(d, conjSibLeft, offset=0, layoutName) {
 
 	if (layoutName === 'radial') {
 		const p = d3Path();
-		const radius = getVectorLength(d.x, d.y);
-		const a1 = /*rad2Deg*/(
-			Math.atan2(
-				d.y,
-				d.x
-			)
+		const radius = utils.getVectorLength(d.x, d.y);
+		const a1 = utils.angleFromCartesianCoords(
+			d.x,
+			d.y
 		);
-		const a2 = /*rad2Deg*/(
-			Math.atan2(
-				conjSibLeft._container.y,
-				conjSibLeft._container.x
-			)
+		const a2 = utils.angleFromCartesianCoords(
+			conjSibLeft._container.x,
+			conjSibLeft._container.y
 		);
 		const offsetAngle = Math.acos(
 			((radius * radius) + (radius * radius) - (offset * offset)) /
@@ -380,7 +394,7 @@ export default class AttacktreeVisualization extends React.Component {
 			.on('dblclick.zoom', null); // prevent double-click zoom
 	}
 
-	renderEdge(d, index, layout) {
+	renderEdge(d, index, layout, minMaxX) {
 		const style = Object.assign(
 			{},
 			{
@@ -401,7 +415,7 @@ export default class AttacktreeVisualization extends React.Component {
 			key={index}
 			className='link'
 			style={style}
-			d={layout.edgePath(d.x, d.y, d.parent.x, d.parent.y)}
+			d={layout.edgePath(d.x, d.y, d.parent.x, d.parent.y, minMaxX)}
 		/>;
 	}
 
@@ -532,7 +546,12 @@ export default class AttacktreeVisualization extends React.Component {
 			>
 				<g className='edges'>
 					{R.tail(descendants)
-						.map((d, index) => this.renderEdge(d, index, layout))
+						.map((d, index) => this.renderEdge(
+							d,
+							index,
+							layout,
+							minMaxX
+						))
 					}
 				</g>
 				<g className='nodes'>
