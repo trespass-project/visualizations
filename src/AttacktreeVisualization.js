@@ -21,7 +21,9 @@ import {
 const $ = require('jquery');
 const R = require('ramda');
 
-const paletteGenerator = require('./libs/chroma.palette-gen.js');
+const mout = require('mout');
+const chroma = require('chroma-js');
+// const paletteGenerator = require('./libs/chroma.palette-gen.js');
 import theme from './theme.js';
 const utils = require('./utils.js');
 
@@ -31,6 +33,7 @@ const { childElemName, getRootNode } = trespass.attacktree;
 
 const xSize = 75;
 const ySize = 100;
+const conjunctiveStrokeColor = 'rgba(0, 0, 0, 0.3)';
 
 
 // TODO: `d3-path` already has this functionality
@@ -218,7 +221,7 @@ function renderConjConnection(d, conjSibLeft, offset=0, layoutName) {
 	const y2 = y - offsetVector.y;
 
 	const style = {
-		stroke: 'rgba(0, 0, 0, 0.3)',
+		stroke: conjunctiveStrokeColor,
 		strokeWidth: 15,
 		fill: 'none'
 	};
@@ -338,61 +341,61 @@ export default class AttacktreeVisualization extends React.Component {
 				})
 			);
 			const uniqueLabels = R.sortBy(R.identity, getUniqueLabels(nodes));
-			console.log(groupedLabels(uniqueLabels));
-			// const groupLabelsByAction = R.pipe(
-			// 	getUniqueLabels,
-			// 	(label) => {
-			// 		console.log(label);
-			// 		return label;
-			// 	},
-			// 	R.map(trespass.attacktree.parseLabel),
-			// 	R.groupBy(
-			// 		R.pipe(
-			// 			(parsedLabel) => {
-			// 				console.log(parsedLabel[0]);
-			// 				if (parsedLabel[0].action === 'attacker') {
-			// 					if (!parsedLabel[1]) {
-			// 						console.log(parsedLabel);
-			// 					}
-			// 					return parsedLabel[1];
-			// 				} else {
-			// 					return parsedLabel[0];
-			// 				}
-			// 			},
-			// 			R.prop('action')
-			// 		)
-			// 	)
-			// );
-			// const groupedLabels = groupLabelsByAction(nodes);
+			const grouped = groupedLabels(uniqueLabels);
 
-			const colors = paletteGenerator.generate(
-				uniqueLabels.length, // number of colors to generate
-				(color) => { // this function filters valid colors...
-					const hcl = color.hcl();
-					return (hcl[0] >= 0)
-						&& (hcl[0] <= 360)
-						// ...for a specific range of hues
-						// && (hcl[1] >= 0)
-						// && (hcl[1] <= 3)
-						// && (hcl[2] >= 0)
-						// && (hcl[2] <= 1.5)
-						;
+			const hueGap = 40;
+			const hueBudget = 360 - (R.keys(grouped).length * hueGap);
+			// TODO: make sure budget is positive
+
+			const { colors } = R.keys(grouped)
+				.reduce((acc, groupName, index) => {
+					const group = grouped[groupName];
+					const hueFrom = acc.hueTo + hueGap;
+					const hueTo = hueFrom + ((hueBudget / uniqueLabels.length) * group.length);
+
+					const colors = R.range(0, group.length)
+						.forEach((index) => {
+							const h = mout.math.map(
+								index,
+								0, (group.length - 1),
+								hueFrom, hueTo
+							);
+							const s = 0.8;
+							const l = 0.5;
+
+							if (groupName === 'other') {
+								acc.colors[group[index]] = conjunctiveStrokeColor;
+								return;
+							}
+
+							const color = chroma.hsl(h, s, l);
+							acc.colors[group[index]] = R.pipe(
+								R.prop('_rgb'),
+								(rgba) => `rgba(${rgba.join(',')})`
+							)(color);
+						});
+
+					return {
+						hueTo,
+						colors: acc.colors,
+					};
 				},
-				false, // using force vector instead of k-means
-				50 // steps (quality)
-			);
+				{
+					hueTo: 0,
+					colors: {},
+				});
 
 			// sort colors by differentiation
-			const sortedColors = paletteGenerator.diffSort(colors);
-			const sortedColorsStr = sortedColors
-				.map(R.prop('_rgb'))
-				.map((rgba) => `rgba(${rgba.join(',')})`);
-			const uniqueColorsMap = R.zipObj(
-				uniqueLabels,
-				sortedColorsStr
-			);
+			// const sortedColors = paletteGenerator.diffSort(colors);
+			// const sortedColorsStr = sortedColorscolors
+			// 	.map(R.prop('_rgb'))
+			// 	.map((rgba) => `rgba(${rgba.join(',')})`);
+			// const uniqueColorsMap = R.zipObj(
+			// 	uniqueLabels,
+			// 	sortedColorsStr
+			// );
 			this.setState({
-				uniqueColorsMap,
+				uniqueColorsMap: colors,
 			});
 		} else {
 			this.setState({
