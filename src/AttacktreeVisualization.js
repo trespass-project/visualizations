@@ -539,21 +539,23 @@ export default class AttacktreeVisualization extends React.Component {
 				return acc;
 			}, { min: 0, max: 0 });
 
+		let translateX = 0;
+		let translateY = 0;
+		if (R.contains(props.layout, ['regular', 'radial'])) {
+			// horizontally center root node
+			translateX = state.w / 2;
+		}
+		if (R.contains(props.layout, ['ltr', 'radial'])) {
+			// vertically center root node
+			translateY = state.h / 2;
+		}
+
 		descendants.forEach((d) => {
 			// adjust node position, based on selected layout
 
 			const projected = layout.projection(d.x, d.y, minMaxX);
 			d.x = projected.x;
 			d.y = projected.y;
-
-			if (R.contains(props.layout, ['regular', 'circular'])) {
-				// horizontally center root node
-				d.x += state.w / 2;
-			}
-			if (R.contains(props.layout, ['ltr', 'circular'])) {
-				// vertically center root node
-				d.y += state.h / 2;
-			}
 
 			// store original position
 			d.x0 = d.x;
@@ -566,7 +568,7 @@ export default class AttacktreeVisualization extends React.Component {
 		return <svg>
 			<g
 				className='root'
-				transform={`translate(${theme.padding}, ${theme.padding})`}
+				transform={`translate(${theme.padding}, ${theme.padding}) translate(${translateX}, ${translateY})`}
 			>
 				<g className='edges'>
 					{R.tail(descendants)
