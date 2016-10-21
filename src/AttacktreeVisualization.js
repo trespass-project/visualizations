@@ -127,11 +127,7 @@ const layouts = {
 				? nodeAngle
 				: utils.angleFromCartesianCoords(parentX, parentY);
 
-			let counterClockwise = parentAngle < nodeAngle;
-			const angleDiff = nodeAngle - parentAngle;
-			if (Math.abs(angleDiff) >= Math.PI) {
-				counterClockwise = !counterClockwise;
-			}
+			const { counterClockwise } = utils.getAngleDifferenceAndClockwiseness(parentAngle, nodeAngle);
 
 			const r1 = utils.getVectorLength(nodeX, nodeY);
 			const r2 = utils.getVectorLength(parentX, parentY);

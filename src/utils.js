@@ -21,6 +21,18 @@ function getVectorLength(x, y) {
 };
 
 
+const getAngleDifferenceAndClockwiseness =
+module.exports.getAngleDifferenceAndClockwiseness =
+function getAngleDifferenceAndClockwiseness(fromAngle, toAngle) {
+	let counterClockwise = fromAngle < toAngle;
+	const angleDiff = toAngle - fromAngle;
+	if (Math.abs(angleDiff) >= Math.PI) {
+		counterClockwise = !counterClockwise;
+	}
+	return { angleDiff, counterClockwise };
+};
+
+
 const angleFromCartesianCoords =
 module.exports.angleFromCartesianCoords =
 function angleFromCartesianCoords(x, y) {
