@@ -226,25 +226,24 @@ function renderConjConnection(d, conjSibLeft, offset=0, layoutName) {
 	if (layoutName === 'radial') {
 		const p = d3Path();
 		const radius = utils.getVectorLength(d.x, d.y);
-		const a1 = utils.angleFromCartesianCoords(
-			d.x,
-			d.y
-		);
+		const a1 = utils.angleFromCartesianCoords(d.x, d.y);
 		const a2 = utils.angleFromCartesianCoords(
 			conjSibLeft._container.x,
 			conjSibLeft._container.y
 		);
 		const offsetAngle = Math.acos(
-			((radius * radius) + (radius * radius) - (offset * offset)) /
+			((2 * radius * radius) - (offset * offset)) /
 			(2 * radius * radius)
 		);
+		const fromAngle = a1 + offsetAngle;
+		const toAngle = a2 - offsetAngle;
+		const { counterClockwise } = utils.getAngleDifferenceAndClockwiseness(toAngle, fromAngle);
 		p.arc(
-			0,
-			0,
+			0, 0,
 			radius,
-			a1 + offsetAngle,
-			a2 - offsetAngle,
-			false
+			fromAngle,
+			toAngle,
+			counterClockwise
 		);
 		return <g transform={`translate(${-d.x}, ${-d.y})`}>
 			<path
