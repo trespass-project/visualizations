@@ -321,6 +321,24 @@ export default class AttacktreeVisualization extends React.Component {
 				R.map(R.toLower),
 				R.uniq
 			);
+			// group labels by action (leaf nodes), or other (because
+			// intermediat nodes don't have to follow the leaf node
+			// grammar)
+			const groupedLabels = R.pipe(
+				R.groupBy((label) => {
+					// get first word
+					const action = R.pipe(
+						R.split(' '),
+						R.head
+					)(label);
+					const actions = trespass.attacktree.labelActions;
+					return (R.contains(action, actions))
+						? action
+						: 'other';
+				})
+			);
+			const uniqueLabels = R.sortBy(R.identity, getUniqueLabels(nodes));
+			console.log(groupedLabels(uniqueLabels));
 			// const groupLabelsByAction = R.pipe(
 			// 	getUniqueLabels,
 			// 	(label) => {
@@ -346,7 +364,6 @@ export default class AttacktreeVisualization extends React.Component {
 			// 	)
 			// );
 			// const groupedLabels = groupLabelsByAction(nodes);
-			const uniqueLabels = R.sortBy(R.identity, getUniqueLabels(nodes));
 
 			const colors = paletteGenerator.generate(
 				uniqueLabels.length, // number of colors to generate
@@ -402,7 +419,9 @@ export default class AttacktreeVisualization extends React.Component {
 			{
 				fill: 'none',
 				stroke: theme.edge.stroke,
-				strokeWidth: theme.edge.strokeWidth,
+				strokeWidth: (this.props.showSimilarity)
+					? theme.node.radius * 2
+					: theme.edge.strokeWidth,
 			},
 			this.props.overrideEdgeStyle(d, index, layout)
 		);
