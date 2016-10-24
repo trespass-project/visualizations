@@ -51,7 +51,7 @@ const AttacktreeOptions = React.createClass({
 				>
 					<option value='normal'>Normal</option>
 					<option value='similarity'>Similarity</option>
-					<option value='frequency'>Label frequency</option>
+					{/*<option value='frequency'>Label frequency</option>*/}
 				</select>
 			</div>
 		</div>;

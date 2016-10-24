@@ -36,10 +36,10 @@ const similarity = {
 };
 
 
-const frequency = normal;
+// const frequency = normal;
 
 
-const presets = { normal, similarity, frequency };
+const presets = { normal, similarity/*, frequency*/ };
 module.exports = R.keys(presets)
 	.reduce((acc, name) => {
 		acc[name] = R.merge(
