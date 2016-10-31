@@ -81,28 +81,32 @@ export default class ATEvaluatorResults extends React.Component {
 				return item;
 			})
 			.reverse();
+
 		const data = {
 			results: sorted,
 			profit: props.profit,
 		};
 
+		const style = {
+			height: props.height || '100%',
+			width: props.width || '100%'
+		};
+
 		return <div className='ATEvaluatorResults'>
-			<div
-				style={{
-					height: props.height || '100%',
-					width: props.width || '100%'
-				}}
-			>
-				<Visualization
-					visualization={ateVis}
-					data={data}
-					{...R.omit([
-						'data',
-						'profit',
-						'showTable',
-					], props)}
-				/>
-			</div>
+			{(!data.results.length)
+				? <div>No attacks found</div>
+				: <div style={style}>
+					<Visualization
+						visualization={ateVis}
+						data={data}
+						{...R.omit([
+							'data',
+							'profit',
+							'showTable',
+						], props)}
+					/>
+				</div>
+			}
 			{(props.showTable)
 				? <div>{this.renderTable(sorted)}</div>
 				: null

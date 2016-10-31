@@ -78,10 +78,13 @@ export default class ATAnalyzerResults extends React.Component {
 		);
 
 		return <div className='ATAnalyzerResults'>
-			<div>
-				<div>Utility</div>
-				{sortedResults.map((result, index) => this.renderRow(result, index, maxUtility))}
-			</div>
+			{(!sortedResults.length)
+				? <div>No attacks found</div>
+				: <div>
+					<div>Utility</div>
+					{sortedResults.map((result, index) => this.renderRow(result, index, maxUtility))}
+				</div>
+			}
 		</div>;
 	}
 }
