@@ -1,7 +1,7 @@
 {
   "name": "trespass-visualizations",
   "description": "TREsPASS visualization components",
-  "version": "0.19.1",
+  "version": "0.19.2",
   "license": "GPL-3.0",
   "author": "freder.code+trespass@gmail.com",
   "main": "./dist",
